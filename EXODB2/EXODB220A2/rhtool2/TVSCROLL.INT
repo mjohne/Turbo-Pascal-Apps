@@ -1,0 +1,134 @@
+Unit TvScroll;
+{$B+}
+{$X+}
+{$V-}
+
+{$I TVDEFS.INC}
+
+INTERFACE
+
+
+USES
+  TvConst, TvViews,
+  Objects, Dialogs, Drivers, Views;
+
+
+CONST
+  gfScrollXY  = $80;
+  scVScroll   = ofVScrollBar;
+  scHScroll   = ofHScrollBar;
+
+  CScrollInputLine  = #1#6#7#1; { Passive, Active, Selected, Arrow }
+
+
+TYPE
+  PbxScrollGroup = ^TbxScrollGroup;
+  TbxScrollGroup = Object(TGroup)
+    VScrollBar  : PScrollBar;
+    HScrollBar  : PScrollBar;
+    OldPos      : TPoint;
+    AutoPos     : Boolean;
+
+    Constructor Init(var Bounds      : TRect;
+                         AHScrollBar : PScrollBar;
+                         AVScrollBar : PScrollBar);
+    Constructor Load(var S: TStream);
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxScrollDialog = ^TbxScrollDialog;
+  TbxScrollDialog = Object(TDialog)
+    Limit     : TPoint;
+    VScrollBar: PScrollBar;
+    HScrollBar: PScrollBar;
+    Interior  : PbxScrollGroup;
+
+    Constructor Init(var Bounds : TRect;
+                         ATitle : String;
+                         ofFlag : Word);
+    Constructor Load(var S: TStream);
+    Procedure   AutoPosition(Enable : Boolean);
+    Function    InitBackground: PView;                    Virtual;
+    Procedure   InsertToScroll(P : PView);
+    Procedure   SetLimit(X, Y : Integer);
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxScrollView = ^TbxScrollView;
+  TbxScrollView = Object(TView)
+    Constructor Init(var Bounds : TRect);
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   SetState(AState: Word;
+                         Enable: Boolean);                Virtual;
+  end;
+
+
+  PbxScrollInputLine  = ^TbxScrollInputLine;
+  TbxScrollInputLine  = Object(TInputLine)
+    Function    GetPalette: PPalette;                     Virtual;
+  end;
+
+
+  PbxScrollWindow = ^TbxScrollWindow;
+  TbxScrollWindow = Object(TbxWindow)
+    Limit      : TPoint;
+    VScrollBar : PScrollBar;
+    HScrollBar : PScrollBar;
+    Interior   : PbxScrollGroup;
+
+    Constructor Init(var Bounds : TRect;
+                         ATitle : String;
+                         ANumber: Word;
+                         ofFlag : Word);
+    Constructor Load(var S: TStream);
+    Procedure   AutoPosition(Enable : Boolean);
+    Procedure   ChangeBounds(var Bounds : TRect);         Virtual;
+    Function    InitBackground: PView;                    Virtual;
+    Procedure   InsertToScroll(P : PView);
+    Procedure   SetLimit(X, Y : Integer);
+    Procedure   Store(var S: TStream);
+  end;
+
+
+{ TVScroll registration procedure }
+
+Procedure RegisterTVScroll;
+
+
+{ Stream Registration Records }
+
+CONST
+  RbxScrollGroup: TStreamRec = (
+    ObjType : 5350;
+    VmtLink : Ofs(TypeOf(TbxScrollGroup)^);
+    Load    : @TbxScrollGroup.Load;
+    Store   : @TbxScrollGroup.Store
+  );
+
+CONST
+  RbxScrollDialog: TStreamRec = (
+    ObjType : 5351;
+    VmtLink : Ofs(TypeOf(TbxScrollDialog)^);
+    Load    : @TbxScrollDialog.Load;
+    Store   : @TbxScrollDialog.Store
+  );
+
+CONST
+  RbxScrollInputLine: TStreamRec = (
+    ObjType : 5352;
+    VmtLink : Ofs(TypeOf(TbxScrollInputLine)^);
+    Load    : @TbxScrollInputLine.Load;
+    Store   : @TbxScrollInputLine.Store
+  );
+
+CONST
+  RbxScrollWindow: TStreamRec = (
+    ObjType : 5353;
+    VmtLink : Ofs(TypeOf(TbxScrollWindow)^);
+    Load    : @TbxScrollWindow.Load;
+    Store   : @TbxScrollWindow.Store
+  );
+

@@ -1,0 +1,77 @@
+Version 1.1, 13-JUL-93
+----------------------
+
+Here are some simple screen savers for TURBO VISION (TP 7.0 ) programs.
+Users need to cut and paste a couple of lines from the demo
+programs SCRNSAV1.PAS, SCRNSAV2.PAS or SCRNSAV3.PAS to methods Init,
+GetEvent, HandleEvent and Idle of their TURBO VISION application.
+Or they might use unit SCRNSAVE.PAS  to derive their own
+TApplication object (see demo TESTSCRN.PAS).
+
+The main purpose is to show how to implement the invoke/cancel
+mechanism into TV programs. There is nothing fancy about the
+actual screen saver part in these demos (no graphics, no sound,
+no mickey mouse). The screen saver routine will put a small text
+every <interval> seconds on the screen at varying positions and
+with different colors. This text, start up delay and period
+are programmable constants.
+
+
+ SCRNSAV1.PAS disables the TV event mechanism and polls the keyboard.
+
+ SCRNSAV2.PAS does not block TV events but enhances the GetEvent method
+ to start/stop the screen saver. For instance, moving the mouse will revoke
+ the hibernating program.
+
+ SCNRSAV3.PAS shows how to use the screen saver of SCRNSAV2.PAS in
+ case a subview generates events with its own GetEvent method.
+
+ SCRNSAVE.PAS is a complete unit creating a derived TApplication
+ object which can be USED by your application. See TESTSCRN.PAS.
+
+
+Browse the demo programs for more information.
+
+
+History:
+  Vs. 1.0  first draft
+  Vs. 1.1  some bug fixes, SCRNSAV3.PAS, SCRNSAVE.PAS, TESTSCRN.PAS added
+
+
+---------------------------------------------------------------------
+Credits:
+  Rutger van de GeVEL, rutger@kub.nl
+     -  unit SCRNSAVE.PAS, some bug fixes and improvements
+
+From his mail:
+
+The unit ScrnSave implements a simple screensaver in Turbo/Borland
+Pascal's (Version >= 6.0) Turbo Vision (Version >= 1.0). To create your
+own application with the screensaver simply include the SCRNSAVE unit in
+the USES statement, derive an object from TScreenSaverApp and specify the
+time after which the screensaver will kick in. You have to override
+the procedure TScreenSaverApp.ScreenSaver. That's all. I have provided a
+small example TESTSCRN.PAS to demonstrate its use.
+
+
+Removed bugs and improvements are:
+1) The screensaver has been 'converted' to a unit.
+2) The function Time: LongInt had to be modified because it didn't
+   function correctly: some of the results of intermediate calculations
+   had to be type-casted.
+3) The screensaver is now midnight proof by adding 'ABS (...)' in procedure
+   TScreenSaverApp.GetEvent (Var Event: TEvent) and in procedure
+   TScreenSaverApp.Idle.
+4) The screensaver can be disabled by setting SleepTime:= 0.
+5) Added the Randomize procedure in TScreenSaverApp.Init.
+6) Procedure TScreenSaverApp.ScreenSaver should ALWAYS be overriden.
+-----------------------------------------------------------------------
+
+
+Wolfgang Gross
+------------------------------------------------------------------------
+Dr. W. Gross, Abt. f. Exp. Chirurgie, Uniklinik Heidelberg, Germany
+gross@aecds.exchi.uni-heidelberg.de
+------------------------------------------------------------------------
+
+

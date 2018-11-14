@@ -1,0 +1,96 @@
+UNIT TvObject;
+{$B+}
+{$X+}
+{$V-}
+
+{$I TVDEFS.INC}
+
+INTERFACE
+
+
+USES
+  TvString,
+  Objects;
+
+
+TYPE
+  PbxObject = ^TbxObject;
+  TbxObject = Object(TObject)
+    Function    GetText(MaxLen : Integer): String;        Virtual;
+  end;
+
+
+  PbxSelectObject = ^TbxSelectObject;
+  TbxSelectObject = Object(TbxObject)
+    Selected : Boolean;
+
+    Constructor Load(var S: TStream);
+    Function    GetSelect: Boolean;                       Virtual;
+    Procedure   SetSelect(AState : Boolean);              Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxSelectStr = ^TbxSelectStr;
+  TbxSelectStr = Object(TbxSelectObject)
+    St : PString;
+
+    Constructor Init (const AString : String);
+    Constructor Load(var S: TStream);
+    Destructor  Done;                                     Virtual;
+    Function    GetText(MaxLen : Integer): String;        Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxCollection = ^TbxCollection;
+  TbxCollection = Object(TSortedCollection)
+    Function Compare(Key1, Key2 : Pointer): Integer;      Virtual;
+  end;
+
+
+  PbxUnsortedStringCollection  = ^TbxUnsortedStringCollection;
+  TbxUnsortedStringCollection  = Object(TStringCollection)
+    Procedure   Insert(Item : Pointer);                 Virtual;
+  end;
+
+
+{ TvObject registration procedure }
+
+Procedure RegisterTVObject;
+
+
+{ Stream Registration Records }
+
+CONST
+  RbxSelectObject: TStreamRec = (
+    ObjType : 5150;
+    VmtLink : Ofs(TypeOf(TbxSelectObject)^);
+    Load    : @TbxSelectObject.Load;
+    Store   : @TbxSelectObject.Store
+  );
+
+CONST
+  RbxSelectStr: TStreamRec = (
+    ObjType : 5151;
+    VmtLink : Ofs(TypeOf(TbxSelectStr)^);
+    Load    : @TbxSelectStr.Load;
+    Store   : @TbxSelectStr.Store
+  );
+
+CONST
+  RbxCollection: TStreamRec = (
+    ObjType : 5152;
+    VmtLink : Ofs(TypeOf(TbxCollection)^);
+    Load    : @TbxCollection.Load;
+    Store   : @TbxCollection.Store
+  );
+
+CONST
+  RbxUnsortedStringCollection: TStreamRec = (
+    ObjType : 5153;
+    VmtLink : Ofs(TypeOf(TbxUnsortedStringCollection)^);
+    Load    : @TbxUnsortedStringCollection.Load;
+    Store   : @TbxUnsortedStringCollection.Store
+  );
+

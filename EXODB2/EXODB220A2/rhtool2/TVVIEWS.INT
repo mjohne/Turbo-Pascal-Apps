@@ -1,0 +1,372 @@
+UNIT TvViews;
+{$B+}
+{$X+}
+{$V-}
+
+{$I TVDEFS.INC}
+
+INTERFACE
+
+
+USES
+  TvType, TvConst, TvMenus,
+  App, Drivers, Menus, Objects, Views, TextView, Dos;
+
+
+CONST
+  { Position Indicator palette }
+  { 1 = Indicator normal }
+  { 2 = Indicator passive }
+  { 3 = Indicator dragging }
+  CPosIndicator   = #2#3;
+
+  { Max/Min button palette }
+  { 1 = Button normal }
+  { 2 = Button frame normal }
+  { 3 = Button dragging }
+  CMinMax         = #3#2#3;
+
+
+TYPE
+  PbxFrame = ^TbxFrame;
+  TbxFrame = Object(TFrame)
+    Procedure   HandleEvent(var Event: TEvent);           Virtual;
+  end;
+
+
+  PbxMinMaxButton = ^TbxMinMaxButton;
+  TbxMinMaxButton = Object(TView)
+    Constructor Init(var Bounds : TRect);
+    Procedure   Draw;                                     Virtual;
+    Function    GetPalette: PPalette;                     Virtual;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   SetState(AState : Word;
+                         Enable : Boolean);               Virtual;
+  end;
+
+
+  PbxIcon = ^TbxIcon;
+  TbxIcon = Object(TView)
+    Title : PString;
+
+    Constructor Init(ATitle : TTitleStr);
+    Constructor Load(var S: TStream);
+    Destructor  Done;                                     Virtual;
+    Procedure   Draw;                                     Virtual;
+    Function    GetPalette: PPalette;                     Virtual;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   SetState(AState : Word;
+                         Enable : Boolean);               Virtual;
+    Procedure   SizeLimits(var Min, Max : TPoint);        Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxWindowIcon = ^TbxWindowIcon;
+  TbxWindowIcon = Object(TbxIcon)
+    View  : PView;
+
+    Constructor Init(ATitle : TTitleStr;
+                     AView  : PView);
+    Constructor Load(var S: TStream);
+    Procedure   ControlMenu(Mouse : Boolean);
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   SetState(AState : Word;
+                         Enable : Boolean);               Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxWindow = ^TbxWindow;
+  TbxWindow = Object(TWindow)
+    MinMax  : PbxMinMaxButton;
+    Icon    : PbxWindowIcon;
+
+    Constructor Init(var Bounds : TRect;
+                         ATitle : TTitleStr;
+                         ANumber: Integer);
+    Constructor Load(var S: TStream);
+    Procedure   ControlMenu(Mouse : Boolean);
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   InitFrame;                                Virtual;
+    Procedure   InitIcon;                                 Virtual;
+    Procedure   SetState(AState : Word;
+                         Enable : Boolean);               Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxTextWindow = ^TbxTextWindow;
+  TbxTextWindow = Object(TbxWindow)
+    Interior    : PTerminal;
+    HScrollBar  : PScrollBar;
+    VScrollBar  : PScrollBar;
+    Width       : Byte;
+    Height      : Byte;
+
+    Constructor Init(Bounds     : TRect;
+                     WinTitle   : String;
+                     WinNumber  : Word;
+                     AOptions   : Word;
+                     AMaxLines  : Word
+                    );
+    Constructor Load(var S: TStream);
+    Procedure   Clear;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   Store(var S: TStream);
+    Procedure   Write(St : String);
+  end;
+
+
+  PbxFormattedTextScroller = ^TbxFormattedTextScroller;
+  TbxFormattedTextScroller = Object(TScroller)
+    Buf     : PbxCharArray;
+    BufSize : Word;
+
+    Constructor Init(var Bounds      : TRect;
+                         AVScrollBar : PScrollBar;
+                         Buff        : PbxCharArray;
+                         BuffSize    : Word);
+    Constructor Load(var S: TStream);
+    Procedure   ChangeBounds(var Bounds: TRect);          Virtual;
+    Function    DataSize: Word;                           Virtual;
+    Procedure   Draw;                                     Virtual;
+    Procedure   GetData(var Rec);                         Virtual;
+    Procedure   SetData(var Rec);                         Virtual;
+    private
+    Procedure   CountLines;
+    Procedure   GetNextLine(    First : Word;
+                            var Count : Word;
+                            var NextCh: Word);
+  end;
+
+
+  PbxPosIndicator = ^TbxPosIndicator;
+  TbxPosIndicator = Object(TView)
+    Pos : LongInt;
+
+    Constructor Init(var Bounds: TRect);
+    Constructor Load(var S: TStream);
+    Function    DataSize: Word;                           Virtual;
+    Procedure   Draw;                                     Virtual;
+    Procedure   GetData(var Rec);                         Virtual;
+    Function    GetPalette: PPalette;                     Virtual;
+    Procedure   SetState(AState : Word;
+                         Enable : Boolean);               Virtual;
+    Procedure   SetData(var Rec);                         Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxMultiScrollBar = ^TbxMultiScrollBar;
+  TbxMultiScrollBar = Object(TScrollBar)
+    Destructor  Done;                                     Virtual;
+    Procedure   SetState(AState : Word;
+                         Enable : Boolean);               Virtual;
+  end;
+
+
+  PbxEditBuff = ^TbxEditBuff;
+  TbxEditBuff = Object(TScroller)
+    Buf       : PbxByteArray;   { pointer to raw data       }
+    BufSize   : Word;           { actual buffer size        }
+    ItemSize  : Byte;           { display size of each char }
+
+    Constructor Init(Bounds       : TRect;
+                     Buff         : Pointer;
+                     BuffSize     : Word;
+                     ItemWidth    : Byte;
+                     AVScrollBar  : PScrollBar);
+    Constructor Load(var S: TStream);
+    Function    DataSize: Word;                           Virtual;
+    Procedure   GetData(var Rec);                         Virtual;
+    Function    GetOffset: Word;
+    Procedure   GetXY(var Pos : TPoint);
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   SetData(var Rec);                         Virtual;
+    Procedure   SetXY(Pos : TPoint);
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxAsciiBuff = ^TbxAsciiBuff;
+  TbxAsciiBuff = Object(TbxEditBuff)
+    Constructor Init(Bounds       : TRect;
+                     Buff         : Pointer;
+                     BuffSize     : Word;
+                     AVScrollBar  : PScrollBar);
+    Procedure   Draw;                                     Virtual;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+  end;
+
+
+  PbxHexBuff = ^TbxHexBuff;
+  TbxHexBuff = Object(TbxEditBuff)
+    Constructor Init(Bounds       : TRect;
+                     Buff         : Pointer;
+                     BuffSize     : Word;
+                     AVScrollBar  : PScrollBar);
+    Procedure   Draw;                                     Virtual;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+  end;
+
+
+  PbxAsciiHexEditor = ^TbxAsciiHexEditor;
+  TbxAsciiHexEditor = Object(TbxWindow)
+    MaxPos      : Word;                   { highest position edited }
+    LView       : PbxEditBuff;            { left side HEX buffer    }
+    RView       : PbxEditBuff;            { right side ASCII buffer }
+    VScrollBar  : PbxMultiScrollBar;      { vertical scroll bar     }
+    Indicator   : PbxPosIndicator;        { byte position indicator }
+    Modified    : Boolean;
+
+    Constructor Init(Bounds   : TRect;
+                     ATitle   : TTitleStr;
+                     ANumber  : Integer;
+                     AOptions : Word;
+                     Buff     : Pointer;
+                     BuffSize : Word);
+    Constructor Load(var S: TStream);
+    Function    DataSize: Word;                           Virtual;
+    Procedure   GetData(var Rec);                         Virtual;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   SetData(var Rec);                         Virtual;
+    Procedure   SetState(AState: Word; Enable: Boolean);  Virtual;
+    Procedure   SizeLimits(var Min, Max : TPoint);        Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  WinData = record
+    Device : PTextDevice;
+    Filler : Array [1..12] of Char;
+  end;
+
+
+  { Record used by the TbxFormattedTextScroller, TbxEditBuff,
+    and TbxASCIIHexEditor SetData methods.
+  }
+  TbxBufData = record
+    Data    : Pointer;
+    DataSize: Word;
+  end;
+
+
+{ Redirect output to a PbxTextWindow. Set F to "Output" to redirect all
+  Writeln statements to the window.
+}
+Procedure AssignOutput(var F : Text; AWindow : PbxTextWindow);
+
+
+{ TvViews registration procedure }
+
+Procedure RegisterTVViews;
+
+
+{ Stream Registration Records }
+
+CONST
+  RbxFrame: TStreamRec = (
+    ObjType : 5100;
+    VmtLink : Ofs(TypeOf(TbxFrame)^);
+    Load    : @TbxFrame.Load;
+    Store   : @TbxFrame.Store
+  );
+
+
+CONST
+  RbxMinMaxButton: TStreamRec = (
+    ObjType : 5101;
+    VmtLink : Ofs(TypeOf(TbxMinMaxButton)^);
+    Load    : @TbxMinMaxButton.Load;
+    Store   : @TbxMinMaxButton.Store
+  );
+
+CONST
+  RbxIcon: TStreamRec = (
+    ObjType : 5102;
+    VmtLink : Ofs(TypeOf(TbxIcon)^);
+    Load    : @TbxIcon.Load;
+    Store   : @TbxIcon.Store
+  );
+
+CONST
+  RbxWindowIcon: TStreamRec = (
+    ObjType : 5103;
+    VmtLink : Ofs(TypeOf(TbxWindowIcon)^);
+    Load    : @TbxWindowIcon.Load;
+    Store   : @TbxWindowIcon.Store
+  );
+
+CONST
+  RbxWindow: TStreamRec = (
+    ObjType : 5104;
+    VmtLink : Ofs(TypeOf(TbxWindow)^);
+    Load    : @TbxWindow.Load;
+    Store   : @TbxWindow.Store
+  );
+
+CONST
+  RbxTextWindow: TStreamRec = (
+    ObjType : 5105;
+    VmtLink : Ofs(TypeOf(TbxTextWindow)^);
+    Load    : @TbxTextWindow.Load;
+    Store   : @TbxTextWindow.Store
+  );
+
+CONST
+  RbxFormattedTextScroller: TStreamRec = (
+    ObjType : 5106;
+    VmtLink : Ofs(TypeOf(TbxFormattedTextScroller)^);
+    Load    : @TbxFormattedTextScroller.Load;
+    Store   : @TbxFormattedTextScroller.Store
+  );
+
+CONST
+  RbxPosIndicator: TStreamRec = (
+    ObjType : 5107;
+    VmtLink : Ofs(TypeOf(TbxPosIndicator)^);
+    Load    : @TbxPosIndicator.Load;
+    Store   : @TbxPosIndicator.Store
+  );
+
+CONST
+  RbxMultiScrollBar: TStreamRec = (
+    ObjType : 5108;
+    VmtLink : Ofs(TypeOf(TbxMultiScrollBar)^);
+    Load    : @TbxMultiScrollBar.Load;
+    Store   : @TbxMultiScrollBar.Store
+  );
+
+CONST
+  RbxEditBuff: TStreamRec = (
+    ObjType : 5109;
+    VmtLink : Ofs(TypeOf(TbxEditBuff)^);
+    Load    : @TbxEditBuff.Load;
+    Store   : @TbxEditBuff.Store
+  );
+
+CONST
+  RbxAsciiBuff: TStreamRec = (
+    ObjType : 5110;
+    VmtLink : Ofs(TypeOf(TbxAsciiBuff)^);
+    Load    : @TbxAsciiBuff.Load;
+    Store   : @TbxAsciiBuff.Store
+  );
+
+CONST
+  RbxHexBuff: TStreamRec = (
+    ObjType : 5111;
+    VmtLink : Ofs(TypeOf(TbxHexBuff)^);
+    Load    : @TbxHexBuff.Load;
+    Store   : @TbxHexBuff.Store
+  );
+
+CONST
+  RbxAsciiHexEditor: TStreamRec = (
+    ObjType : 5112;
+    VmtLink : Ofs(TypeOf(TbxAsciiHexEditor)^);
+    Load    : @TbxAsciiHexEditor.Load;
+    Store   : @TbxAsciiHexEditor.Store
+  );
+

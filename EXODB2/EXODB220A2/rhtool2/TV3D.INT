@@ -1,0 +1,221 @@
+UNIT Tv3D;
+{$B+}
+{$X+}
+{$V-}
+
+{$I TVDEFS.INC}
+
+INTERFACE
+
+
+USES
+  TvType,
+  App, Dialogs, Drivers, Objects, Views;
+
+
+CONST
+  {** 3D Dialog Palette **}
+  { 1  = Frame normal }
+  { 2  = Frame passive }
+  { 3  = Frame icon }
+  { 4  = ScrollBar page area }
+  { 5  = ScrollBar controls }
+  { 6  = StaticText }
+  { 7  = Label normal }
+  { 8  = Label selected }
+  { 9  = Label shortcut }
+  { 10 = Button normal }
+  { 11 = Button text }
+  { 12 = Button disabled text }
+  { 13 = Button shortcut text }
+  { 14 = Button shaded }
+  { 15 = Button default text }
+  { 16 = Cluster normal text }
+  { 17 = Cluster selected text }
+  { 18 = Cluster shortcut }
+  { 19 = Inputline normal }
+  { 20 = Inputline selected text }
+  { 21 = Inputline arrow }
+  { 22 = History arrow }
+  { 23 = History normal }
+  { 24 = HistoryWindow scrollbar page area }
+  { 25 = HistoryWindow scrollbar controls }
+  { 26 = ListViewer normal }
+  { 27 = ListViewer focused }
+  { 28 = ListViewer selected }
+  { 29 = ListViewer divider }
+  { 30 = InfoPane }
+  { 31 = Cluster disabled }
+  { 32 = Reserved }
+  { 33 = Outline normal }
+  { 34 = Outline shaded }
+  { 35 = History shaded }
+  C3DDialog     = #137#139#140#165#166#167#168#169#170#141 +
+                  #142#143#144#145#146#152#153#154#149#150 +
+                  #151#160#161#163#164#156#157#158#159#171 +
+                  #155#000#147#148#162;
+
+
+  {** 3D Button Palette **}
+  { 1 = Button normal }
+  { 2 = Button shaded }
+  { 3 = Button text }
+  { 4 = Button disabled text}
+  { 5 = Button shortcut text}
+  { 6 = Button default text }
+  C3DButton     = #10#14#11#12#13#15;
+
+
+  {** 3D History Palette **}
+  { 1 = History arrow }
+  { 2 = History normal }
+  { 3 = History shaded }
+  C3DHistory    = #22#23#35;
+
+
+  {** 3D Outline Palette **}
+  { 1 = Outline normal }
+  { 2 = Outline shaded }
+  C3DOutline    = #33#34;
+
+  {** 3D Tool Button Palette **}
+  { 1 = Button normal }
+  { 2 = Button shaded }
+  { 3 = Button text }
+  { 4 = Button disabled text}
+  { 5 = Button shortcut text}
+  { 6 = Button default text }
+  C3DToolButton = #10#14#11#12#11#11;
+
+
+CONST
+  ButtonSelect  : TbxFrameArray = 'É»È¼ººÍÍ';
+  ButtonNormal  : TbxFrameArray = 'Ú¿ÀÙ³³ÄÄ';
+  ButtonPress   : TbxFrameArray = 'Ú¿ÀÙ³³ÄÄ';
+  OutlineNormal : TbxFrameArray = 'Ú¿ÀÙ³³ÄÄ';
+
+
+TYPE
+  Pbx3DButton = ^Tbx3DButton;
+  Tbx3DButton = Object(TButton)
+    Down : Boolean;
+
+    Constructor Init(var Bounds   : TRect;
+                         ATitle   : TTitleStr;
+                         ACommand : Word;
+                         AFlags   : Word);
+    Constructor Load(var S: TStream);
+    Procedure   Draw;                                     Virtual;
+    Procedure   DrawTitle(ATitle: TTitleStr;
+                          Color : Word;
+                          Row   : Word);                  Virtual;
+    Procedure   GetFrame(var F : TbxFrameArray);          Virtual;
+    Function    GetPalette: PPalette;                     Virtual;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+  end;
+
+
+  Pbx3DOutline  = ^Tbx3DOutline;
+  Tbx3DOutline  = Object(TView)
+    Constructor Init(var Bounds : TRect);
+    Procedure   Draw;                                     Virtual;
+    Procedure   GetFrame(var F : TbxFrameArray);          Virtual;
+    Function    GetPalette: PPalette;                     Virtual;
+  end;
+
+
+  Pbx3DHistory  = ^Tbx3DHistory;
+  Tbx3DHistory  = Object(THistory)
+    Constructor Init(var Bounds     : TRect;
+                         ALink      : PInputLine;
+                         AHistoryId : Word);
+    Procedure   Draw;                                     Virtual;
+    Function    GetPalette: PPalette;                     Virtual;
+  end;
+
+
+  Pbx3DDialog = ^Tbx3DDialog;
+  Tbx3DDialog = Object(TDialog)
+    Function    GetPalette: PPalette;                     Virtual;
+    Procedure   Insert(P : PView);                        Virtual;
+  end;
+
+
+  Pbx3DToolButton = ^Tbx3DToolButton;
+  Tbx3DToolButton = Object(Tbx3DButton)
+    Procedure   GetFrame(var F : TbxFrameArray);          Virtual;
+    Function    GetPalette: PPalette;                     Virtual;
+  end;
+
+
+  Pbx3DToolBar  = ^Tbx3DToolBar;
+  Tbx3DToolBar  = Object(Tbx3DDialog)
+    IsVertical  : Boolean;
+    LastX       : Word;
+    LastY       : Word;
+
+    Constructor Init(var Bounds  : TRect;
+                         Vertical: Boolean);
+    Constructor Load(var S: TStream);
+    Procedure   AddTool(ATitle   : TTitleStr;
+                        ACommand : Word);
+    Procedure   InitFrame;                                Virtual;
+    Procedure   SizeLimits(var Min, Max : TPoint);        Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+{ Tv3D registration procedure }
+
+Procedure RegisterTV3D;
+
+{ Stream Registration Records }
+
+CONST
+  Rbx3DButton: TStreamRec = (
+    ObjType : 5000;
+    VmtLink : Ofs(TypeOf(Tbx3DButton)^);
+    Load    : @Tbx3DButton.Load;
+    Store   : @Tbx3DButton.Store
+  );
+
+CONST
+  Rbx3DOutline: TStreamRec = (
+    ObjType : 5001;
+    VmtLink : Ofs(TypeOf(Tbx3DOutline)^);
+    Load    : @Tbx3DOutline.Load;
+    Store   : @Tbx3DOutline.Store
+  );
+
+CONST
+  Rbx3DHistory: TStreamRec = (
+    ObjType : 5002;
+    VmtLink : Ofs(TypeOf(Tbx3DHistory)^);
+    Load    : @Tbx3DHistory.Load;
+    Store   : @Tbx3DHistory.Store
+  );
+
+CONST
+  Rbx3DDialog: TStreamRec = (
+    ObjType : 5003;
+    VmtLink : Ofs(TypeOf(Tbx3DDialog)^);
+    Load    : @Tbx3DDialog.Load;
+    Store   : @Tbx3DDialog.Store
+  );
+
+CONST
+  Rbx3DToolButton: TStreamRec = (
+    ObjType : 5004;
+    VmtLink : Ofs(TypeOf(Tbx3DToolButton)^);
+    Load    : @Tbx3DToolButton.Load;
+    Store   : @Tbx3DToolButton.Store
+  );
+
+CONST
+  Rbx3DToolBar: TStreamRec = (
+    ObjType : 5005;
+    VmtLink : Ofs(TypeOf(Tbx3DToolBar)^);
+    Load    : @Tbx3DToolBar.Load;
+    Store   : @Tbx3DToolBar.Store
+  );
+

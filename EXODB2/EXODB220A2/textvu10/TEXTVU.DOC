@@ -1,0 +1,55 @@
+(***********************************************************************
+  A Much Faster Terminal for Turbo Vision, v1.0
+  PJB August 22, 1993
+  Twice as fast, less code
+  Free source - no warranty
+
+  All comments, postcards, money and bug reports welcome.
+
+  Internet mail:
+
+     d91-pbr@nada.kth.se
+
+  Snail mail:
+
+  Peter Brandstr”m
+  Roslagsgatan 10
+  S-113 55 Stockholm
+  Sweden, Europe
+
+***********************************************************************)
+
+TextVu is a faster replacement for TextView. They don't work quite in
+the same way, as explained below. You are free to use the code any way
+you see fit, but I would appreciate bug reports and general comments.
+
+TextVu was developped with TP6 using the BP7 TextView source, and tested
+with TP6 and TP7, so it should work with both TP6 and T/BP7 (right?).
+
+TFastTerminal is slightly different from TTerminal since it stores the
+length of each line instead of using trailing line feeds. This means
+that you could write a function such as
+
+  function TFastTerminal.GetLine(Line:word):string;
+  begin
+    GetLine:=PString(Buffer^[NextLines(QueBack, Line-1)])^;
+  end;
+
+to retrieve a line of text from the buffer. I also removed the cursor as
+I didn't like it, and there is no blank line at the bottom.
+
+TextVu inherits a lot of junk from TTerminal, so you still need the old
+unit. All the methods included in TextVu are faster and smarter
+replacements of the TTerminal ones. The unit uses slightly less memory
+and redraw speed is twice as fast (really zippy). There is no longint
+arithmetic and no PrevLines any more, but NextLines is so much faster.
+Remember that you need the old TextView...
+
+For a demonstration, compile the accompanying DEMO.PAS (from TP6,
+the original TVTXTDMO.PAS except it uses TFastTerminal instead) and type
+"DEMO textvu.pas".
+
+I am considering enhancing it further, maybe another interface than the
+AssignCrt way? Does any one really use TTerminal? If you do, write me.
+
+Have Fun!

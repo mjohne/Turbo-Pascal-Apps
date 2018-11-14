@@ -1,0 +1,68 @@
+UNIT TvMenus;
+{$B+}
+{$X+}
+{$V-}
+
+{$I TVDEFS.INC}
+
+INTERFACE
+
+
+USES
+  TvConst,
+  App,
+  Drivers,
+  Menus,
+  Views,
+  Objects;
+
+
+CONST
+  CheckMark     : String[10] = 'û';
+  CheckMarkNull : String[10] = ' ';
+  CheckMarkLen  : Byte       = 1;
+
+
+TYPE
+  PbxMenuBar = ^TbxMenuBar;
+  TbxMenuBar = Object(TMenuBar)
+    Procedure ClearMarker(Cmd : Word);
+    Function  FindCmd(AMenu : PMenu;
+                      Cmd   : Word): PMenuItem;
+    Procedure HandleEvent(var E : TEvent);      Virtual;
+    Function  MarkerIsSet(Cmd : Word): Boolean;
+    Procedure ResetMarkers(FirstCmd : Word;
+                           LastCmd  : Word;
+                           NewCmd   : Word);
+    Procedure SetMarker(Cmd : Word);
+    Procedure ToggleMarker(Cmd : Word);
+  end;
+
+
+Function NewMarkedItem(Name, Param : TMenuStr;
+                       KeyCode     : Word;
+                       Command     : Word;
+                       AHelpCtx    : Word;
+                       Next        : PMenuItem): PMenuItem;
+
+Function PopupMenu(PopMenu : PMenuBox): Word;
+
+Function MousePopupMenu(PopMenu : PMenuBox): Word;
+
+
+
+{ TvMenu registration procedure }
+
+Procedure RegisterTVMenus;
+
+
+{ Stream Registration Records }
+
+CONST
+  RbxMenuBar: TStreamRec = (
+    ObjType : 5250;
+    VmtLink : Ofs(TypeOf(TbxMenuBar)^);
+    Load    : @TbxMenuBar.Load;
+    Store   : @TbxMenuBar.Store
+  );
+

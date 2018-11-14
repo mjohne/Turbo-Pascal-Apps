@@ -1,0 +1,519 @@
+UNIT TvInput;
+{$B+}
+{$X+}
+{$V-}
+{$N+}
+
+{$I TVDEFS.INC}
+
+INTERFACE
+
+
+USES
+  Dos,
+  App, Dialogs, Drivers, Objects, Views, MsgBox,
+  TvConst, TVDialog, TvString, TvType;
+
+
+Procedure SetDateDefaults;
+
+
+CONST
+  dfRequired      = $0001;  { Field entry is required         }
+  dfRJustify      = $0002;  { Trim and Right justify result   }
+  dfLJustify      = $0004;  { Trim and Left justify result    }
+  dfTrim          = $0008;  { Trim all pad chars from result  }
+  dfHide          = $0010;  { Password input                  }
+  dfDefaults      = $0020;  { Use default values if available }
+
+CONST
+  HideChar  : Char = '*';   { character used for passwords      }
+  DecimalPt = '.';          { character used for decimal points }
+  Left      = True;
+  Right     = False;
+
+CONST
+  AnyChar     = 'X';        { any character                        }
+  ForceUp     = 'U';        { any character, force upper case      }
+  ForceLo     = 'L';        { any character, force lower case      }
+  AlphaOnly   = 'a';        { alpha numeric only                   }
+  UpperAlpha  = 'u';        { alpha numeric only, force upper case }
+  LowerAlpha  = 'l';        { alpha numeric only, force lower case }
+  NumberOnly  = '#';        { numbers, minus                       }
+  DigitOnly   = '9';        { numbers only                         }
+  HexOnly     = '&';        { hexadecimal numbers                  }
+  DateOnly    = '@';        { dates                                }
+
+CONST
+  EditMaskChars : TCharSet = [AnyChar, ForceUp, ForceLo, AlphaOnly,
+                              UpperAlpha, LowerAlpha, NumberOnly,
+                              DigitOnly, HexOnly, DateOnly];
+CONST
+  AnyCharSet    : TCharSet = [#32..#255];
+CONST
+  AlphaOnlySet  : TCharSet = ['0'..'9', 'A'..'Z', 'a'..'z', ' '];
+CONST
+  DigitOnlySet  : TCharSet = ['0'..'9'];
+CONST
+  NumberOnlySet : TCharSet = ['0'..'9', '-'];
+CONST
+  HexOnlySet    : TCharSet = ['0'..'9', 'A'..'F', 'a'..'f', '$'];
+CONST
+  DateOnlySet   : TCharSet = ['0'..'9', ' '];
+
+
+CONST
+  DefaultDay    : Word = 0;
+  DefaultYear   : Word = 0;
+  DefaultMonth  : Word = 0;
+
+
+TYPE
+  PbxEditLine = ^TbxEditLine;
+  TbxEditLine = Object(TInputLine)
+    PadChar   : Char;   { blank place holder char }
+    XPos      : Byte;   { insert position         }
+    First     : Byte;   { first editable position }
+    Mask      : PString;{ edit mask               }
+    ID        : Word;
+    LLabel    : PLabel;
+    EditFlags : Word;
+
+    Constructor Init(var Bounds : TRect;
+                         AMask  : String);
+    Constructor Load(var S: TStream);
+    Destructor  Done;                                     Virtual;
+    Procedure   AddLabel(ALabel : PLabel);
+    Function    DataSize: Word;                           Virtual;
+    Procedure   Draw;                                     Virtual;
+    Function    EditToMaskPos(Pos : Integer): Integer;
+    Function    Empty: Boolean;                           Virtual;
+    Procedure   GetData(var Rec);                         Virtual;
+    Function    GetFieldName: String;                     Virtual;
+    Function    GetID: Word;                              Virtual;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Function    HomePos: Integer;                         Virtual;
+    Procedure   InsertChar(Ch : Char);                    Virtual;
+    Function    MaskToEditPos(Pos : Integer): Integer;
+    Procedure   Lock;
+    Procedure   Merge(var St      : String;
+                          Justify : Boolean);             Virtual;
+    Function    NextPos(Pos : Integer): Integer;          Virtual;
+    Function    PrevPos(Pos : Integer): Integer;          Virtual;
+    Function    Remove(const St : String): String;
+    Procedure   SetData(var Rec);                         Virtual;
+    Procedure   SetEditFlag(AFlag : Word;
+                            Enable: Boolean);             Virtual;
+    Procedure   SetID(AFieldID : Word);
+    Procedure   SetState(AState : Word;
+                         Enable : Boolean);               Virtual;
+    Procedure   Store(var S: TStream);
+    Procedure   UnLock;
+    Function    Valid(Command : Word): Boolean;           Virtual;
+
+    private
+    Function    CanScroll(ScrollLeft : Boolean): Boolean;
+    Procedure   DeleteMarked;
+    Procedure   SelectAll(Enable : Boolean);
+  end;
+
+
+  PbxDateEdit = ^TbxDateEdit;
+  TbxDateEdit = Object(TbxEditLine)
+    Date    : PbxDate;
+    DatePic : TbxDateSt;
+
+    Constructor Init(var Bounds : TRect;
+                         ADatePic : TbxDateSt);
+    Constructor Load(var S: TStream);
+    Destructor  Done;                                     Virtual;
+    Function    DataSize: Word;                           Virtual;
+    Procedure   GetData(var Rec);                         Virtual;
+    Procedure   SetData(var Rec);                         Virtual;
+    Procedure   Store(var S: TStream);
+    Function    Valid(Command : Word): Boolean;           Virtual;
+  end;
+
+
+  PbxNumericEdit  = ^TbxNumericEdit;
+  TbxNumericEdit  = Object(TbxEditLine)
+    ErrCode : Integer;    { string to numeric conversion error  }
+
+    Procedure   HandleEvent(var Event: TEvent);           Virtual;
+    Function    OutOfRange: Boolean;                      Virtual;
+    Function    OutOfRangeMsg: String;                    Virtual;
+    Function    Valid(Command : Word): Boolean;           Virtual;
+  end;
+
+
+  PbxLongEdit = ^TbxLongEdit;
+  TbxLongEdit = Object(TbxNumericEdit)
+    Min   : LongInt;
+    Max   : LongInt;
+
+    Constructor Init(var Bounds  : TRect;
+                     const AMask : String;
+                         AMin    : LongInt;
+                         AMax    : LongInt);
+    Constructor Load(var S: TStream);
+    Function    DataSize: Word;                           Virtual;
+    Procedure   GetData(var Rec);                         Virtual;
+    Function    OutOfRange: Boolean;                      Virtual;
+    Function    OutOfRangeMsg: String;                    Virtual;
+    Procedure   SetData(var Rec);                         Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxHexEdit  = ^TbxHexEdit;
+  TbxHexEdit  = Object(TbxLongEdit)
+    Function    OutOfRangeMsg: String;                    Virtual;
+    Procedure   SetData(var Rec);                         Virtual;
+  end;
+
+
+  PbxIntegerEdit = ^TbxIntegerEdit;
+  TbxIntegerEdit = Object(TbxLongEdit)
+    Constructor Init(var Bounds  : TRect;
+                     const AMask : String;
+                         AMin    : Integer;
+                         AMax    : Integer);
+    Function    DataSize: Word;                           Virtual;
+    Procedure   GetData(var Rec);                         Virtual;
+    Procedure   SetData(var Rec);                         Virtual;
+  end;
+
+
+  PbxWordEdit = ^TbxWordEdit;
+  TbxWordEdit = Object(TbxLongEdit)
+    Constructor Init(var Bounds  : TRect;
+                     const AMask : String;
+                         AMin    : Word;
+                         AMax    : Word);
+    Function    DataSize: Word;                           Virtual;
+    Procedure   GetData(var Rec);                         Virtual;
+    Procedure   SetData(var Rec);                         Virtual;
+  end;
+
+
+  PbxByteEdit = ^TbxByteEdit;
+  TbxByteEdit = Object(TbxLongEdit)
+    Constructor Init(var Bounds  : TRect;
+                     const AMask : String;
+                         AMin    : Byte;
+                         AMax    : Byte);
+    Function    DataSize: Word;                           Virtual;
+    Procedure   GetData(var Rec);                         Virtual;
+    Procedure   SetData(var Rec);                         Virtual;
+  end;
+
+
+  PbxFloatEdit = ^TbxFloatEdit;
+  TbxFloatEdit = Object(TbxNumericEdit)
+    DP  : Byte;   { number of decimal places  }
+
+    Constructor Init(var Bounds  : TRect;
+                     const AMask : String);
+    Constructor Load(var S: TStream);
+    Procedure   HandleEvent(var Event: TEvent);           Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  {$IFOPT N+}
+  PbxDoubleEdit = ^TbxDoubleEdit;
+  TbxDoubleEdit = Object(TbxFloatEdit)
+    Min : Double;
+    Max : Double;
+
+    Constructor Init(var Bounds  : TRect;
+                     const AMask : String;
+                         AMin    : Double;
+                         AMax    : Double);
+    Constructor Load(var S: TStream);
+    Function    DataSize: Word;                           Virtual;
+    Procedure   GetData(var Rec);                         Virtual;
+    Function    OutOfRange: Boolean;                      Virtual;
+    Function    OutOfRangeMsg: String;                    Virtual;
+    Procedure   SetData(var Rec);                         Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+  {$ENDIF}
+
+
+  PbxRealEdit = ^TbxRealEdit;
+  TbxRealEdit = Object(TbxFloatEdit)
+    Min : Real;
+    Max : Real;
+
+    Constructor Init(var Bounds  : TRect;
+                     const AMask : String;
+                         AMin    : Real;
+                         AMax    : Real);
+    Constructor Load(var S: TStream);
+    Function    DataSize: Word;                           Virtual;
+    Procedure   GetData(var Rec);                         Virtual;
+    Function    OutOfRange: Boolean;                      Virtual;
+    Function    OutOfRangeMsg: String;                    Virtual;
+    Procedure   SetData(var Rec);                         Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxCheckBoxes = ^TbxCheckBoxes;
+  TbxCheckBoxes = Object(TCheckBoxes)
+    ID        : Word;
+    LLabel    : PLabel;
+    EditFlags : Word;
+
+    Constructor Init(var Bounds  : TRect;
+                         AStrings: PSItem);
+    Constructor Load(var S: TStream);
+    Procedure   AddLabel(ALabel : PLabel);
+    Function    Empty: Boolean;                           Virtual;
+    Function    GetID: Word;
+    Function    GetFieldName: String;                     Virtual;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   Lock;
+    Procedure   SetEditFlag(AFlag : Word;
+                            Enable: Boolean);             Virtual;
+    Procedure   SetID(AFieldID : Word);
+    Procedure   SetState(AState : Word;
+                         Enable : Boolean);               Virtual;
+    Procedure   Store(var S: TStream);
+    Procedure   UnLock;
+    Function    Valid(Command: Word): Boolean;            Virtual;
+  end;
+
+
+  PbxRadioButtons = ^TbxRadioButtons;
+  TbxRadioButtons = Object(TRadioButtons)
+    ID        : Word;
+    LLabel    : PLabel;
+    EditFlags : Word;
+
+    Constructor Init(var Bounds  : TRect;
+                         AStrings: PSItem);
+    Constructor Load(var S: TStream);
+    Procedure   AddLabel(ALabel : PLabel);
+    Function    GetFieldName: String;                     Virtual;
+    Function    GetID: Word;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   Lock;
+    Procedure   SetEditFlag(AFlag : Word;
+                            Enable: Boolean);             Virtual;
+    Procedure   SetID(AFieldID : Word);
+    Procedure   SetState(AState : Word;
+                         Enable : Boolean);               Virtual;
+    Procedure   Store(var S: TStream);
+    Procedure   UnLock;
+  end;
+
+
+  PbxSlider = ^TbxSlider;
+  TbxSlider = Object(TGroup)
+    Scrollbar : PScrollbar;
+    ID        : Word;
+    LLabel    : PLabel;
+    EditFlags : Word;
+
+    Constructor Init(var Bounds : TRect;
+                         AMin   : Integer;
+                         AMax   : Integer;
+                     const AMinLabel : String;
+                     const AMaxLabel : String);
+    Constructor Load(var S : TStream);
+    Procedure   AddLabel(ALabel : Plabel);
+    Procedure   GetData(var Rec);                         Virtual;
+    Function    GetID: Word;
+    Function    GetFieldName: String;                     Virtual;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   Lock;
+    Procedure   SetData(var Rec);                         Virtual;
+    Procedure   SetEditFlag(AFlag : Word;
+                            Enable: Boolean);             Virtual;
+    Procedure   SetID(AFieldID : Word);
+    Procedure   SetState(AState : Word;
+                         Enable : Boolean);               Virtual;
+    Procedure   Store(var S:  TStream);
+    Procedure   UnLock;
+  end;
+
+
+  PbxSpinEdit = ^TbxSpinEdit;
+
+  TbxSpinChars  = Array[1..2] of Char;
+
+  PbxSpinBar  = ^TbxSpinBar;
+  TbxSpinBar  = Object(TScrollBar)
+    Chars : TbxSpinChars;
+    SpinEdit : PbxSpinEdit;
+
+    Constructor Init(var Bounds : TRect);
+    Constructor Load(var S : TStream);
+    Procedure   Draw;                                     Virtual;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   Store(var S : TStream);
+  end;
+
+
+  TbxSpinEdit = Object(TbxIntegerEdit)
+    SpinBar   : PbxSpinBar;
+
+    Constructor Init(var Bounds  : TRect;
+                     const AMask : String;
+                         ASpinBar: PbxSpinBar);
+    Constructor Load(var S : TStream);
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   SetData(var Rec);                         Virtual;
+    Procedure   Store(var S : TStream);
+    Procedure   SetState(AState : Word;
+                         Enable : Boolean);               Virtual;
+    Function    Valid(Command : Word): Boolean;           Virtual;
+  end;
+
+
+  PbxEntryDialog  = ^TbxEntryDialog;
+  TbxEntryDialog  = Object(TDialog)
+    NextId : Word;
+
+    Constructor Init(var Bounds : TRect;
+                         ATitle : TTitleStr);
+    Constructor Load(var S : TStream);
+    Function    FindField(ID : Word): Pointer;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   Insert(P : PView);                        Virtual;
+    Procedure   LockField(ID     : Word;
+                          Enable : Boolean);
+    Procedure   Store(var S : TStream);
+  end;
+
+
+{ TVInput registration procedure }
+
+Procedure RegisterTVInput;
+
+{ Stream Registration Records }
+
+CONST
+  RbxEditLine: TStreamRec = (
+    ObjType : 5300;
+    VmtLink : Ofs(TypeOf(TbxEditLine)^);
+    Load    : @TbxEditLine.Load;
+    Store   : @TbxEditLine.Store
+  );
+
+CONST
+  RbxDateEdit: TStreamRec = (
+    ObjType : 5301;
+    VmtLink : Ofs(TypeOf(TbxDateEdit)^);
+    Load    : @TbxDateEdit.Load;
+    Store   : @TbxDateEdit.Store
+  );
+
+CONST
+  RbxLongEdit: TStreamRec = (
+    ObjType : 5302;
+    VmtLink : Ofs(TypeOf(TbxLongEdit)^);
+    Load    : @TbxLongEdit.Load;
+    Store   : @TbxLongEdit.Store
+  );
+
+CONST
+  RbxHexEdit: TStreamRec = (
+    ObjType : 5303;
+    VmtLink : Ofs(TypeOf(TbxHexEdit)^);
+    Load    : @TbxHexEdit.Load;
+    Store   : @TbxHexEdit.Store
+  );
+
+CONST
+  RbxIntegerEdit: TStreamRec = (
+    ObjType : 5304;
+    VmtLink : Ofs(TypeOf(TbxIntegerEdit)^);
+    Load    : @TbxIntegerEdit.Load;
+    Store   : @TbxIntegerEdit.Store
+  );
+
+CONST
+  RbxWordEdit: TStreamRec = (
+    ObjType : 5305;
+    VmtLink : Ofs(TypeOf(TbxWordEdit)^);
+    Load    : @TbxWordEdit.Load;
+    Store   : @TbxWordEdit.Store
+  );
+
+CONST
+  RbxByteEdit: TStreamRec = (
+    ObjType : 5306;
+    VmtLink : Ofs(TypeOf(TbxByteEdit)^);
+    Load    : @TbxByteEdit.Load;
+    Store   : @TbxByteEdit.Store
+  );
+
+{$IFOPT N+}
+CONST
+  RbxDoubleEdit: TStreamRec = (
+    ObjType : 5307;
+    VmtLink : Ofs(TypeOf(TbxDoubleEdit)^);
+    Load    : @TbxDoubleEdit.Load;
+    Store   : @TbxDoubleEdit.Store
+  );
+{$ENDIF}
+
+CONST
+  RbxRealEdit: TStreamRec = (
+    ObjType : 5308;
+    VmtLink : Ofs(TypeOf(TbxRealEdit)^);
+    Load    : @TbxRealEdit.Load;
+    Store   : @TbxRealEdit.Store
+  );
+
+CONST
+  RbxEntryDialog: TStreamRec = (
+    ObjType : 5309;
+    VmtLink : Ofs(TypeOf(TbxEntryDialog)^);
+    Load    : @TbxEntryDialog.Load;
+    Store   : @TbxEntryDialog.Store
+  );
+
+CONST
+  RbxCheckBoxes: TStreamRec = (
+    ObjType : 5310;
+    VmtLink : Ofs(TypeOf(TbxCheckBoxes)^);
+    Load    : @TbxCheckBoxes.Load;
+    Store   : @TbxCheckBoxes.Store
+  );
+
+CONST
+  RbxRadioButtons: TStreamRec = (
+    ObjType : 5311;
+    VmtLink : Ofs(TypeOf(TbxRadioButtons)^);
+    Load    : @TbxRadioButtons.Load;
+    Store   : @TbxRadioButtons.Store
+  );
+
+CONST
+  RbxSlider: TStreamRec = (
+    ObjType : 5312;
+    VmtLink : Ofs(TypeOf(TbxSlider)^);
+    Load    : @TbxSlider.Load;
+    Store   : @TbxSlider.Store
+  );
+
+CONST
+  RbxSpinBar: TStreamRec = (
+    ObjType : 5313;
+    VmtLink : Ofs(TypeOf(TbxSpinBar)^);
+    Load    : @TbxSpinBar.Load;
+    Store   : @TbxSpinBar.Store
+  );
+
+CONST
+  RbxSpinEdit: TStreamRec = (
+    ObjType : 5314;
+    VmtLink : Ofs(TypeOf(TbxSpinEdit)^);
+    Load    : @TbxSpinEdit.Load;
+    Store   : @TbxSpinEdit.Store
+  );
+

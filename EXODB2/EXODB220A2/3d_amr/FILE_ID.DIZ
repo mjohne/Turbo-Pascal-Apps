@@ -1,0 +1,22 @@
+* "3D_AMR" A 3D Modeling and Animation Graphics program implementing 
+the z-buffer hidden face removal algorithm, and utilizing double buffering 
+for fast real-time animation of 3D objects on the PC.
+
+/**************************************************************************
+ *                                                                        *
+ *       This program demonstrates the DOUBLE BUFFERING technique for     *
+ *       animation. While you are watching the current frame on the       *
+ *       VISUAL PAGE, the new frame is actually being drawn on the        *
+ *       ACTIVE PAGE. This leads to smoother animations.                  *
+ *                                                                        *
+ *       Coded By:                                                        *
+ *                  Amr A. Awadallah,            May 1992                 *
+ *                  Computer Department,                                  *
+ *                  Faculty Of Engineering,                               *
+ *                  Cairo University,                                     *
+ *                  Egypt.                                                *
+ *                  e-mail : "amr@frcu.eun.eg" or "a.awadallah@ieee.org"  *
+ *                  phone  : (202) 330-4738                               *
+ *                                                                        *
+ **************************************************************************/
+

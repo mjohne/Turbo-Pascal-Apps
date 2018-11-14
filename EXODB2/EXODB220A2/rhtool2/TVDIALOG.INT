@@ -1,0 +1,430 @@
+UNIT TvDialog;
+{$B+}
+{$X+}
+{$V-}
+
+{$I TVDEFS.INC}
+
+INTERFACE
+
+
+USES
+  Dos,
+  TvObject, TvConst, TvString, TvType,
+  {$IFDEF USE_NEW_FILE_DIALOG}
+  StdDlg,
+  {$ENDIF}
+  App, Dialogs, Drivers, Memory, MsgBox, Objects, Views;
+
+
+CONST
+  BarChar       : Char = '±';
+  BarFillChar   : Char = 'Û';
+
+
+CONST
+  Buttons       : Array[0..3] of String[8] =
+                    ('~Y~es', '~N~o', 'O~K~', '~C~ancel');
+  Commands      : Array[0..3] of Word =
+                    (cmYes, cmNo, cmOK, cmCancel);
+  Titles        : Array[0..3] of String[11] =
+                    ('Warning', 'Error', 'Information', 'Confirm');
+
+
+CONST
+  mfMessageLine  = $1000;
+  mfPauseButton  = $2000;
+  mfPauseCancel  = mfPauseButton + mfCancelButton;
+  mfOKPauseCancel= mfOKCancel + mfPauseButton;
+
+
+CONST
+  vlCurrent = $0001;
+  vlPrev    = $0002;
+  vlNext    = $0003;
+  vlMin     = $0004;
+  vlMax     = $0005;
+  vlListMax = $0006;
+  vlListMin = $0007;
+
+
+{$IFDEF USE_NEW_FILE_DIALOG}
+TYPE
+  PSearchRec = ^TSearchRec;   {why isn't this public in StdDlg?}
+  DriveLetters  = 'A'..'Z';
+  DriveSet      = Set of DriveLetters;
+{$ENDIF}
+
+TYPE
+  PbxRunDialog  = ^TbxRunDialog;
+  TbxRunDialog  = Object(TDialog)
+    Msg     : PStaticText;
+    RunState: Word;
+    pfFlags : Word;
+    BtnRow  : Byte;
+    SButton : PButton;
+    CButton : PButton;
+
+    Constructor Init(var Bounds   : TRect;
+                         ATitle   : TTitleStr;
+                         AMessage : String;
+                         AOptions : Word;
+                         ButtonRow: Byte);
+    Constructor Load(var S: TStream);
+    Procedure   ChangeMessage(AMessage : String);
+    Function    Execute: Word;                            Virtual;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   Process;                                  Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxPercentDialog  = ^TbxPercentDialog;
+  TbxPercentDialog  = Object(TbxRunDialog)
+    Total   : LongInt;
+    Count   : LongInt;
+    Step    : Word;
+    Pct     : PStaticText;
+    Bar     : PStaticText;
+
+    Constructor Init(ATitle   : TTitleStr;
+                     AMessage : String;
+                     ATotal   : LongInt;
+                     AOptions : Word
+                    );
+    Constructor Load(var S: TStream);
+    Procedure   Increment;
+    Procedure   IncrementBy(AStep : Word);
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxPrintDialog  = ^TbxPrintDialog;
+  TbxPrintDialog  = Object(TbxRunDialog)
+    Constructor Init(ATitle   : TTitleStr;
+                     AMessage : String;
+                     AOptions : Word
+                    );
+  end;
+
+
+  PbxLinkedLine = ^TbxLinkedLine;
+  TbxLinkedLine = Object(TInputLine)
+    LinkEvent : Word;
+
+    Constructor Init(var Bounds : TRect;
+                         AMaxLen: Integer;
+                         EventCode : Word);
+    Constructor Load(var S: TStream);
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxLinkedBox  = ^TbxLinkedBox;
+  TbxLinkedBox  = Object(TListBox)
+    LinkEvent : Word;
+
+    Constructor Init(var Bounds     : TRect;
+                         ANumCols   : Word;
+                         AScrollBar : PScrollBar;
+                         EventCode  : Word);
+    Constructor Load(var S: TStream);
+    Procedure   FocusItem(Item : Integer);                Virtual;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+  PbxMessageDialog  = ^TbxMessageDialog;
+  TbxMessageDialog  = Object(TDialog)
+    SList   : TbxUnsortedStringCollection;
+    DOptions: Word;
+
+    Constructor Init(AOptions : Word);
+    Procedure   AddMessage(St : String);
+    Function    Execute: Word;                            Virtual;
+  end;
+
+
+  PbxListBox  = ^TbxListBox;
+  TbxListBox  = Object(TListbox)
+    Function  GetText(Item  : Integer;
+                      MaxLen: Integer): String;           Virtual;
+  end;
+
+
+  PbxCheckListBox = ^TbxCheckListBox;
+  TbxCheckListBox = Object(TbxListBox)
+    Procedure GetSelectSet(var ASet : TbxByteSet);
+    Function  GetText(Item  : Integer;
+                      MaxLen: Integer): String;           Virtual;
+    Procedure HandleEvent(var Event: TEvent);             Virtual;
+    Function  IsSelected(Item : Integer): Boolean;        Virtual;
+    Procedure SelectItem(Item : Integer);                 Virtual;
+    Procedure SetSelectSet(ASet : TbxByteSet);
+  end;
+
+
+  PbxPairedListBox  = ^TbxPairedListBox;
+  TbxPairedListBox  = Object(TbxListBox)
+    Procedure SelectItem(Item : Integer);                 Virtual;
+    Procedure HandleEvent(var Event : TEvent);            Virtual;
+  end;
+
+
+  PbxPairedStrListBox  = ^TbxPairedStrListBox;
+  TbxPairedStrListBox  = Object(TbxPairedListBox)
+    Function  GetText(Item  : Integer;
+                      MaxLen: Integer): String;           Virtual;
+  end;
+
+
+  PbxVListBox  = ^TbxVListBox;
+  TbxVListBox  = Object(TListBox)
+    AtMin : Boolean;
+    AtMax : Boolean;
+
+    Constructor Init(Bounds     : TRect;
+                     ANumCols   : Word;
+                     AHScrollBar: PScrollBar;
+                     AVScrollBar: PScrollBar);
+    Constructor Load(var S: TStream);
+    Function    FillByPage(Forward : Boolean): Integer;   Virtual;
+    Function    FillFrom(FromTop : Boolean): Integer;     Virtual;
+    Procedure   FocusItem(Item : Integer);                Virtual;
+    Function    GetItem(ACommand : Word): PObject;        Virtual;
+    Procedure   HandleEvent(var Event : TEvent);          Virtual;
+    Function    Lookup(P : PObject): Boolean;             Virtual;
+    Function    MatchItem(P : PObject): Boolean;          Virtual;
+    Procedure   NewList(AList: PCollection);              Virtual;
+    Function    PageSize : Integer;                       Virtual;
+    Procedure   SetCommandState(Enable : Boolean);
+  end;
+
+
+  {$IFDEF USE_NEW_FILE_DIALOG}
+  PbxFileCollection = ^TbxFileCollection;
+  TbxFileCollection = object(TFileCollection)
+    Function Compare(Key1, Key2: Pointer): Integer;       Virtual;
+  end;
+
+
+  PbxFileList = ^TbxFileList;
+  TbxFileList = object(TFileList)
+    Constructor Init(var Bounds     : TRect;
+                         AWildCard  : PathStr;
+                         AScrollBar : PScrollBar);
+
+    Procedure   HandleEvent(var Event: TEvent);           Virtual;
+    Procedure   FocusItem(Item: Integer);                 Virtual;
+
+    { **************************************************
+      NOTE: The following method must be made virtual in
+      the TFileList object in the file STDDLG.PAS unit.
+      At line # 101 add a "virtual" declaration.
+      ************************************************** }
+    Procedure   ReadDirectory(AWildCard : PathStr);       Virtual;
+  end;
+
+
+  PbxDriveList = ^TbxDriveList;
+  TbxDriveList = object(TbxFileList)
+    Constructor Init(var Bounds     : TRect;
+                         AScrollBar : PScrollBar);
+    Procedure   GetDrives(var Drives : DriveSet);
+    Procedure   ReadDirectory(AWildCard : PathStr);       Virtual;
+    Function    GetKey(var S : String): Pointer;          Virtual;
+  end;
+
+
+  PbxFileInputLine = ^TbxFileInputLine;
+  TbxFileInputLine = object(TFileInputLine)
+    Procedure HandleEvent(var Event : TEvent);            Virtual;
+  end;
+
+
+  PbxFileInfoPane = ^TbxFileInfoPane;
+  TbxFileInfoPane = object(TFileInfoPane)
+    Procedure   Draw;                                     Virtual;
+  end;
+
+
+  PbxDirectoryInfoPane = ^TbxDirectoryInfoPane;
+  TbxDirectoryInfoPane = object(TView)
+    Constructor Init(var Bounds: TRect);
+    Function    GetPalette: PPalette;                     Virtual;
+    Procedure   HandleEvent(var Event: TEvent);           Virtual;
+    Procedure   Draw;                                     Virtual;
+  end;
+
+
+  PbxFileDialog = ^TbxFileDialog;
+  TbxFileDialog = object(TFileDialog)
+    DriveList : PbxDriveList;
+
+    Constructor Init(AWildCard  : TWildStr;
+                     ATitle     : String;
+                     InputName  : String;
+                     AOptions   : Word;
+                     HistoryId  : Byte);
+
+    { **************************************************
+      NOTE: In TFileDialog in the unit STDDLG.PAS the
+      method ReadDirectory must be made PUBLIC.
+      At line # 152 remove the "private" declaration.
+      ************************************************** }
+  end;
+  {$ENDIF}
+
+
+{ TvDialog registration procedure }
+
+Procedure RegisterTVDialog;
+
+
+{ Stream Registration Records }
+
+CONST
+  RbxRunDialog: TStreamRec = (
+    ObjType : 5050;
+    VmtLink : Ofs(TypeOf(TbxRunDialog)^);
+    Load    : @TbxRunDialog.Load;
+    Store   : @TbxRunDialog.Store
+  );
+
+
+CONST
+  RbxPercentDialog: TStreamRec = (
+    ObjType : 5051;
+    VmtLink : Ofs(TypeOf(TbxPercentDialog)^);
+    Load    : @TbxPercentDialog.Load;
+    Store   : @TbxPercentDialog.Store
+  );
+
+
+CONST
+  RbxPrintDialog: TStreamRec = (
+    ObjType : 5052;
+    VmtLink : Ofs(TypeOf(TbxPrintDialog)^);
+    Load    : @TbxPrintDialog.Load;
+    Store   : @TbxPrintDialog.Store
+  );
+
+
+CONST
+  RbxLinkedLine: TStreamRec = (
+    ObjType : 5053;
+    VmtLink : Ofs(TypeOf(TbxLinkedLine)^);
+    Load    : @TbxLinkedLine.Load;
+    Store   : @TbxLinkedLine.Store
+  );
+
+
+CONST
+  RbxLinkedBox: TStreamRec = (
+    ObjType : 5054;
+    VmtLink : Ofs(TypeOf(TbxLinkedBox)^);
+    Load    : @TbxLinkedBox.Load;
+    Store   : @TbxLinkedBox.Store
+  );
+
+
+CONST
+  RbxListBox: TStreamRec = (
+    ObjType : 5055;
+    VmtLink : Ofs(TypeOf(TbxListBox)^);
+    Load    : @TbxListBox.Load;
+    Store   : @TbxListBox.Store
+  );
+
+
+CONST
+  RbxCheckListBox: TStreamRec = (
+    ObjType : 5056;
+    VmtLink : Ofs(TypeOf(TbxCheckListBox)^);
+    Load    : @TbxCheckListBox.Load;
+    Store   : @TbxCheckListBox.Store
+  );
+
+
+CONST
+  RbxPairedListBox: TStreamRec = (
+    ObjType : 5057;
+    VmtLink : Ofs(TypeOf(TbxPairedListBox)^);
+    Load    : @TbxPairedListBox.Load;
+    Store   : @TbxPairedListBox.Store
+  );
+
+CONST
+  RbxPairedStrListBox: TStreamRec = (
+    ObjType : 5058;
+    VmtLink : Ofs(TypeOf(TbxPairedstrListBox)^);
+    Load    : @TbxPairedStrListBox.Load;
+    Store   : @TbxPairedStrListBox.Store
+  );
+
+CONST
+  RbxVListBox: TStreamRec = (
+    ObjType : 5059;
+    VmtLink : Ofs(TypeOf(TbxVListBox)^);
+    Load    : @TbxVListBox.Load;
+    Store   : @TbxVListBox.Store
+  );
+
+{$IFDEF USE_NEW_FILE_DIALOG}
+CONST
+  RbxFileCollection: TStreamRec = (
+    ObjType : 5060;
+    VmtLink : Ofs(TypeOf(TbxFileCollection)^);
+    Load    : @TbxFileCollection.Load;
+    Store   : @TbxFileCollection.Store
+  );
+
+CONST
+  RbxFileList: TStreamRec = (
+    ObjType : 5061;
+    VmtLink : Ofs(TypeOf(TbxFileList)^);
+    Load    : @TbxFileList.Load;
+    Store   : @TbxFileList.Store
+  );
+
+CONST
+  RbxDriveList: TStreamRec = (
+    ObjType : 5062;
+    VmtLink : Ofs(TypeOf(TbxDriveList)^);
+    Load    : @TbxDriveList.Load;
+    Store   : @TbxDriveList.Store
+  );
+
+CONST
+  RbxFileInputLine: TStreamRec = (
+    ObjType : 5063;
+    VmtLink : Ofs(TypeOf(TbxFileInputLine)^);
+    Load    : @TbxFileInputLine.Load;
+    Store   : @TbxFileInputLine.Store
+  );
+
+CONST
+  RbxFileInfoPane: TStreamRec = (
+    ObjType : 5064;
+    VmtLink : Ofs(TypeOf(TbxFileInfoPane)^);
+    Load    : @TbxFileInfoPane.Load;
+    Store   : @TbxFileInfoPane.Store
+  );
+
+CONST
+  RbxDirectoryInfoPane: TStreamRec = (
+    ObjType : 5065;
+    VmtLink : Ofs(TypeOf(TbxDirectoryInfoPane)^);
+    Load    : @TbxDirectoryInfoPane.Load;
+    Store   : @TbxDirectoryInfoPane.Store
+  );
+
+CONST
+  RbxFileDialog: TStreamRec = (
+    ObjType : 5066;
+    VmtLink : Ofs(TypeOf(TbxFileDialog)^);
+    Load    : @TbxFileDialog.Load;
+    Store   : @TbxFileDialog.Store
+  );
+{$ENDIF}

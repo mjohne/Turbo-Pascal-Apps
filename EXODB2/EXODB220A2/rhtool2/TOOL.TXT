@@ -1,0 +1,4154 @@
+OVERVIEW
+
+TV Tool Box copyright (c) 1992,93 Richard W. Hansen
+All rights reserved.
+
+The TV Tool Box library was created to enhance the Turbo Vision framework
+for Turbo Pascal. TV Tool Box includes formatted data entry with input masks,
+scrolling data entry dialogs, versatile control for data entry field
+locking, check mark menus, enhancements to TApplication, string routines, 3D
+controls, 3D tool bars, iconizable windows, popup menus, virtual list boxes,
+slider controls, spin controls, and more.
+
+TV Tool Box is distributed as Shareware, IT IS NOT FREE. If you use TV Tool
+Box, please register it. Your registration will allow me to create future
+versions of this product. TV Tool Box is a work in progress, it is by no
+means complete. What happens in the future versions is up to you. If you have
+any ideas for new TV extensions please let me know and I will try to include
+them. Future versions will be available to registered users for a nominal
+fee.
+
+
+DEFINITION OF SHAREWARE
+
+Shareware distribution gives users a chance to try software before buying it.
+If you try a Shareware program and continue using it, you are expected to
+register. With registration, you will get printed documentation, a copy of
+the latest version with readable source and a disk of bonus utilities, source
+code, and programs.
+
+Copyright laws apply to both Shareware and commercial software, and the
+copyright holder retains all rights, with a few specific exceptions as stated
+below. Shareware authors are accomplished programmers, just like commercial
+authors, and the programs are of comparable quality. (In both cases, there
+are good programs and bad ones!) The main difference is in the method of
+distribution. The author specifically grants the right to copy and distribute
+the software, either to all and sundry or to a specific group. For example,
+some authors require written permission before a commercial disk vendor may
+copy their Shareware.
+
+Shareware is a distribution method, not a type of software. You should find
+software that suits your needs and pocketbook, whether it's commercial or
+Shareware. The Shareware system makes fitting your needs easier, because you
+can try before you buy. And because the overhead is low, prices are low also.
+Shareware has the ultimate money-back guarantee -- if you don't use the
+product, you don't pay for it.
+
+
+DISCLAIMER
+
+Users of TV Tool Box must accept this disclaimer of warranty: "TV TOOL BOX is
+supplied as is. The author disclaims all warranties, expressed or implied,
+including, without limitation, the warranties of merchantability and of
+fitness for any purpose. The author assumes no liability for damages, direct
+or consequential, which may result from the use of TV TOOL BOX."
+
+
+LICENSE AGREEMENT
+
+TV TOOL BOX is a "Shareware package" and is provided at no charge to the user
+for evaluation. Feel free to share, but please do not give it away altered or
+as part of another package. If you find this program useful and find that you
+are using TV TOOL BOX and continue to use TV TOOL BOX after a reasonable
+trial period, you must make a registration payment of $40.00 to Richard
+Hansen. The $40.00 registration fee will license one copy for use on any one
+computer at any one time, site licenses are available by contacting Richard
+Hansen. You must treat this software just like a book. Each licensed copy may
+be used by only one person at a time, just as a book cannot be read by two
+different persons at the same time.
+
+Anyone distributing TV TOOL BOX for any kind of remuneration must first
+contact Richard Hansen for authorization.
+
+
+BECOMING A REGISTERED OWNER OF TV TOOL BOX
+
+You may register by check, money order, credit card, or online on the
+CompuServe information service. All registrations are $40.00 plus $5.00
+shipping and handling.
+
+Checks or money orders are prefered if possible. Please make all checks
+payable in U.S. dollars, drawn on a U.S. bank. Orders paid by check drawn on
+a non-U.S. bank will be returned. I apologize for any inconvenience but high
+bank charges, roughly 50%, make this necessary.
+
+You can also register online on CompuServe. Type GO SWREG, and follow the
+prompts. The Registration Id for CompuServe is 1121. All Compuserve
+registrations are $45.00, including shipping and handling.
+
+You may place an order by Master Card, VISA, American Express, or Discover by
+contacting Public Software Library at (800) 242-4PSL (from overseas
+(713) 524-6394), by FAX at (713) 524-6398, or on CompuServe at 71355,470.
+These numbers are for credit card orders only! Please, do not call these
+numbers for any type of technical assistance. The Registration Id for PSL is
+10896. All PSL registrations are $45.00, including shipping and handling.
+
+Site licenses and multiple copy discounts are available. Remember a
+registered copy is required for each programmer using TV Tool Box.
+
+Please contact me with any comments, suggestions, problems, bugs, or
+questions.
+
+Richard Hansen
+PO Box 18571
+Saint Paul, MN  55118-0571  USA
+
+CompuServe : 70242,3367
+InterNet   : 70242.3367@compuserve.com
+FidoNet    : 1:282/115
+
+
+DEMO
+
+The file Demo.exe is the main demo for TV Tool Box. This demo shows most of
+the features of TV Tool Box. Choose the [Test] option off the main menu bar
+to check them out. Select [Data Entry] to test some new data entry
+features. TV Tool Box supports formatted data entry using programmer supplied
+entry mask strings. You can include literals, such as '(' or '-' in your
+masks, that cannot be typed over by your users. The data entry features also
+include, field locking, hidden password fields, justification, trimming, and
+alternate padding chars.
+
+If you ever wanted a little fancier look in your TV apps (dare I say it),
+like Visual Basic for DOS, check out the 3D controls. The 3D controls include
+a vertical or horizontal tool bar (almost like MS Windows?), 3D buttons
+that can have up to two lines of text, 3D input lines, 3D list boxes, 3D
+history lists, etc.
+
+Select [Check Marks] and try out the check mark enhancement for menus.
+
+If you have need of a ASCII/HEX editor, like those used in disk utilities,
+now you have got one. Select [Ascii/Hex Editor] to check it out.
+
+Have you ever wanted a simple way to display some text without creating a
+dialog box or window and a specialized Draw method, try the [Text Display
+Window] option. This will display a TbxTextWindow object. With TbxTextWindow
+you just create it and use the Write method to display string, almost like
+writing to the screen without Turbo Vision.
+
+If you select [Message Dialog], you can check out a replacement for the
+MessageBox procedure. A TbxMessageDialog will automatically size itself for
+the number and length of the lines of text you insert into it.
+
+On the [Setup] menu, you can setup a neat idea I stole from my favorite
+programmer's text editor "Multi-Edit" from American Cybernetics, Inc. If you
+check the option, the mouse cursor will be turned off whenever the keyboard
+is used. The mouse cursor is restored whenever the mouse is moved or a mouse
+button is pressed.
+
+Included in TV Tool Box is a descendant of TDialog called TbxRunDialog. A
+TbxRunDialog is used to create progress display dialogs for things like
+printing, copying files, etc. TbxRunDialog has easy an method for
+implementing pause, continue, and cancel. There are two ready made
+descendants of TbxRunDialog, TbxPercentDialog and TbxPrintDialog.
+TbxPercentDialog displays the percentage completion with a progress bar.
+TbxPrintDialog is a skeleton for a printing dialog. Select [Progress Dialog]
+or [Print Dialog] to try them out.
+
+[Virtual List Boxes] provide a list box that is perfect for database work or
+whenever you have a list that is too large a normal TCollection. Virtual
+list boxes display a only a portion of a larger (perhaps very much larger)
+list. Virtual list boxes can page through the list or jump to the beginning
+or end of the list. The demo implements a list of all integers from 1 -
+99999. This is obviously too large for a TCollection which can handle a
+maximum of 16K elements.
+
+I have added a couple enhancements to TWindows. A TbxWindow can be minimized,
+using the "minimize" icon in the upper right corner. If you hit Alt-Minus,
+or press the right mouse button on the "close" icon, a window control menu
+will popup.
+
+Please be sure and check out the file Scroll.exe for a look at scrolling
+dialogs and data entry windows.
+
+
+GETTING STARTED
+
+TV Tool Box is broken into several units. The unit names and their contents
+generally correspond with the associated Turbo Vision units :
+
+TVDEFS.INC     Some defs that change the compilation.
+TVCONST.PAS    Global constants.
+TVTYPE.PAS     Global types.
+TVSTRING.PAS   String handling routines.
+TVINPUT.PAS    Extensions of TInputLine and other data entry objects.
+TVVIEWS.PAS    Extensions of TView and other objects defined in Views.pas.
+TVDIALOG.PAS   Extensions of TDialog and other objects defined in Dialogs.pas.
+TVAPP.PAS      Extensions of TApplication from App.pas.
+TVMENUS.PAS    Extension of menu objects in Menus.pas.
+TVSCROLL.PAS   Scrolling dialog boxes and data entry windows.
+TV3D.PAS       3D dialog boxes and control objects.
+
+Just copy the source code into your working directory or one that is
+identified in "unit paths" of your compiler configuration. The first time you
+compile, make sure to do a "build" or "make" so the needed TPUs will be
+created. If you compile "Demo.pas" and "Scroll.pas", all the TPUs will be
+created.
+
+All objects and types defined by TV Tool Box begin with the prefix "Tbx" all
+object pointer types begin with the prefix "Pbx". This will allow you to
+easily identify a TV Tool Box type and should avoid problems with like named
+objects in other libraries. This naming convention is changed from version
+1.0 and may cause you some minor conversion problems. The intent was to
+provide some standardization and a base to build on in future versions. I
+apologize if this causes undue difficulties, but it seemed the best method to
+bring a little order to the library.
+
+TV Tool Box is supplied in source code form, to avoid compilation problems.
+Don't bother trying to read it though, it has been pretty well mangled and is
+very hard to read. THE FULL READACLE SOURCE CODE IS INCLUDED WITH THE
+REGISTERED VERSION.
+
+When compiling you should use the X+, B+, and V- compiler directives. These
+directives are set as the default in all the TV Tool Box units.
+
+This documentation should have a familiar look, as I tried to copy the
+Borland style as much as possible (without going nuts). One difference is
+that each object entry title lists the parent object, if any, in parentheses
+immediately following the object name, i.e.  Tbx3DButton (TButton).
+
+
+TV TOOL BOX DEVELOPMENT TOOLS
+
+TV Tool Box is actively supported by PtGen. PtGen is a Turbo Vision 2.0
+screen generator. You can reach the author of PtGen, Berend de Boer, at:
+
+  CompuServe : 100120,3121
+  InterNet   : berend@contrast.wlink.nl
+  FidoNet    : 2:281/527.23
+
+PtGen can create the layout for a whole application or a single dialog
+box. It is completely visual and interactive. Highlights of PtGen,
+besides supporting TV Tool Box are:
+
+*  creates complete applications or standalone dialog boxes
+*  quick interactive menu building
+*  quick interactive status line building
+*  quick interactive dialog box building
+*  full helptext support for status line help as well as helpfiles (.HLP)
+*  a tutorial, covering creation of status lines, menus, and dialog boxes
+
+PtGen currently supports all 3D controls of TV Tool Box. Basic support for
+the TbxEditLine (including mask definition) is also provided. Planned
+enhancements include supporting all input lines and support for scrolling
+dialog boxes.
+
+Registered users of PtGen receive 25% reduction on their TV Tool Box package,
+just as registered users of TV Tool Box receive 25% reduction on their PtGen
+package. The shareware version of PtGen is shipped with every registered
+version of TV Tool Box.
+
+
+REFERENCE
+
+AllBlanks function                                              TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function AllBlanks(const S: String): Boolean;
+Function        Test for an empty string. Returns True if string S is null or
+                all spaces.
+
+AssignOutput procedure                                          TvViews
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Procedure AssignOutput(var F: Text; AWindow: PbxTextWindow);
+Function        AssignOutput is used to redirect the output from Write and
+                Writeln statements to a TbxTextWindow. To send the normal
+                Writeln output to a window instead of the CRT, pass Output
+                (the standard Pascal output device) in the parameter F. The
+                window passed in the AWindow parameter MUST NOT be closed
+                until the output has been reset.
+
+                AssignOutput(Output, ATextWin);
+                Rewrite(Output);
+                Writeln('SOME TEXT');
+                ....
+                Close(Output);
+                Assign(Output, '');
+                Rewrite(Output);
+See also        TbxTextWindow
+
+BarChar variable                                                TvDialog
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	BarChar : Char = '';
+Function        Used to draw the unfilled portion of a progress bar in
+                TbxPercentDialogs.
+See also        BarFillChar, TbxPercentDialog
+
+BarFillChar variable                                            TvDialog
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	BarFillChar : Char = '';
+Function        Character that draws the filled portion of a progress bar in
+                TbxPercentDialogs.
+See also	BarChar, TbxPercentDialog
+
+Blanks function                                                 TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function Blanks(Len: Byte): String;
+Function	Return a string of Len spaces.
+See also	Chars
+
+BusyWindow variable                                             TvApp
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	BusyWindow  : PbxBusyWindow = nil;
+Function        Stores a pointer to the application's busy message display
+                window. BusyWindow is initialized by TbxApplication.Init.
+See also        TbxApplication.HideBusy, TbxApplication.ShowBusy,
+TbxBusyWindow
+
+ButtonNormal variable                                           Tv3D
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	ButtonNormal : TbxFrameArray = '';
+Function        Defines the frame characters used to draw a normal unselected
+                3D button.
+See also        ButtonPress, ButtonSelect,
+OutlineNormal
+
+ButtonPress variable                                            Tv3D
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	ButtonPress : TbxFrameArray = '';
+Function	Defines the frame characters used to draw a pressed 3D button.
+See also	ButtonNormal, ButtonSelect, OutlineNormal
+
+ButtonSelect variable                                           Tv3D
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	ButtonSelect :TbxFrameArray = '';
+Function        Defines the frame characters used to draw a selected 3D button.
+See also	ButtonNormal, ButtonPress, OutlineNormal
+
+Chars function                                                  TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function Chars(Len: Byte; Ch: Char): String;
+Function 	Return a string of size Len characters of Ch.
+See also	Blanks
+
+CheckMark variable                                              TvMenus
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	CheckMark : String[10] = '';
+Function        This is text used to indicate selected check mark menu items.
+                The marker is normally a check mark, but could be any text
+                such as 'ON'. CheckMark is used with CheckMarkNull to
+                indicate the state of a check mark menu item. It must be the
+                length, or padded with spaces to the length stored in
+                CheckMarkLen.
+See also        CheckMarkLen, CheckMarkNull, NewMarkedItem, TbxMenuBar
+
+CheckMarkNull variable                                          TvMenus
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	CheckMarkNull : String[10] = ' ';
+Function        CheckMarkNull is the text used to clear unselected check mark
+                menu items. It would normally be one space, but could be any
+                text such as 'OFF'. CheckMarkNull is used with CheckMark to
+                indicate the state of a check mark menu item. It must be the
+                length, or padded with spaces to the length stored in
+                CheckMarkLen.
+
+See also	CheckMark, CheckMarkLen, NewMarkedItem, TbxMenuBar
+
+CheckMarkLen variable                                           TvMenus
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	CheckMarkLen : Byte = 1;
+Function        CheckMark and CheckMarkNull must both be exactly this length.
+                They can be any text like "Yes" and "No ", or "ON " and
+                "OFF", but they must be the same length and that length must
+                be exactly CheckMarkLen bytes.
+See also        CheckMark, CheckMarkNull, NewMarkedItem, TbxMenuBar
+
+cmXXXX constants                                                TvConst
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                Command         Value   Meaning
+                cmFirstPage     246     Issued to a virtual list box to move
+                                        to the top of the list.
+                cmLastPage      247     Sent to a virtual list box to move to
+                                        the bottom of the list.
+                cmNextPage      248     Issued to a virtual list box to move
+                                        to the next page in the list.
+                cmPrevPage      249     Sent to a virtual list box to move
+                                        to the previous page in the list.
+                cmMaximize      250     Maximize a window.
+                cmMinimize      251     Minimize a window.
+                cmStartJob      252     Used to start processing in a
+                                        TbxRunDilaog.
+                cmPauseJob      253     Pauses processing in a TbxRunDialog.
+                cmContinueJob   254     Restarts TbxRunDialog processing.
+                cmCancelJob     255     Cancels the processing of a
+                                        TbxRunDialog.
+                cmMarkStart     10000   Start of marked menu items.
+                cmMarkEnd       11000   End of marked menu items. Start and
+                                        End are used by HandleEvent to toggle
+                                        menu markers.
+                cmCursorMoved   11001   TbxEditBuff uses this command to
+                                        communicate when the cursor has moved
+                                        and other peer views should update
+                                        the cursor position.
+                cmUpdateView    11002   Used by TbxEditBuff to tell the
+                                        parent and peer views that data needs
+                                        to be redisplayed.
+                cmEditView      11003   TbxEditBuff uses this command to
+                                        inform its parent view that data has
+                                        been edited.
+                cmPrint         11004   Command to tell a window to print
+                                        its contents. Not currently used.
+                cmJobComplete   11005   Issued by the process loop of a
+                                        TbxRunDialog when processing is
+                                        complete.
+                                        Causes the dialog box to be closed.
+                cmPopMenu       11006   A TbxFrame broadcasts this command to
+                                        tell the parent window to popup a
+                                        window control menu.
+                cmTakeItem      11007   Message used by TbxPairedListBoxes to
+                                        send data back and forth.
+                cmDisplayStr    11008   Sent to a TbxTextWindow to write a
+                                        string to the window.
+                cmDisplayClr    11009   Sent to a TbxTextWindow to clear its
+                                        display.
+                cmDragView      11011   If a TbxScrollView receives this
+                                        command, it will go into
+                                        "resize/move" mode.
+                cmIdentify      11012   Issued to a TbxEditLine to get its ID
+                                        number.
+                cmSetId         11013   Sent to a TbxEditLine to set its ID
+                                        number.
+                cmFieldError    11014   Sent to a parent dialog by a
+                                        TbxEditLine to display an error
+                                        message.
+
+CompareDate function                                            TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration     Function CompareDate(Date1: TbxDateRec;
+                                     Date2: TbxDateRec): Integer;
+Function        Compares two dates and returns 1 if Date1 is greater than
+                Date2, -1 if Date1 is less than Date2, and 0 if the Date1
+                equals Date2. This routine is intended mainly for use by the
+                TbxDate object.
+See also        TbxDate, TbxDateRec
+
+CopyInto procedure                                              TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration     Procedure CopyInto(const InStr: String; Column: Byte;
+                                   var OutStr: String);
+Function        Copy InStr into OutStr starting from position Column and
+                return the result in OutStr. The result is returned in
+                OutStr. This routine is great for creating formatted output.
+                This is not just another Insert. It does not move any chars
+                as Insert does, it just overwrites characters in the existing
+                string. CopyInto will not copy beyond the end of the
+                destination string (OutStr).
+See also	FCopyInto
+
+DateSlash constant                                              TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	DateSlash : Char = '/';
+Function        The date separator character used in creating formatted date
+                strings. All date format masks should contain a "/" character
+                to separate month, day, and year fields. The "/" is replaced
+                by the DateSlash character in the formatted output.
+See also        DateToDateString, TbxDate
+
+DateToDateString function                                       TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration     Function DateToDateString(Date: TbxDateRec;
+                                          Picture: TbxDateSt): TbxDateSt;
+Function        Convert Date to a string, following the formatting
+                instructions in Picture. Picture must be a string like
+                "mm/dd/yy", "DD/MM/YYYY", etc. The characters "d", "D", "m",
+                "M", "y", "Y" or "/" are the only characters used in
+                formatting the output.
+
+                "d" or "D" specifies the position of the day, "m" or "M"
+                specifies the position of the month, and "y" or "Y" specifies
+                the position of  the year in the output. Day, Month, and Year
+                may be separated by a forward slash, "/". Days and months
+                would normally be two characters, years may be up to four
+                characters. Any "/" characters in the mask will be replaced
+                by the character in the DateSlash constant.
+
+                Unused day, month, or year characters in Picture will be
+                replaced by spaces or zeros in the output. If a format
+                character is upper case it is replaced by a space. If a
+                format character is lower case it is replaced by zero.
+
+                This routine is intended mainly for use by the TbxDate
+                object.
+See also        ExtractDateFromString, TbxDate
+
+DaysInMonth function                                            TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function DaysInMonth(Date: TbxDateRec): Word;
+Function        Returns the days in the month in the specified Date. The year
+                value in Date must be valid, so that leap year can be checked.
+                This routine is intended mainly for use by TbxDate.
+See also	TbxDate
+
+DecimalPt constant                                              TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	DecimalPt = '.';
+Function        Character used for decimal points in the floating point number
+                editors.
+See also	TbxDoubleEdit, TbxFloatEdit, TbxRealEdit
+
+DefaultDay variable                                             TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration     DefaultDay : Word = 0;
+Function	Supplies the default day value for a TbxDateEdit object.
+See also	DefaultMonth, DefaultYear, TbxDateEdit
+
+DefaultYear variable                                            TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration     DefaultYear : Word = 0;
+Function	Supplies the default year value for a TbxDateEdit object.
+See also	DefaultDay, DefaultMonth, TbxDateEdit
+
+DefaultMonth variable                                           TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration     DefaultMonth : Word = 0;
+Function	Supplies the default month value for a TbxDateEdit object.
+See also	DefaultDay, DefaultYear, TbxDateEdit
+
+
+dfXXXX constants                                                TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                These commands are used by TbxEditLine, its descendants, and
+                other views inserted into a TbxEntryDialog.
+
+                Command         Value           Meaning
+                dfRequired      $0001           Field entry is required.
+                dfRJustify      $0002           Trim and Right justify result.
+                dfLJustify      $0004           Trim and Left justify result.
+                dfTrim          $0008           Trim all pad chars from result
+                dfHide          $0010           Password input.
+                dfDefaults      $0020           If this option is set the field
+                                                may use default values to fill
+                                                in missing data. Currently only
+                                                date edit controls have default
+                                                values.
+See also        TbxEditLine
+
+EditMask characters                                             TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                These characters are used to create edit masks for
+                TbxEditLine and its descendants. The only editable characters
+                in an edit mask are where one of these characters appear.
+                Each mask character has a set of valid characters associated
+                with it. Only the characters associated with a mask character
+                will be accepted by the edit line.
+
+                Character       Function
+                X               Any character.
+                U               Any character, force upper case
+                L               Any character, force lower case
+                a               Alpha numeric only
+                u               Alpha numeric only, force upper case
+                l               Alpha numeric only, force lower case
+                #               Numbers, minus sign, period
+                9               Numbers only
+                &               Hexadecimal numbers
+                @               Dates (internal use only)
+See also	TbxEditLine
+
+ExtractDateFromString procedure                                 TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration     Procedure ExtractDateFromString(var Date: TbxDateRec;
+                                                Picture: TbxDateSt;
+                                                ADateSt: TbxDateSt);
+Function        Extracts a TbxDateRec from the date string ADateSt. Date is
+                extracted from the string ADateSt using the mask Picture. In
+                Picture a "m", or "M" indicates the position of the month, a
+                "d" or "D" locates the position of the day, and "y" or "Y"
+                indicates the position of the year.
+
+                This routine is intended mainly for use by TbxDate.
+See also	DateToDateString, TbxDate
+
+FCopyInto function                                              TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration     Function FCopyInto(const InStr: String; Column: Byte;
+                                   OutStr: String): String;
+Function        Copy InStr into OutStr starting from position Column and
+                resturn the result. This routine is great for creating
+                formatted output. This is not just another Insert. It does
+                not move any chars as Insert does, it just overwrites
+                characters in the existing string. FCopyInto will not copy
+                beyond the end of the destination string (OutStr).
+See also        CopyInto
+
+FLeftPad function                                               TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function FLeftPad(S: String; Len: Byte): String;
+Function	Return string S left padded to length Len with spaces.
+See also	LeftPad
+
+FLeftPadCh function                                             TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function FLeftPadCh(S: String; Len: Byte; Ch: Char): String;
+Function	Return string S left padded to length Len with character Ch.
+See also	LeftPadCh
+
+FormatF function                                                TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration     Function FormatF(const Mask: TbxNumberMask; Flt: Double;
+                                 DP : Integer): String;
+                                   - or -
+                Function FormatF(const Mask: TbxNumberMask; Flt: Real;
+                                 DP : Integer): String;
+Function        Returns a formatted string from floating point number Flt
+                according to the formatting instructions contained in Mask
+                and the maximum number of decimal places in DP. DP specifies
+                the number of digits to the right of the decimal place to
+                retain in the output. If DP is negative, the number of the
+                digits is determined strictly by the output mask. DP can be
+                used to align numbers with different decimals on the decimal
+                point. Note : The maximum mask size is 30 characters.
+
+                The three characters #,@,& indicate how to format the output
+                string. They serve as place holders in the mask for the
+                digits in the number. All other characters are copied from
+                the mask to the output unchanged.
+
+                In the output any unused # is replaced by a space, any unused
+                @ is replaced by zero, and any unused & is deleted. The #,@,&
+                characters can be mixed as desired in the mask. Given the
+                same mask, calls to FormatF with different values of DP will
+                return strings with the decimal points aligned.
+
+                If a number is too large to fit in the given mask, all digits
+                in the output will be set to '*'.
+
+                Some examples :
+
+                Input                                   Output
+                FormatF('#####.####', 12345.6789, 4)    12345.6789
+                FormatF('#####.####', 12345.6789, 3)    12345.679
+                FormatF('#####.####', 1234.5678, 3)      1234.568
+                FormatF('#####.####', 12345.6789, -1)   12345.6789
+                FormatF('##,###.###,#', 12345.6789, 4)  12,345.678,9
+                FormatF('$ ##,###.####', 12345.6789, 4) $ 12,345.6789
+                FormatF('$ ##,###.####', 123.4, 2)      $    123.4
+                FormatF('$ ##,###.@@@@', 12345.6, 1)    $ 12,345.6000
+                FormatF('$ &&,&&&.@@@@', 1234.56, 2)    $ 1,234.5600
+                FormatF('$ &&,&&&.@@@@', 123.4, 2)      $ 123.4000
+                FormatF('#####.####', 9999999.9999, 4)  *****.****
+See also	FormatI
+
+FormatI                                                         TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration     Function FormatI(const Mask: TbxNumberMask;
+                                 Long: LongInt): String;
+Function        Returns a formatted string created from the integer number
+                Long according to the formatting instructions contained in
+                the string Mask. Note: The maximum mask size is 30 characters.
+
+                The three characters #,@,& indicate how to format the output
+                string. They serve as place holders in the mask for the
+                digits in the number. All other characters are copied from
+                the mask to the output unchanged.
+
+                In the output any unused # is replaced by a space, any unused
+                @ is replaced by zero, and any unused & is deleted. The #,@,&
+                can be mixed as desired in the mask. If a number is too large
+                to fit in the given mask, all digits in the output will be
+                set to *.
+
+                Some examples :
+
+                Input                           Output
+                FormatI('#####', 999)             999
+                FormatI('@@@@@', 999)           00999
+                FormatI('&&&&&', 999)           999
+                FormatI('##,###', 9999)          9,999
+                FormatI('&&,&&&', 9999)         9,999
+                FormatI('##,###', 999999)       **,***
+See also        FormatF
+
+FPad function                                                   TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function FPad(S: String; Len: Byte): String;
+Function	Return string S right padded to length Len with spaces.
+See also	Pad
+
+FPadCh function                                                 TvStrings
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function FPadCh(S: String; Len: Byte; Ch: Char): String;
+Function	Return string S right padded to length Len with character Ch.
+See also	PadCh
+
+
+FStrip function                                                 TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function FStrip(S: String; const Chars: TbxCharSet): String;
+Function        Remove all occurrences of the characters in the set Chars from
+                string S and return the result.
+See also	Strip
+
+FTrim function                                                  TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function FTrim(S: String): String;
+Function	Return string S with leading and trailing blanks removed.
+See also	Trim
+
+FTrimCh function                                                TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function FTrimCh(S: String; Ch: Char): String;
+Function        Return string S with all leading and trailing characters equal
+                to Ch removed.
+See also	TrimCh
+
+FTrimLead function                                              TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function FTrimLead(S: String): String;
+Function	Return string S with leading blanks removed.
+See also	TrimLead
+
+FTrimLeadZero function                                          TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function FTrimLeadZero(S: String): String;
+Function	Return string S with leading zeros removed.
+See also	TrimLead
+
+FTrimTrail function                                             TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function FTrimTrail(S: String): String;
+Function	Return string S with trailing blanks removed.
+See also	TrimTrail
+
+FTruncateStr function                                           TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function FTruncateStr(S: String; Len: Byte): String;
+Function        If string S is longer than length Len, then truncate S to Len
+                characters and return the result.
+See also	TruncateStr
+
+gfXXXX constants                                                TvScroll
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                Any view in a TbxScrollWindow or TbxScrollDialog with this
+                bit set in its GrowMode field will scroll as needed in the
+                window or dialog box.
+
+                Command         Value   Meaning
+
+                gfScrollXY      $80     The view will scroll in the window or
+                                        dialog box.
+
+HideChar variable                                               TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	HideChar  : Char = '*';
+Function	Character used for password type entry in a TbxEditLine.
+See also	TbxEditLine, dfXXXX constants
+
+HexString function                                              TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function HexString(I: LongInt): String;
+Function	Convert LongInt I to a hexadecimal string.
+
+IsLeapYear function                                             TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function IsLeapYear(Year : Word): Boolean;
+Function        Returns True if Year is a leap year. Year must be a full four
+                digit year. This routine is intended mainly for use by
+                TbxDate.
+See also	TbxDate
+
+LeftPad procedure                                               TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Procedure LeftPad(var S: String; Len: Byte);
+Function	Return string S left padded to length Len with spaces.
+See also	FLeftPad
+
+LeftPadCh procedure                                             TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Procedure LeftPadCh(var S: String; Len: Byte; Ch: Char);
+Function	Return string S left padded to length Len with character Ch.
+See also	FLeftPadCh
+
+mfXXXX constants                                                TvDialog
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                Constants used to set options in a TbxRunDialog. These are an
+                extension of the set of mfXXXX constants found in the
+                standard Turbo Vision file MSGBOX.PAS.
+
+                Command         Value   Meaning
+                mfMessageLine   $1000   A TbxRunDialog initialization option
+                                        that will create a pointer to a
+                                        TStaticText message line in the
+                                        dialog box.  mfPauseButton
+                $2000                   This will insert a "pause" button in
+                                        a TbxRunDialog.
+                mfPauseCancel           Combines mfPauseButton and
+                                        mfCancelButton.
+                mfOKPauseCancel         Combines mfOKCancel and mfPauseButton.
+
+MousePopupMenu function                                         TvMenus
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration     Function MousePopupMenu(PopMenu: PMenuBox): Word;
+Function        Displays and executes, by calling ExecView, a popup menu.
+                MousePopupMenu displays the menu at the current position of
+                the mouse cursor and adjusts the menu positioning as needed
+                to keep it within the desktop. MousePopupMenu returns the
+                selected menu command.
+See also        PopupMenu
+
+NewMarkedItem function                                          TvMenus
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration     Function NewMarkedItem(Name, Param: TMenuStr; KeyCode: Word;
+                                       Command: Word; AHelpCtx: Word;
+                                       Next: PMenuItem): PMenuItem;
+Function        Returns a PMenuItem, just like the standard menu function
+                NewItem, adding the space needed for a check mark. If
+                desired you can manually mark an item, just make sure that
+                Name = Marker + ' ' + MenuItemName. If you want menu items
+                to be checked and unchecked by the menu bar automatically,
+                then Command should be from cmMarkStart through cmMarkEnd.
+See also        CheckMark, CheckMarkLen, CheckMarkNull, TbxMenuBar,
+                cmXXXX constants
+
+ofXXXX constants                                                TvConst
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Used by various views to control setup options.
+
+Command         Value   Meaning
+ofPosIndicator  $1000   Add a position indicator to the view.
+ofVScrollBar    $2000   Add a vertical scroll bar to the view.
+ofHScrollBar    $4000   Add a horizontal scroll bar to the view.
+
+OutlineNormal variable                                          Tv3D
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	OutlineNormal : TbxFrameArray = '';
+Function        Defines the frame characters used to draw a 3D outline.
+                Outlines are drawn around 3D input lines, 3D check boxes, 3D
+                radio buttons, etc.
+See also        ButtonNormal, ButtonPress, ButtonSelect
+
+Pad procedure                                                   TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Procedure Pad(var S: String; Len: Byte);
+Function	Return string S right padded to length Len with spaces.
+See also	FPad
+
+PadCh procedure                                                 TvStrings
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Procedure PadCh(var S: String; Len: Byte; Ch: Char);
+Function	Return string S right padded to length Len with character Ch.
+See also	FPadCh
+
+PopupMenu function                                              TvMenus
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Function PopupMenu(PopMenu: PMenuBox): Word;
+Function        Displays and executes, by calling ExecView, a popup menu.
+                PopupMenu adjusts the menu positioning as needed to keep it
+                within the desktop. PopupMenu returns the selected menu
+                command.
+See also	MousePopupMenu
+
+SetDateDefaults procedure                                       TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Procedure SetDateDefaults;
+Function        Call to set the default date values used in a TbxDateEdit
+                control when user does not enter a complete date. Fills the
+                constants DefaultDay, DefaultYear, DefaultMonth with the
+                current system date values.
+See also        DefaultDay, DefaultMonth, DefaultYear, TbxDateEdit
+
+Strip procedure                                                 TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Procedure Strip(var S: String; const Chars: TbxCharSet);
+Function        Remove all occurrences of the characters in the set Chars
+                from string S.
+See also	FStrip
+
+TbxApplication (TApplication)                                   TvApp
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxApplication sets up a TbxBusyWIindow, and has ready made
+                methods for showing and erasing one. It also has a GetEvent
+                method that turns off the mouse cursor when the keyboard is
+                used.
+
+                TbxApplication implements two methods for closing all windows
+                on the desktop. First, by a direct call the CloseAllWindows
+                method. Second, by sending a cmCloseAll command to the
+                application.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+MouseVisible 	MouseVisible : Boolean;
+
+                Is the mouse cursor currently visible
+
+
+
+ToggleMouse 	ToggleMouse : Boolean;
+
+                Can the mouse cursor be toggled off when not in use? The
+                default state is True.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init;
+
+                Calls TAplication.Init, then creates BusyWindow and sets the
+                mouse flags.
+
+Load            Constructor Load(var S: TStream);
+CloseAllWindows	Procedure CloseAllWindows;
+
+                Executes a ForEach loop that instructs all open windows on
+                the desktop to close.
+
+GetEvent	Procedure GetEvent(var Event: TEvent); Virtual;
+
+                Calls TApplication.GetEvent, then, if ToggleMouse is True,
+                shows or hides the mouse cursor as needed. Whenever a key is
+                pressed the mouse cursor is hidden, whenever the mouse is
+                moved or a button pressed the mouse cursor is displayed.
+
+GetPalette	Function GetPalette: PPalette; Virtual;
+
+                Returns a pointer to the new default palette, CAppColor,
+                CAppBlackWhite, or CAppMonochrome.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Calls the inherited HandleEvent, then if the command is
+                cmCloseAll, calls the CloseAllWindows method.
+
+HideBusy	Procedure HideBusy;
+
+                Hides the BusyWindow by calling its Hide method.
+
+SetMouseToggle	Procedure SetMouseToggle(const Enable: Boolean);
+
+                Sets the ToggleMouse flag.
+
+ShowBusy	Procedure ShowBusy;
+
+                Displays the BusyWindow by calling its Show method.
+
+Store           Procedure Store(var S: TStream);
+See also	TApplication, TbxBusyWindow
+
+TbxAsciiBuff (TbxEditBuff)                                      TvViews
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                A descendant of TbxEditBuff for editing ascii data. This is
+                the ascii edit buffer in the TbxEditBuffWindow object.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(Bounds: TRect; Buff: Pointer; BuffSize: Word;
+                                 AVScrollBar: PScrollBar);
+
+                Calls TbxEditBuff.Init setting ItemWidth to one. Buff is a
+                pointer to the data buffer. BuffSize is the size of the data
+                buffer. AVScrollBar is the scroll bar attached to the parent
+                window and may be nil.
+
+Draw            Procedure Draw; Virtual;
+
+                Overrides the inherited Draw to display the data buffer in
+                ASCII character format.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Accepts all characters 1 through 255, except Tab, for entry.
+                When a valid character is typed it saves the character in the
+                data buffer and broadcasts three messages: cmUpdateView,
+                cmEditView, and kbRight.  These messages inform peer views to
+                redraw, inform the parent to update the maximum edit
+                position, and the cursor to move to the next character.
+See also	TbxAsciiHexEditor, TbxEditBuff, TbxHexBuff, TScroller
+
+TbxAsciiHexEditor (TbxWindow)                                   TvViews
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                The TbxAsciiHexEditor object implements a ASCII/HEX editing
+                window. It is just like those used with many disk utility
+                programs. The window can be of any size, but to keep ASCII
+                and Hex views in sync, in side by side views, there are a
+                couple things to remember. The hex view will take twice as
+                many chars to display the data as the ascii view. So the X
+                dimension should be an even number that will allow one view
+                to be exactly twice as big as the other. The X dimension
+                should also be evenly divisible by 3. This will make sure
+                that the hex display does not split a character across two
+                rows. This said, make sure to account for the frame.
+
+                An example : a width of 62, allows 3 chars for the frame, and
+                will give hex view 40 wide and an ascii view 20 wide.
+
+                Because of all the above, and because the right combination
+                of gfGrow modes could not be found, the window is set up to
+                only grow in the Y axis.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+MaxPos          MaxPos : Word;
+
+                Always contains the highest position edited in the data
+                buffer.
+
+LView           LView : PbxEditBuff;
+
+                Pointer to the hex editor view on the left side.
+
+RView           RView : PbxEditBuff;
+
+                Pointer to the ascii editor view on the right side.
+
+VScrollBar      VScrollBar : PbxMultiScrollBar;
+
+                Pointer to a vertical scroll bar.
+
+Indicator 	Indicator : PbxPosIndicator;
+
+                Points to a view that displays the current cursor byte
+                position the data buffer.
+
+Modified	Modified : Boolean;
+
+                Indicates if any characters in the data have been changed
+                since the window was created.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(Bounds: TRect; ATitle: TTitleStr;
+                                 ANumber: Integer; AOptions: Word;
+                                 Buff: Pointer; BuffSize: Word);
+
+                Creates and inserts a hex editor and an ascii editor. The hex
+                editor is sized to be exactly twice as wide as the ascii
+                editor. Bounds.B.X is adjusted as needed to get the correct
+                overall width for the window. The AOptions param in Init only
+                uses the ofPosIndicator flag. ofPosIndicator tells the window
+                whether or not to insert a position indicator into the frame.
+                ATitle and ANumber are passed through to TWindow.Init.
+
+Load            Constructor Load(var S: TStream);
+
+                Constructs the object from stream S by calling TWindow.Load,
+                then reading the new data belonging to TbxAsciiHexEditor.
+                The data buffer is not loaded from the stream. You must make
+                a call to the SetData method to establish the data buffer and
+                buffer size.
+
+DataSize        Function DataSize: Word; Virtual;
+
+                Returns the data buffer size established in Init.
+
+GetData         Procedure GetData(var Rec); Virtual;
+
+                Returns a TbxBufData record with a pointer to the data buffer
+                and the data buffer size
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Handles the messages cmUpdateView, cmEditView, cmCursorMoved
+                to keep both views up to date.
+
+SetData         Procedure SetData(var Rec); Virtual;
+
+                Accepts a TbxBufData record with a pointer to the data buffer
+                and the data buffer size. Resets the modified flag, zeros the
+                position indicator, and updates both views,
+
+SetState	Procedure SetState(AState: Word; Enable: Boolean); Virtual;
+
+                Keeps the position indicator state in sync with the rest of
+                the view.
+
+SizeLimits	Procedure SizeLimits(var Min, Max: TPoint); Virtual;
+
+                Overrides the standard SizeLimits to keep the X dimension
+                from changing.
+
+Store           Procedure Store(var S: TStream);
+
+                Writes the object to stream S. Keep in mind that the data
+                buffer is not stored on the stream.
+See also	TbxAsciiBuff, TbxEditbuff, TbxHexBuff, TWindow
+
+TbxBufData type                                                 TvViews
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration
+                TBufData = record
+                    Data    : Pointer;
+                    DataSize: Word;
+                end;
+Function        Record used with SetData and GetData methods of
+                TbxFormattedTextScroller, TbxEditBuff, and TbxASCIIHexEditor.
+See also	TbxASCIIHexEditor, TbxEditBuff, TbxFormattedTextScroller
+
+TbxBusyWindow (TWindow)                                         TvApp
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                The TbxBusyWindow provides a way of displaying a "Working.."
+                or other message to the user during disk activity, etc.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(const AMessage: String);
+
+                Constructs a TbxBusyWindow  large enough to display the text
+                in AMessage. Text should be one line only.
+
+GetPalette	Function GetPalette: PPalette; Virtual;
+
+                Returns a pointer to the default palette CBusyWindow.
+
+Show            Procedure Show; Virtual;
+
+                Displays the window and forces it to top of the desktop
+                display.
+See also	TbxApplication, TWindow
+
+TbxByteArray type                                               TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	TbxByteArray = Array[0..$FFE0] of Byte;
+Function	Provide a large byte array.
+See also	TbxCharArray
+
+TbxByteEdit (TbxLongEdit)                                       TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                Implements an edit control for Byte variables.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; const AMask: String;
+                                 AMin: Byte; AMax: Byte);
+
+                The Init constructor exists mainly to provide range checking
+                of the AMin and AMax parameters. Calls the TbxLongEdit.Init
+                constructor. AMask defines a picture that controls what
+                characters may be entered. AMask can contain literal
+                characters as well as digit place holders.  Two characters
+                can be used for indicating digits, '#' and '9'. The '9'
+                allows the digits 0 through 9, while the '#' also allows a
+                minus sign to be entered.
+
+DataSize	Function DataSize: Word; Virtual;
+
+                Returns the size of a Byte.
+
+GetData         Procedure GetData(var Rec); Virtual;
+
+                Returns the current value as a Byte in Rec.
+
+SetData         Procedure SetData(var Rec); Virtual;
+
+                Interprets the data in Rec as a Byte.
+See also	TbxEditLine, TInputLine, TbxLongEdit, TbxNumericEdit
+
+TbxCharArray type                                               TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	TbxCharArray = Array[0..$FFE0] of Char;
+Function	Provide a large character array.
+See also	TbxByteArray
+
+TbxCharSet type                                                 TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	TbxCharSet = Set of Char;
+Function	Defines a character set type.
+
+TbxCheckBoxes (TCheckBoxes)                                     TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxCheckBoxes are here so all data entry objects can have
+                field locking and error checking. All other functionality is
+                identical to the normal check box.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+ID              ID : Word;
+
+                Currently assigned id number. Id numbers are assigned
+                automatically by TbxEntryDialog.Insert. Id numbers must be
+                unique.
+
+LLabel          LLabel : PLabel;
+
+                Pointer to the label associated with the check boxes.
+
+EditFlags	EditFlags : Word;
+
+                Holds the dfXXX flags used to control editing and formatting
+                options. Only the dfRequired flag has any effect on check
+                boxes.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; AStrings: PSItem);
+                Creates a set of check boxes with the given bounds by calling
+                TCheckBoxes.Init. Sets the ID and EditFlags to zero, and
+                LLabel to nil. Sets the EventMask to include broadcast
+                events.
+
+Load            Constructor Load(var S: TStream);
+AddLabel	Procedure AddLabel(ALabel: PLabel);
+
+                Associates a label with the control. All labels should be
+                attached to their corresponding controls so that when the
+                control is locked the label can be locked too. Label text
+                will be used to construct the default error messages.
+
+Empty           Function Empty: Boolean; Virtual;
+
+                Returns True if no boxes are checked. Empty is used when
+                validating a required field.
+
+GetID           Function GetID: Word;
+
+                Returns the ID number assigned to the object. ID numbers are
+                used by TbxEntryDialog to locate a specific control in the
+                dialog box and return a pointer to it.
+
+                ID numbers are useful for dialogs stored on streams. Field ID
+                numbers will remain constant when the dialog is loaded from a
+                stream, where as any pointers to the object will change.
+
+GetFieldName    Function GetFieldName: String; Virtual;
+
+                Used to get the field name displayed with error messages. By
+                default it returns the text in the label pointed to by
+                LLabel. If LLabel is nil a null string is returned.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Calls the inherited HandleEvent then processes any cmSetId or
+                cmIdentify commands. cmSetId commands are issued by
+                TbxEntryDialog to set the ID of an object. CmIdentify
+                commands cause the object to return a pointer to itself.
+
+Lock            Procedure Lock;
+
+                Locks the field and label by setting sfDisabled in the State
+                flags.
+
+SetEditFlag	Procedure SetEditFlag(AFlag: Word; Enable: Boolean);
+
+                Sets the EditFlags for the check box. Only the dfRequired
+                flag has any effect on check boxes.
+
+SetID           Procedure SetID(AFieldID: Word);
+
+                Sets ID to AFieldID.
+
+SetState	Procedure SetState(AState: Word; Enable: Boolean); Virtual;
+
+                Calls the inherited SetState, then, if AState contains
+                sfDisabled, calls the LLabel^.SetState with sfDisabled and
+                the value in the Enable parameter.
+
+Store           Procedure Store(var S: TStream);
+UnLock          Procedure UnLock;
+
+                Unlocks the field and label by clearing sfDisabled in the
+                State flags.
+
+Valid           Function Valid(Command: Word): Boolean; Virtual;
+
+                If the field is required and the Empty method returns True,
+                Valid generates a cmFieldError event and returns False. If
+                the field is not required Valid returns the value received
+                from the inherited Valid function.
+See also        TbxEntryDialog, TCheckBoxes
+
+TbxCheckListBox (TbxListBox)                                    TvDialog
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxCheckListBox is a list box that allows selection of
+                multiple items in a list. List items are proceeded by a "[ ]"
+                or "[X]", depending on their "Selected" state. If a list
+                contains 256 or fewer items, you may use the SetSelectSet and
+                GetSelectSet methods to select a set of items or get a set of
+                all the selected items.  Alternately, you may use SelectItem
+                and IsSelected to set or check the "Selected" state of a
+                single item. Remember that collections are numbered starting
+                from zero.  TbxCheckListBox is derived from TbxListBox so its
+                collection must be a TbxCollection of TbxObjects (or
+                descendants). You can't override GetText and use a string
+                collection because the collection items need a Boolean
+                "Selected" field.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+GetSelectSet	Procedure GetSelectSet(var ASet: TbxByteSet);
+
+                If there are 256 or fewer items in the list, GetSelectSet is
+                the easiest way to find the selected items. Each item that is
+                selected in the list box will have a corresponding item
+                returned in ASet. Collection items are indexed from zero.
+
+GetText         Function GetText(Item: Integer;
+                                 MaxLen: Integer): String; Virtual;
+
+                Builds the lines for the list box. Takes the text returned by
+                the item's GetText method and appends a '[X]" or "[ ]"
+                depending on the value return by the item's GetSelect method.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Checks for mouse presses in the list and toggles the
+                "selected" state of the item under the mouse cursor.
+
+IsSelected	Function IsSelected(Item: Integer): Boolean; Virtual;
+
+                Returns the "selected" state of the item at the position
+                of Item in the list box.
+
+SelectItem	Procedure SelectItem(Item: Integer); Virtual;
+
+                Sets the "selected" state of the item at position Item in the
+                list to True. Redraws the list box.
+
+SetSelectSet	Procedure SetSelectSet(ASet: TbxByteSet);
+
+                When the size of the list is 256 or less, you can use
+                SetSelectSet to set multiple items in the list to "selected".
+                For example the set [1..3, 10, 20] will check the items 2 to
+                4 and items 11 and 21 in the list. Remember that collections
+                are numbered from zero.
+See also	TbxListBox, TListBox
+
+TbxCollection (TSortedCollection)                               TvObjects
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxCollection is a sorted collection of TbxObjects for use in
+                a TbxListBox.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Compare	Function Compare(Key1, Key2: Pointer): Integer; Virtual;
+
+                Compares the objects by comparing the text returned by each
+                object's GetText method.
+See also	TbxCollection, TbxObject, TObject
+
+TbxDate (TObject)                                               TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxDate object encapsulates a date with method for comparing,
+                validating and formatting dates.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Day             Day : Byte;
+Month           Month : Byte;
+Year            Year : Word;
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(D : Byte; M : Byte; Y : Word);
+
+                Sets Year to Y, Month to M, and Day to D.
+
+Load            Constructor Load(var S : TStream);
+Compare         Function Compare(var ADate: PbxDate): Integer;
+
+                Returns 1 if the date is greater than ADate, 0 if the date and
+                ADate are equal, and -1 if the date is less than ADate.
+
+DateString	Function DateString(Picture: TbxDateSt): TbxDateSt;
+
+                Returns the date as string based on the format in Picture.
+                The characters 'D', 'd',  'M', 'm', 'Y', and 'y' detail the
+                positions of day, month, and year in the date string. Any '/'
+                characters are replaced by the character in the global
+                constant DateSlash. Any unused uppercase format characters
+                are replaced by spaces, and unused lowercase format
+                characters are replaced by zeros.  The day, month, and year
+                specifiers can appear in any position in the picture.
+
+                The picture "MM/DD/YY" might return a date such as " 4/
+                4/93", while the picture "mm/dd/yy" would return a string
+                like "04/04/93". The strings "MMDDYY" and "mm/dd/yyyy" would
+                return " 4 493" and "04/04/1993" respectively.
+
+DaysInMonth	Function DaysInMonth: Word;
+
+                Returns the number of days in the month for the current date
+                values.
+
+ExtractDate	Procedure ExtractDate(Picture: TbxDateSt; ADateSt: TbxDateSt);
+
+                Extracts the values for the date from ADateSt based on the
+                format supplied in Picture. Picture uses the same formatting
+                characters as the DateString  method.
+
+GetData         Procedure GetData(var Rec);
+
+                Returns the Day, Month, Year values in a TbxDateRec record.
+
+GetDay          Function GetDay: Byte;
+
+                Returns the current value of Day.
+
+GetMonth	Function GetMonth: Byte;
+
+                Returns the current value of Month.
+
+GetYear         Function GetYear: Word;
+
+                Returns the current value of Year.
+
+LeapYear	Function LeapYear: Boolean;
+
+                Returns True if the value in Year is a leap year.
+
+SetData         Procedure SetData(var Rec);
+
+                Sets the Day, Month, Year from a TbxDateRec record.
+
+SetDay          Procedure SetDay(D : Byte);
+
+                Sets the Day to D.
+
+SetMonth	Procedure SetMonth(M : Byte);
+
+                Sets the Month to M.
+
+SetToday	Procedure SetToday;
+
+                Sets Day, Month, Year from the current system date.
+
+SetYear         Procedure SetYear(Y : Word);
+
+                Sets the Year to Y.
+
+Store           Procedure  Store(var S : TStream);
+Valid           Function Valid: Boolean; Virtual;
+
+                Returns True if the date values specify a valid date. Checks
+                the month, day, and year values and accounts for leap years.
+See also	TbxDate, TbxDateEdit, TbxDateRec
+
+TbxDateEdit (TbxEditLine)                                       TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                Implements an input line for formatted dates. On entry
+                TbxDateEdit will fill in any missing data if the dfDefaults
+                bit in EditFlags is set. The default date values can be set
+                manually or by calling SetDateDefaults once when you start
+                your program.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Date            Date : PbxDate;
+
+                Holds a pointer to an object with the current date values.
+
+DatePic         DatePic : TbxDateSt;
+
+                Holds the edit mask specified in Init.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; ADatePic: TbxDateSt);
+
+                Calls TbxEditLine.Init to create a formatted input line.
+                ADatePic is stored in the DatePic field.
+
+                In ADatePic the characters 'm', M', 'd', 'D', 'y', 'Y' are
+                used to specify the positions of the day, month, and year in
+                the input string. The only editable characters in the input
+                line will be in the positions indicated by the m', 'M', 'd',
+                'D', 'y', 'Y' characters.  ADatePic might look like
+                "MM/DD/YY", "mm/dd/yyyy", or "dd/mm/yy", etc. ADatePic will
+                be used to extract the day, month, and year from the correct
+                positions in the string when the field is validated or the
+                data returned from the SetData method .
+
+Load            Constructor Load(var S: TStream)
+
+Done            Destructor Done; Virtual;
+
+                Disposes of Date then calls the inherited Done.
+
+DataSize	Function DataSize: Word; Virtual;
+
+                Returns the size of a TbxDateRec.
+
+GetData         Procedure GetData(var Rec); Virtual;
+
+                Returns the current date values in a TbxDateRec. Uses
+                DatePic to extract the values from the entry string.
+
+SetData         Procedure SetData(var Rec); Virtual;
+
+                Sets the current date values. Rec must be a TbxDateRec.
+
+Store           Procedure Store(var S: TStream);
+Valid           Function Valid(Command : Word): Boolean; Virtual;
+
+                Uses DatePic to extract the day, month, and year from the
+                string input. If dfDefaults flag in EditFlags is True, Valid
+                will fill in any missing data with the default values from
+                DefautlDay, DefaultMonth, or DefaultYear. After any default
+                data is filled, the date is validated.
+
+                If the date is not valid, Valid will generate a cmFieldError
+                event. The InfoPtr field of the event will contain a pointer
+                to an error message for display.
+
+See also	TbxDate, TbxDateRec, TbxEditLine
+
+TbxDateRec type                                                 TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	TbxDateRec  = record
+                        Day : Byte;
+                        Month : Byte;
+                        Year : Word;
+                end;
+Function        This is the data record used for TbxDate and TbxDateEdit
+                GetData and SetData.
+See also	TbxDate, TbxDateEdit
+
+TbxDateSt type                                                  TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	TbxDateSt = String[12];
+Function        Used as the string type for date format masks and date
+                strings. Date format masks look like "mm/dd/yyyy" or
+                "dd/mm/yy", etc.
+See also	TbxDate, TbxDateEdit
+
+TbxDoubleEdit (TbxFloatEdit)                                    TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxDoubleEdit is only available if the N+ compilation
+                directive is set.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Min             Min : Double;
+
+                The smallest number that is a valid entry.
+
+Max             Max : Double;
+
+                The largest number that is a valid entry.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; const AMask: String;
+                                 AMin: Double; AMax: Double);
+
+                Calls the inherited Init then set sets Min and Max. AMask
+                defines a picture that controls what characters may be
+                entered.  AMask can contain literals as well as number digit
+                place holders. Two characters can be used for indicating
+                digits, '#' and '9'. The '9' allows the entry of the digits
+                0 through 9, while the '#' also allows entry of a minus sign.
+                If a decimal point (as defined in the DecimalPt constant)
+                appears in the edit mask, the user may enter a decimal point
+                in the number.
+
+Load            Constructor Load(var S: TStream);
+DataSize	Function DataSize: Word; Virtual;
+
+                Returns the size of a Double.
+
+GetData         Procedure GetData(var Rec); Virtual;
+
+                Returns the current value as a Double in Rec.
+
+OutOfRange	Function OutOfRange: Boolean; Virtual;
+
+                Tests the current value to see if it is in range. If Min or
+                Max is not zero, OutOfRange returns True if the entered value
+                is not in the range Min to Max inclusive.
+
+OutOfRangeMsg	Function OutOfRangeMsg: String; Virtual;
+
+                Returns the error message displayed for out of range errors.
+
+SetData         Procedure SetData(var Rec); Virtual;
+
+                Sets the current value from the Double type variable in Rec.
+
+Store           Procedure Store(var S: TStream);
+See also        TbxEditLine, TbxFloatEdit, TbxNumericEdit, TbxRealEdit,
+                EditMask characters
+
+TbxEditBuff (TScroller)                                         TvViews
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxEditBuff is an editable TScroller. It is the base object
+                for the hex and ascii edit buffers used with the
+                TbxEditBuffWindow.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Buf             Buf : PbxByteArray;
+
+                Pointer to raw data buffer supplied to the object.
+
+BufSize         BufSize : Word;
+
+                Size of the memory block pointed to by Buf,
+
+ItemSize	ItemSize : Byte;
+
+                The display size of each character in the buffer.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(Bounds: TRect; Buff: Pointer;
+                                 BuffSize: Word; ItemWidth: Byte;
+                                 AVScrollBar: PScrollBar);
+                After calling the inherited constructor, Init turns on the
+                ofFramed bit in Options and displays a block cursor. Buff is
+                a pointer to the data being edited. BuffSize is the size of
+                Buff. ItemWidth is the display width of each character.
+                ItemWidth is used to calculate the number of rows in the
+                display and the physical offset in the buffer. An ascii
+                display would have an item width of one, while a hexadecimal
+                display would have an item width of two per character.
+
+Load            Constructor Load(var S: TStream);
+
+                Loads the object from stream S. The buffer pointer is set to
+                nil and the buffer size is set to zero. The buffer and buffer
+                size must be set by calling SetData.
+
+DataSize	Function DataSize: Word; Virtual;
+
+                Returns the size of a TbxBufData record.
+
+GetData         Procedure GetData(var Rec); Virtual;
+
+                Returns a pointer to the buffer and buffer size in a
+                TbxBufData record.
+
+GetOffset	Function GetOffset: Word;
+
+                Returns the position of the cursor in the buffer.
+
+GetXY           Procedure GetXY(var Pos: TPoint);
+
+                Returns the X,Y coordinates of the cursor in the view. GetXY
+                returns the logical X,Y based on the item size.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Mainly handles cursor movement in the view. Actual editing is
+                left to descendant views to process. Processes page up, page
+                down, arrow keys, ctrl-page up, ctrl-page down, mouse presses
+                and scroll bar messages
+
+SetData         Procedure SetData(var Rec);Virtual;
+
+                Set the data buffer pointer and data buffer size. Expects Rec
+                to be a TbxBufData record.  Calculates the maximum number of
+                display rows. Resets the view positioning to the top of the
+                buffer.
+
+SetXY           Procedure SetXY(Pos: TPoint);
+
+                Sets the position of the cursor in the view. Pos is the
+                logical position and will be translated to the physical
+                position by multiplying X by ItemWidth.
+
+Store           Procedure Store(var S: TStream);
+
+                Write the object to a stream. The data buffer is not saved.
+See also	TbxAsciiBuff, TbxAsciiHexEditor, TbxHexBuff, TScroller
+
+TbxEditLine (TInputLine)                                        TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                This is the base input line for all the new data entry
+                objects. When you pass an edit mask MaxLen is calculated
+                automatically.  Only the characters in the set associated
+                with a particular edit mask character will be accepted as
+                valid input. You may mix different mask characters in the
+                edit mask. An edit mask may contain literal characters that
+                cannot be edited.  Literals allow you to create inputlines
+                for entering information like dates and phone numbers.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+PadChar         PadChar : Char;
+
+                This is the character displayed at all editable positions in
+                the input line. It defaults to a space.
+
+XPos            XPos : Byte;
+
+                Next character insert position in the data.
+
+First           First : Byte;
+
+                First editable position (non-literal mask character) in the
+                line.
+
+Mask            Mask : PString;
+
+                A pointer to the edit mask for the input line. The user
+                entered data and the edit mask are stored in separate
+                strings.
+
+ID              ID : Word;
+
+                A unique ID number for the input line. ID numbers are
+                assigned by automatically by TbxEntryDialog.Insert.
+
+LLabel          LLabel : PLabel;
+
+                Pointer to the label attached to the input line.
+
+EditFlags	EditFlags : Word;
+
+                A combination of the various dfXXXX flags such as dfRequired,
+                dfHide that control special editing capabilities.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; const AMask : String);
+
+                Calculates the number of actual editable characters in AMask
+                then calls TInputLine.Init. AMask controls many of the
+                features of a TbxEditLine, because it supplies the editing
+                mask for the object.
+
+                At each position in the edit mask, only those characters in
+                the valid set associated with a particular edit mask
+                character will be accepted as input. You may mix different
+                mask characters in the edit mask. AMask may contain literal
+                characters that cannot be edited. Literals allow you to
+                create input liness for entering information like dates and
+                phone numbers. As an example, "$9999.99" would be a good
+                mask for dollar amounts. The mask "(999) 999-9999 ext 999"
+                would allow for full phone numbers with extension.
+
+                The valid mask characters are listed below
+
+                Character       Function
+                X               Any character.
+                U               Any character, force upper case
+                L               Any character, force lower case
+                a               Alpha numeric only
+                u               Alpha numeric only, force upper case
+                l               Alpha numeric only, force lower case
+                #               Numbers, minus
+                9               Numbers only
+                &               Hexadecimal numbers
+                @               Dates  (internal use only)
+
+Load            Constructor Load(var S: TStream);
+Done            Destructor Done; Virtual;
+
+                Disposes of the edit mask string, then calls the inherited
+                Done.
+
+AddLabel	Procedure AddLabel(ALabel : PLabel);
+
+                Associates a label with the input line. When a label is
+                added, its text will be used to construct the default error
+                messages. If the input line is locked (disabled) any
+                associated label will also be locked.
+
+DataSize	Function DataSize: Word; Virtual;
+
+                Returns the size of the edit mask string, which is the size
+                of the data string returned by GetData.
+
+Draw            Procedure Draw; Virtual;
+
+                Merges the user entered data string with the edit mask and
+                displays the result.
+
+EditToMaskPos	Function EditToMaskPos(Pos : Integer): Integer;
+
+                Converts a position in the edit mask to a position in the
+                data string.
+
+Empty           Function Empty: Boolean; Virtual;
+
+                Returns True if the input line is empty. By default it
+                returns True if the input data string is null.
+
+GetData         Procedure GetData(var Rec); Virtual;
+
+                Merges the input data string with the edit mask, replacing
+                any unused edit mask characters with PadChar, and returns the
+                result.
+
+GetFieldName	Procedure GetFieldName: String; Virtual;
+
+                Returns the name to display in any error messages. By default
+                GetFieldName returns the text in the label attached to the
+                input line.
+
+GetID           Function GetID: Word;
+
+                Returns the ID assigned to the input line. If the input line
+                is inserted into a TbxEntryDialog unique ID numbers will be
+                assigned automatically. When using a TbxEntryDialog, ID
+                numbers can be used to get a pointer to the input line.
+
+                ID numbers are useful for dialogs stored on streams. ID
+                numbers will remain constant when the dialog is loaded from a
+                stream, where as any pointers to the input line will change.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                HandleEvent is the most complex method of a TbxInputLine. It
+                has all the standard functionality of a normal TInputLine,
+                including scrolling and block marking. But it also processes
+                the input events according to the edit mask.
+
+                Each time a key is pressed the current edit mask character is
+                checked. Only those characters in the valid entry set
+                associated with the current mask character are allowed as
+                valid entry. In addition, HandleEvent skips over an non-mask
+                literal characters in the edit mask.
+
+HomePos         Function HomePos: Integer; Virtual;
+
+                Returns the home position of the cursor. The cursor moves to
+                this position in the line when a kbHome event is processed by
+                HandleEvent.
+
+InsertChar	Procedure InsertChar(Ch: Char); Virtual;
+
+                Inserts Ch into the line at the current cursor position.
+
+MaskToEditPos	Function MaskToEditPos(Pos : Integer): Integer;
+
+                Converts a position in the input data to a position in the
+                edit mask.
+
+Lock            Procedure Lock;
+
+                Disables the input line and label.
+
+Merge           Procedure Merge(var St: String; Justify: Boolean); Virtual;
+
+                Merges the input data into the edit mask. Pads the data as
+                needed with PadChar to fill the edit mask. If Justify is
+                True, the line will be right or left justified as indicated
+                by the edit flags.
+
+NextPos         Function NextPos(Pos: Integer): Integer; Virtual;
+
+                Returns the position of the next editable character in the
+                edit mask.
+
+PrevPos         Function PrevPos(Pos: Integer): Integer; Virtual;
+
+                Returns the position of the first preceding editable
+                character in the edit mask.
+
+Remove          Function Remove(const St: String): String;
+
+                Extracts the data string from the a merged data and edit mask
+                strings.
+
+SetData         Procedure SetData(var Rec); Virtual;
+
+                Set the data for the input line. Expects the data to be the
+                same as returned by GetData. This means the string is merged
+                with the edit mask, so that the literal characters are
+                included, and it is exactly as it will appear when displayed
+                in the input line on screen.
+
+SetEditFlag	Procedure SetEditFlag(AFlag: Word; Enable: Boolean); Virtual;
+
+                Sets the bits in the EditFlag field. Works like the SetState
+                procedure expects it toggles bits in EditFlag.
+
+SetID           Procedure SetID(AFieldID: Word);
+
+                Sets ID to AFieldID.
+
+SetState	Procedure SetState(AState: Word; Enable: Boolean);  Virtual;
+
+                Sets the State flag for the input line. If AState contains
+                the flag sfDisabled, the sfDisabled flag of the label is also
+                set .
+
+Store           Procedure Store(var S: TStream);
+UnLock          Procedure UnLock;
+
+                Unlocks the input line and label.
+
+Valid           Function Valid(Command : Word): Boolean; Virtual;
+
+                If the dfRequired flag is set, the input line is checked to
+                make sure it is not empty. If it is empty the field name is
+                acquired by calling GetFieldName. An error message with the
+                field name is created and inserted into the InfoPtr field of
+                a cmFieldError event that is sent to the owner view.
+
+                Any dialogs that have a TbxEditLine or descendant inserted
+                into them should be able to respond to cmFieldError broadcast
+                events. Valid will insert a pointer to the error message in
+                the InfoPtr field of the TEvent record of the cmFieldError
+                event. TbxEntryDialog type displays any error messages by
+                calling the MessageBox function in STDDLG.PAS.
+See also        TbxEntryDialog, TInputLine
+
+TbxEntryDialog (TDialog)                                        TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                This descendant of TDialog is designed to work with
+                TbxEditLine, TbxCheckBoxes, TbxRadioButtons, TbxSpinBars,
+                etc. and their descendants. It will automatically assign a
+                unique ID number to each control inserted into it. ID
+                numbers allow you to lock and unlock controls on the fly.
+                TbxEntryDialog also contains code for displaying field error
+                messages.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+NextId          NextId : Word;
+
+                The next valid ID number. Incremented each time a control
+                with an ID number field is inserted
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; ATitle: TTitleStr);
+
+                Initializes NextId to zero and sets the EventMask to include
+                broadcast messages.
+
+Load            Constructor Load(var S: TStream);
+FindField	Function FindField(ID: Word): Pointer;
+
+                Returns a pointer to the dialog control that has an ID
+                matching the ID parameter. Returns nil if no object with a
+                matching ID is found.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Adds functionality to handle cmFieldError messages broadcast
+                by child views. When a cmFieldError is processed, the string
+                pointed to by the TEvent.InfoPtr field is displayed by
+                calling the standard Turbo Vision MessageBox function.
+
+Insert          Procedure Insert(P : PView); Virtual;
+
+                Adds the view to the dialog box and assigns a unique ID
+                number. ID numbers start at 1 and are assigned sequentially
+                to all TbxEditLines and descendants or any view that can
+                respond to cmSetId commands, such as TbxCheckBoxes or
+                TbxSpinBars.
+
+LockField	Procedure LockField(ID: Word; Enable: Boolean);
+
+                Locks or unlocks a control, and any attached label. ID
+                specifies the ID number assigned to the control. Enable is
+                the locking mode.
+
+Store           Procedure Store(var S : TStream);
+See also	TbxEditLine, TDialog
+
+TbxFileDialog (TFileDialog)                                     TvDialog
+                TbxFileDialog is a new file list dialog that implements a
+                look that is much closer to the Microsoft Windows file
+                dialog. It displays directories and drives in a separate
+                window from the files list. TbxFileDialog also has a display
+                line that shows the statistics for the current file. Any file
+                that is opened with a double click in the file list will be
+                added to the file history box, unlike the normal TFileDialog.
+
+                There are two source code changes that must be made to the
+                file STDDLG.PAS. Please see the notes in the source in the
+                file TVDIALOG.PAS.
+
+                { **************************************************
+                NOTE: The following method must be made virtual in
+                the TFileList object in the file STDDLG.PAS unit.
+                At line # 101 add a "virtual" declaration.
+                ************************************************** }
+                Procedure   ReadDirectory(AWildCard : PathStr);  Virtual;
+
+                { **************************************************
+                NOTE: In TFileDialog in the unit STDDLG.PAS the
+                method ReadDirectory must be made PUBLIC.
+                At line # 152 remove the "private" declaration.
+                ************************************************** }
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+DriveList	DriveList : PbxDriveList;
+
+                List of all valid drive letters.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(AWildCard: TWildStr; ATitle: String;
+                                 InputName: String;
+                                 AOptions: Word; HistoryId: Byte);
+
+                Creates the dialog box. Builds the drive list, inserts the
+                field input line, file info pane, file list box, drive and
+                directory list box. Completely overrides
+                TFileDialog.Init.
+See also	TFileDialog
+
+TbxFrame (TFrame)                                               TvViews
+                TbxFrame implements the window frame that is inserted into a
+                TbxWindow. TbxFrames are the same as TFrames except that
+                right mouse clicks on the close icon popup a control menu. I
+                was unable to figure out how to implement a double mouse
+                click to do this like Microsoft Windows. If you know how to
+                trap double clicks in this situation, please let me know!
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+HandleEvent	Procedure  HandleEvent(var Event: TEvent); Virtual;
+
+                Traps right mouse clicks on the close icon to generate
+                cmPopMenu commands for the parent window. The parent window
+                will respond by popping up a window control menu.
+See also	TFrame, TWindow, TbxWindow
+
+TbxFloatEdit (TbxNumericEdit)                                   TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxFloatEdit is the base object for all floating point input
+                lines. Both the floating point types objects (Double, Real)
+                vary only in the range of numbers that are valid and the data
+                types returned and expected by SetData and GetData.
+
+                This is only an abstract object and should never be created
+                directly.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+DP              DP : Byte;
+
+                Number of digits after the decimal place, as specifeid by
+                the EditMask.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; const AMask: String);
+
+                Initializes the input line. The maximum edit size of the
+                field is calculated automatically from AMask. AMask should
+                contain only the characters '#' or '9' for mask characters.
+                The '9' allows the digits 0 through 9, while the '#' also
+                allows a minus sign to be entered. Literal characters may be
+                included in AMask, to create edit masks such as "$9999.999".
+
+                A decimal point may only be entered if one is included in
+                AMask. Only as many digits as specified in the edit mask may
+                be entered to the right of the decimal point. If a decimal
+                point exists, TbxFloatEdit accepts numbers with or without a
+                decimal point.
+
+Load            Constructor Load(var S: TStream);
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Implements the logic needed to handle decimal points.
+
+Store           Procedure Store(var S: TStream);
+See also        TbxDoubleEdit, TbxEditLine, TbxRealEdit, TInputLine,
+                EditMask characters
+
+TbxFormattedTextScroller (TScroller)                            TvViews
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxFormattedTextScroller is a TScroller that will word wrap
+                and line wrap at carriage returns. Give it a pointer to a
+                formatted text buffer and it will do its best to display it.
+                Whenever the window is resized the text displayed by
+                TbxFormattedTextScroller is reformatted to fit into the new
+                window dimensions.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Buf             Buf : PbxCharArray;
+
+                Pointer to the data buffer.
+
+BufSize         BufSize : Word;
+
+                Size of the data buffer pointed to by Buf.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; AVScrollBar: PScrollBar;
+                                 Buff: PbxCharArray; BuffSize: Word);
+
+                Initializes the view. Sets GrowMode to gfGrowHiX and
+                gfGrowHiY. Buffis a pointer to the data to be displayed.
+                BuffSize is the number of characters in the data. AVScrollBar
+                is the TScrollBar attached to the window which the
+                TbxFormattedTextScroller will be inserted into. AVScrollBar
+                can be nil, but this is not to be recommended. A horizontal
+                scroll bar is not needed.
+
+Load    	Constructor Load(var S: TStream);
+
+                Reads the object from stream S. The data in the buffer is not
+                loaded and BufSize is set to zero. The buffer must be set
+                through a call to SetData.
+
+ChangeBounds    Procedure ChangeBounds(var Bounds: TRect); Virtual;
+
+                Changes the bounds of the vertical scroll bar to match those
+                of the scroller. Whenever the window is resized the number of
+                lines in the display is recalculated and the scroll bar is
+                updated.
+
+DataSize	Function DataSize: Word; Virtual;
+
+                Returns the size of a TbxBufData record.
+
+Draw    	Procedure Draw; Virtual;
+GetData         Procedure GetData(var Rec); Virtual;
+
+                Returns a pointer to the data buffer and the size of the
+                buffer in a TbxBufData record.
+
+SetData         Procedure SetData(var Rec);Virtual;
+
+                Sets the data buffer pointer and data buffer size. Expects Rec
+                to be a TbxBufData record. Counts the number of lines based
+                on the current window size and scrolls to the top of the
+                display.
+See also	TScroller
+
+TbxFrameArray type                                              TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	TbxFrameArray = Array[1..8] of Char;
+Function	Holds the characters used to draw 3D outlines and frames.
+
+TbxHexBuff (TbxEditBuff)                                        TvViews
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                A descendant of TbxEditBuff for editing hexadecimal data.
+                This is the object type of the hex edit buffer in the
+                TbxEditBuffWindow.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(Bounds: TRect; Buff: Pointer; BuffSize: Word;
+                                 AVScrollBar: PScrollBar);
+
+                Calls TbxEditBuff.Init setting ItemWidth to two. Buff is a
+                pointer to the data buffer. BuffSize is the size of the data
+                buffer. AVScrollBar is the scroll bar attached to the parent
+                window and may be nil.
+
+Draw            Procedure Draw; Virtual;
+
+                Overrides the inherited Draw to display the data buffer in
+                hexadecimal number format.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Accepts only the characters 'A' through 'F' and the numbers 0
+                through 9, and Tab, for entry. When a valid character is
+                typed it inserts the character into the data buffer and
+                broadcasts three messages: cmUpdateView, cmEditView, and
+                kbRight. These messages inform peer views to redraw, inform
+                the parent to update the maximum edit position, and the
+                cursor to move to the next character.
+See also	TbxAsciiBuff, TbxEditbuff, TbxAsciiHexEditor, TScroller
+
+TbxHexEdit (TbxLongEdit)                                        TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxHexEdit accepts long integers in hexadecimal format, the
+                characters 0 through 9, A through F, and $ are valid entries.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+OutOfRangeMsg	Function OutOfRangeMsg: String; Virtual;
+
+                Returns the out of range error message with the the valid
+                range in hexadecimal format.
+
+SetData         Procedure SetData(var Rec); Virtual;
+
+                Converts the LongInt value in Rec to a hex string and
+                displays it in the input line.
+See also	TbxEditLine, TbxNumericEdit, TbxLongEdit, TInputLine
+
+TbxLong type	TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	TbxLong    = record
+                        Low, High : Word;
+                end;
+Function	Provides easy access the Low and High words of a LongInt.
+
+TbxIcon (TView)                                                 TvViews
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxIcon serves as the base object for TbxWindowIcon. TbxIcons
+                display a text string on the desktop. They can be moved
+                around the desktop. You can use the TbxIcon to create more
+                "graphical" icons by overriding the Draw method.
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Title           Title : PString;
+
+                Text string to display on the desktop.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(ATitle: TTitleStr);
+
+                Allocates a string to hold ATitle by calling NewStr. ATitle
+                can be multiple lines by including a '^M. in the string. Sets
+                the bounds to fit the lower view into the lower left corner
+                of the desktop. Sets Options to include ofSelectable and
+                ofTopSelect.
+
+Load            Constructor Load(var S: TStream);
+Done            Destructor Done; Virtual;
+
+                Calls DisposeStr to dispose Title.
+
+Draw            Procedure Draw; Virtual;
+
+                Draws Title on the desktop. Displays multiple lines if there
+                are any '^M' characters in Title.
+
+GetPalette	Function GetPalette: PPalette; Virtual;
+
+                Returns a pointer to the CIcon  palette.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Overrides the inherited HandleEvent to implement dragging of
+                the icon around the desktop.
+
+SetState	Procedure SetState(AState: Word; Enable: Boolean); Virtual;
+
+                Redraws the icon if the state is set to dragging.
+
+SizeLimits	Procedure SizeLimits(var Min, Max: TPoint); Virtual;
+
+                Restricts the icon size to that set in the constructor.
+
+Store           Procedure Store(var S: TStream);
+See also	TView, TbxWindowIcon, TbxWindow
+
+TbxItemRec type                                                 TvType
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	TbxItemRec = record
+                        Owner, Item : Pointer;
+                end;
+Function	Used to pass information between two TbxPairedListBox objects.
+See also	TbxPairedListBox
+
+TbxIntegerEdit (TbxLongEdit)                                    TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                A descendant of TbxLongEdit for Integers.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; const AMask: String;
+                                 AMin: Byte; AMax: Byte);
+
+                The Init constructor exists mainly to provide range checking
+                of the AMin and AMax parameters. Calls the TbxLongEdit.Init
+                constructor. AMask defines a picture that controls what
+                characters may be entered. AMask can contain literal
+                characters as well as digit place holders.  Two characters
+                can be used for indicating digits, '#' and '9'. The '9'
+                allows the digits 0 through 9, while the '#' also allows
+                entry of a minus sign.
+
+DataSize	Function DataSize: Word; Virtual;
+
+                Returns the size of an Integer.
+
+GetData         Procedure GetData(var Rec); Virtual;
+
+                Returns the current value as an Integer in Rec.
+
+SetData         Procedure SetData(var Rec); Virtual;
+
+                Interprets the data in Rec as an Integer.
+See also	TbxEditLine, TbxLongEdit, TInputLine
+
+TbxLinkedBox (TListBox)                                         TvDialog
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxLinkedBox is a a list box that can be linked to a
+                TbxLinkedLine object. Each time the focus in the list
+                changes, the information displayed in the input line changes.
+
+                The list box will generate an event using the link command
+                assigned with the constructor of each object. The event will
+                include a pointer to the focused item in the InfoPtr field.
+                The TbxLinkedLine will handle the event and extract the data
+                it needs from the focused item and update its display.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+LinkEvent	LinkEvent : Word;
+
+                The unique command id assigned in Init.
+
+Init            Constructor Init(var Bounds: TRect; ANumCols: Word;
+                                 AScrollBar: PScrollBar;
+		EventCode: Word);
+
+                Init is the same as TListBox.Init except for the EventCode
+                parameter. EventCode should be the same one assigned to the
+                TbxLinkedLine associated with this list box. EventCode is
+                assigned to LinkEvent and is used to hook the two controls
+                together. EventCode must be unique for each paired
+                TbxLinkedBox and TbxLinkedLine.If the code is not unique
+                other TbxLinkedLines will also interact with the list box.
+
+Load            Constructor Load(var S: TStream);
+FocusItem	Procedure FocusItem(Item: Integer); Virtual;
+
+                Generates a broadcast event of type LinkEvent with a pointer
+                to the currently focused item.The pointer to the focused item
+                is stored in the InfoPtr field of the TEvent. The dialog box
+                should have a TbxLinkedLine that responds to the LinkEvent.
+
+Store           Procedure Store(var S: TStream);
+See also	TbxLinkedLine, TListBox
+
+TbxLinkedLine (TInputLine)		TvDialog
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxLinkedLine is linked to a TbxLinkedBox.It is just like an
+                ordinary input line, except that it updates its contents
+                whenever the focus of the list box changes.
+
+                To link to a list box, you assign a unique command id to the
+                input line and list box. Each list box and input line pair
+                must be assigned a unique command. The list box will generate
+                events using the command id. The InfoPtr field of the event
+                will hold a pointer to the list box data item. The default
+                HandleEvent expects the Event.InfoPtr to be a PString, this
+                is the default for standard list boxes.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+LinkEvent	LinkEvent : Word;
+
+                The unique command id assigned in Init.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; AMaxLen: Integer;
+                                 EventCode: Word);
+
+                Init is the same as TInputLine.Init except for the EventCode
+                parameter. EventCode should be the same one assigned to the
+                TbxLinkedBox associated with this input line. EventCode is
+                assigned to LinkEvent and is used to hook the two controls
+                together. EventCode must be unique for each paired
+                TbxLinkedBox and TbxLinkedLine. If the code is not unique
+                other TbxLinkedLines will also link to the list box.
+
+Load            Constructor Load(var S: TStream);
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Processes any events of type LinkEvent. When such an event is
+                processed, the InfoPtr field will hold a pointer to the
+                focused item in the list box. By default InfoPtr points to a
+                string. The input line updates its contents with the string
+                pointed to by InfoPtr.
+
+Store           Procedure Store(var S: TStream);
+See also	TbxLinkedBox, TInputLine
+
+TbxListBox (TListBox)                                           TvDialog
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+                TbxListBox is a list box that processes a TbxCollection of
+                TbxObjects. TbxListBox gets the text to be displayed from the
+                TbxObject.GetText method. This means that one list box can
+                handle any type of list, as long as that list is a collection
+                is of TbxObjects.
+
+                If you have a list box that displays data from non-string
+                objects, you need to create new a TObject type. With the
+                standard list box you also need to create a new TListBox type
+                and override the GetText method. If you use TbxListBox you
+                will not have to create a new TObject and override GetText,
+                since TbxListBox.GetText already knows how to get the text
+                from any TbxObject in a TbxCollection.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+GetText         Function GetText(Item: Integer;
+                                 MaxLen: Integer): String; Virtual;
+
+                Calls the GetText method for the Itemth object in the list
+                and returns  the string.
+See also	TbxCollection, TbxObject, TListBox
+
+TbxLongEdit (TbxNumeric)                                        TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxLongEdit is the base object for all integer edit lines.
+                AMin and AMax define the valid range of values for the field.
+                If AMin and AMax are both zero any number may be entered. All
+                the other integer objects vary only in the range of numbers
+                that are valid and the data type used by SetData and GetData.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Min             Min : LongInt;
+Max             Max : LongInt;
+
+                Maximum and minimum acceptable values.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; const AMask: String;
+                                 AMin: LongInt; AMax: LongInt);
+
+                The maximum edit size of the field is calculated
+                automatically from AMask. AMask defines a picture that
+                controls what characters may be entered. AMask can contain
+                literal charaters as well as number digit place holders. Two
+                characters can be used for indicating digits, '#' and '9'.
+                The '9' allows the digits 0 through 9, while the '#' also
+                allows a minus sign to be entered.
+
+Load            Constructor Load(var S: TStream);
+DataSize	Function DataSize: Word; Virtual;
+
+                Returns the size of a LongInt.
+
+GetData         Procedure GetData(var Rec); Virtual;
+
+                Returns a LongInt in Rec.
+
+OutOfRange	Function OutOfRange: Boolean; Virtual;
+
+                Tests the current value to see if it is in range. If Min or
+                Max is not zero, OutOfRange returns True if the entered
+                value is not in the range Min to Max inclusive.
+
+OutOfRangeMsg	Function OutOfRangeMsg: String; Virtual;
+
+                Returns the error message displayed for out of range errors.
+
+SetData         Procedure SetData(var Rec); Virtual;
+
+                Changes the data to the LongInt value in Rec and redraws the
+                input line.
+
+Store           Procedure Store(var S: TStream);
+See also        TbxByteEdit, TbxEditLine, TbxIntegerEdit, TbxHexEdit,
+                TbxWordEdit
+
+TbxMenuBar (TMenuBar)                                           TvMenus
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxMenuBar provides a descendant of TMenuBar that can display
+                check marked menu items. To use check mark menu items create
+                a TbxMenuBar instead of the normal TMenuBar and insert into
+                the menu bar as normal. Just replace the standard NewItem,
+                with a call to the function NewMarkedItem. Call ToggleMarker,
+                SetMarker, ClearMarker, and MarkerIsSet, to manipulate and
+                check for marked items. Use ResetMarkers handle a set of
+                check mark menu items
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+ClearMarker	Procedure ClearMarker(Cmd: Word);
+
+                Clears the check mark from the menu item with the command Cmd.
+
+FindCmd         Function FindCmd(AMenu: PMenu; Cmd: Word): PMenuItem;
+
+                Returns a pointer to the menu item with the command matching
+                Cmd.This can be used to find any menu item, check mark or
+                not.
+
+HandleEvent	Procedure HandleEvent(var E : TEvent);      Virtual;
+
+                HandleEvent will automatically toggle a checked menu item on
+                or off as needed (if the menu command is cmMarkStart through
+                cmMarkEnd). However, this is only useful when multiple items
+                can be checked at the same time. If only one item in a set
+                can be checked at a time, you should use the ResetMarkers
+                procedure to put the menu in the correct state.
+
+MarkerIsSet	Function MarkerIsSet(Cmd : Word): Boolean;
+
+                Returns True if the menu item assigned to Cmd is checked.
+
+ResetMarkers    Procedure ResetMarkers(FirstCmd: Word; LastCmd: Word;
+                                       NewCmd: Word);
+
+                ResetMarkers is used to manipulate a logical set of check
+                mark menu items. First, all menu items from FirstCmd through
+                LastCmd are unchecked. Then the menu item assigned to NewCmd
+                is checked.
+
+SetMarker	Procedure SetMarker(Cmd: Word);
+
+                Sets the check mark for the menu item that matches Cmd.
+
+ToggleMarker	Procedure ToggleMarker(Cmd: Word);
+
+                Toggles the check mark for the menu item assigned the Cmd
+                command.
+See also        CheckMark, CheckMarkLen, CheckMarkNull, NewMarkedItem,
+                cmXXXX constants
+
+TbxMessageDialog (TDialog)                                      TvDialog
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxMessageDialog is an easier way to display messages in a
+                dialog. TbxMessageDialog takes the same parameters as the
+                standard MessageBox function for displaying a title and
+                buttons. It does not handle the '^M' formatting parameters.
+                However, you can add multiple strings through multiple calls
+                to AddMessage. The dialog will size itself based on the text
+                to be displayed. There is also checking in the X axis to make
+                sure the strings are not too long.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+SList           SList : TbxUnsortedStringCollection;
+
+                List of the strings to display in the dialog.
+
+DOptions	DOptions : Word;
+
+                Holds the button and title options for the message box.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(AOptions: Word);
+
+                Calls TDialog.Init with a dummy bounds rect and a title based
+                on the contents of the AOptions parameter. AOptions is stored
+                in the DOptions field. The dialog bounds does not need to be
+                supplied, since it is calculated before the dialog box is
+                executed. The AOptions flag also supplies the information on
+                buttons to be added. Use the mfXXXX constants in the
+                MSGBOX.PAS unit supplied with Turbo Vision to set the value
+                of AOptions.
+
+AddMessage	Procedure AddMessage(St: String);
+
+                Adds St to the end of the list of strings to display in the
+                dialog box. AddMessage can be called as many times as needed
+                to add dialog text.
+
+Execute         Function Execute: Word; Virtual;
+
+                Execute is normally called only by TProgram.ExecuteDialog. It
+                sizes the dialog, adds buttons as indicated by the DOptions
+                field, then calls the inherited Execute method.
+See Also	MessageBox, mfXXXX constants
+
+TbxMinMaxButton (TView)                                         TvViews
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                This object implements a minimize window icon inserted into
+                the upper right corner of a window frame. TbxMinMaxButton is
+                used by the TbxWindow object.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect);
+
+                Calls Tview.Init then sets GrowMode to include gfGrowLoX and
+                gfGrowHiX.
+
+Draw            Procedure Draw; Virtual;
+GetPalette	Function GetPalette: PPalette; Virtual;
+
+                Returns a pointer to the CMinMax palette.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Puts a cmMinimize event into the event queue whenever a mouse
+                button is pressed in the view.
+
+SetState	Procedure SetState(AState: Word; Enable: Boolean); Virtual;
+
+                If AState includes sfDragging, SetState redraws the view.
+                Whenever sfDragging is set or cleared, the view must be
+                redrawn to reflect the new state.
+See also	TbxWindow, TView
+
+TbxMultiScrollBar (TScrollBar)                                  TvViews
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                This is a scroll bar object that can be used by two or more
+                views at the same time. It will always be active, no matter
+                which of the views which own it is focused.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Done            Destructor Done; Virtual;
+SetState	Procedure SetState(AState: Word; Enable: Boolean); Virtual;
+
+                Traps calls to change the state of the sfVisible bit in the
+                State field. sfVisible must always be set, so the scroll bar
+                will always be displayed, no matter which of its associated
+                views is active.
+See also        TbxAsciiHexEditor, TScrollBar
+
+TbxNumericEdit (TbxEditLine)                                    TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                This is the base object for all numeric edit line objects. It
+                is only an abstract object and is not intended to be created
+                directly.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+ErrCode         ErrCode : Integer;
+
+                Holds any string to numeric conversion errors.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Handle Event	Procedure  HandleEvent(var Event: TEvent); Virtual;
+
+                Only allows characters in the DigitOnlySet, NumberOnlySet,
+                HexOnlySet to be entered. Handles insertion of '-' for all
+                numbers and '$' for hexadecimal numbers.
+
+OutOfRange	Function OutOfRange: Boolean; Virtual;
+
+                This method is called by Valid to check if the number is in
+                the valid range. OutOfRange returns True if the number is out
+                of the valid range. By default TbxNumeric.OutOfRange returns
+                False. Descendant objects should override OutOfRange.
+
+OutOfRangeMsg	Function OutOfRangeMsg: String; Virtual;
+
+                Returns an error message to be displayed for out of range
+                errors.
+
+Valid           Function Valid(Command: Word): Boolean; Virtual;
+
+                If OutOfRange returns True, Valid sends an error event to the
+                owner view. This error event is of type cmFieldError and the
+                InfoPtr field is a pointer to an error message string.
+See also	TbxEditLine, TbxFloatEdit, TbxLongEdit
+
+TbxObject (TObject)                                             TvObjects
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxObject is used with many list box objects in TV Tool Box.
+                It has a method that returns a string for display in a list
+                box. By using descendants of TbxObject one list box object
+                can handle any type of collection of TbxObjects (or
+                descendants). It is easier to add a GetText method to a new
+                object, which you most likely needed to create anyway, than
+                create a new list box type.
+
+                This is intended as an abstract object only. It should never
+                be instantiated directly, only derived objects should
+                actually be created.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+GetText         Function GetText(MaxLen: Integer): String; Virtual;
+
+                This method should return a string of MaxLen. The string will
+                be used as a line in a list box.
+See also	TbxListBox, TObject
+
+TbxPairedListBox (TbxListBox)                                   TvDialog
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxPairedListBox implements a method of selecting multiple
+                items from a list. TbxPairedListBox objects must always be
+                used in pairs. Items selected in one list box are deleted and
+                inserted into the other list box. This list box expects a
+                TbxCollection of TbxObjects, but this can be changed by
+                overriding the default GetText method.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Processes double mouse presses and cmTakeItem commands. 
+                Double mouse presses behave like the space bar to 
+                select items. Selected items are deleted and inserted 
+                into the other list box.
+
+                If a cmTakeItem command is received, HandleEvent 
+                inserts the object pointed to by the InfoPtr field of 
+                the event record into its collection.
+
+SelectItem	Procedure SelectItem(Item: Integer); Virtual;
+
+                Deletes the item at Item in the collection and sends a
+                cmTakeItem message to the other list box in the pair. The
+                cmTakeItem message informs the other list box, to insert the
+                passed object into its collection. A pointer to the object is
+                passed in the InfoPtr field of the TEvent record.
+See also        TbxCollection, TbxListBox, TbxPairedStrListBox, TListBox,
+                TCollection
+
+TbxPairedStrListBox (TbxPairedListBox)                          TvDialog
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                This is a paired list box that uses a collection of strings,
+                instead of a collecion of TbxObjects. The collection for
+                this list box must be a TStringCollection.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+GetText         Function GetText(Item: Integer;
+                                 MaxLen: Integer): String; Virtual;
+See also	TbxPairedListBox, TCollection, TListBox, TStringCollection
+
+TbxPercentDialog (TbxRunDialog)                                 TvDialog
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxPercentDialog is a descendant of TbxRunDialog used for
+                displaying percent done and a progress bar during long
+                processing sequences. As your processing is being done, a
+                call to Increment or IncrementBy will change the percent
+                complete and update the progress bar.  You must define a
+                Process method to do whatever actual work is needed.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Total           Total : LongInt;
+
+                The maximum value of Count,  when the percent done will equal
+                100.
+
+Count           Count : LongInt;
+
+                Current completion count, used with Total to calculate the
+                percent complete.
+
+Step            Step : Word;
+
+                The amount to increment Count by at each step.
+
+Pct             Pct : PStaticText;
+
+                The percent complete text.
+
+Bar             Bar : PStaticText;
+
+                The progress bar display.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(ATitle: TTitleStr; AMessage: String;
+                                 ATotal: LongInt; AOptions: Word);
+
+                ATitle is the title for the dialog box. AMessage is the
+                initial value of a changeable message that can be display in
+                the first line of the dialog box. If you pass a message
+                string, you must set AOptions to include mfMessageLine.
+
+                AStep is the size to increase the completion counter by at
+                each step in processing and ATotal is the maximum (or
+                completed) size of the counter.
+
+Load            Constructor Load(var S: TStream);
+Increment	Procedure Increment;
+
+                Each time you want to indicate some progress, call Increment
+                to change the completion counter by Step amount.
+
+IncrementBy     Procedure IncrementBy(AStep : Word);
+
+                Instead of calling Increment, you can call IncrementBy
+                supplying the amount to increment the count by in AStep.
+
+Store           Procedure Store(var S: TStream);
+See also	TbxRunDialog, TDialog
+
+TbxPosIndicator (TView)                                         TvViews
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                This object is a position indicator, it is intended to be
+                inserted into a TWindow frame.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Pos             Pos : LongInt;
+
+                Current position.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect);
+
+                Sets GrowMode to gfGrowLoY and gfGrowHiY.  Initializes Pos to
+                1.
+
+Load            Constructor Load(var S: TStream);
+DataSize	Function  DataSize: Word; Virtual;
+
+                Returns the size of Pos.
+
+Draw            Procedure Draw; Virtual;
+GetData         Procedure GetData(var Rec); Virtual;
+
+                Returns the value in Pos as a LongInt type in Rec.
+
+GetPalette	Function GetPalette: PPalette; Virtual;
+
+                Returns a pointer to the CPosIndicator palette.
+
+SetState	Procedure SetState(AState: Word; Enable: Boolean); Virtual;
+SetData         Procedure SetData(var Rec); Virtual;
+
+                Sets Pos to the LongInt value stored in Rec.
+
+Store           Procedure Store(var S: TStream);
+See also        TView, TWindow
+
+TbxPrintDialog (TbxRunDialog)                                   TvDialog
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxPrintDialog is a descendant of TbxRunDialog to be used as
+                an interface for printing. You must define a Process method
+                to handle the actual print output.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(ATitle: TTitleStr; AMessage: String;
+                                 AOptions: Word);
+
+                Defaults the dialog box size to 44 columns and 7 rows and
+                centers the dialog in the desktop.
+See also        TbxRunDialog
+
+TbxRadioButtons (TRadioButtons)                                 TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxRadioButtons are here so all data entry objects can have
+                field locking and error checking. All other functionality is
+                identical to the normal radio buttons.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+ID              ID : Word;
+
+                Currently assigned id number. Id numbers are assigned
+                automatically by TbxEntryDialog.Insert. Id numbers must be
+                unique.
+
+LLabel          LLabel : PLabel;
+
+                Pointer to the label associated with the radio buttons.
+
+EditFlags	EditFlags : Word;
+
+                Holds the dfXXX flags used to control editing and formatting
+                options. Currently there are no edit flags that affect radio
+                buttons.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; AStrings: PSItem);
+
+                Creates a set of radio buttons with the given bounds by
+                calling TRadioButtons.Init. Sets the ID and EditFlags to
+                zero, LLabel to nil. Sets the EventMask to include broadcast
+                events.
+
+Load            Constructor Load(var S: TStream);
+AddLabel	Procedure AddLabel(ALabel: PLabel);
+
+                Attaches a label to the radio buttons. Labels should be
+                attached to their corresponding controls so that when the
+                control is locked the label can also be locked. Label text
+                will be used to construct the default error messages.
+
+GetId           Function GetID: Word;
+
+                Returns the ID number assigned to the radio buttons. ID
+                numbers are used by TbxEntryDialog to locate a specific
+                control in the dialog box and return a pointer to it.
+
+                ID numbers are useful for dialogs stored on streams. ID
+                numbers will remain constant when the dialog is loaded from a
+                stream, where as any pointers to the object will change.
+
+GetFieldName    Function GetFieldName: String; Virtual;
+
+                Used to get the field name displayed with error messages
+                generated by the Valid method. By default it returns the text
+                in the label pointed to by LLabel.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Calls the inherited HandleEvent then processes any cmSetId or
+                cmIdentify commands. cmSetId commands are issued by
+                TbxEntryDialog to set the ID of the field. CmIdentify
+                commands cause the object to return a pointer to itself.
+
+Lock            Procedure Lock;
+
+                Locks the field and label by setting sfDisabled in the State
+                flag.
+
+SetEditFlag	Procedure SetEditFlag(AFlag: Word; Enable: Boolean);
+
+                Sets the EditFlags for the radio buttons. No edit flags apply
+                to radio buttons.
+
+SetID           Procedure SetID(AFieldID: Word);
+
+                Sets ID to AFieldID.
+
+SetState	Procedure SetState(AState: Word; Enable: Boolean); Virtual;
+
+                Calls the inherited SetState, then, if AState contains
+                sfDisabled, calls the LLabel^.SetState with the value
+                sfDisabled and the Enable parameter.
+
+Store           Procedure Store(var S: TStream);
+UnLock          Procedure UnLock;
+
+                Unlocks the field and label by clearing the sfDisabled bit in
+                the State flag.
+See also        TbxEntryDialog,
+TRadioButtons
+
+TbxRealEdit (TbxFloatEdit)                                      TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Min             Min : Real;
+
+                The smallest number that is a valid entry.
+
+Max             Max : Real;
+
+                The largest number that is a valid entry.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; const AMask: String;
+                                 AMin: Double; AMax: Double);
+
+                Calls the inherited Init then set sets Min and Max. AMask
+                defines a picture that controls what characters may be
+                entered.  AMask can contain literal characters as well as
+                number digit place holders. Two characters can be used for
+                indicating digits, '#' and '9'. The '9' allows the entry of
+                digits 0 through 9, while the '#' also allows entry of a
+                minus sign. If a decimal point (as defined in the DecimalPt
+                constant) appears in the edit mask, the user may enter a
+                decimal point in the number.
+
+Load            Constructor Load(var S: TStream);
+DataSize	Function DataSize: Word; Virtual;
+
+                Returns the size of a Real.
+
+GetData         Procedure GetData(var Rec); Virtual;
+
+                Returns the value in Rec as a Real.
+
+OutOfRange	Function OutOfRange: Boolean; Virtual;
+
+                Tests the current value to see if it is in range. If Min or
+                Max is not zero, OutOfRange returns True if the entered
+                value is not in the range Min to Max inclusive.
+
+OutOfRangeMsg	Function OutOfRangeMsg: String; Virtual;
+
+                Returns the error message displayed for out of range errors.
+
+SetData         Procedure SetData(var Rec); Virtual;
+
+                Set the current value from the Real variable in Rec.
+
+Store           Procedure Store(var S: TStream);
+See also        TbxDoubleEdit, TbxEditLine, TbxFloatEdit, TbxNumericEdit,
+                EditMask characters
+
+TbxRunDialog (TDialog)                                          TvDialog
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxRunDialog is the base object used to create several type
+                of progress display dialogs. TbxRunDialogs do some work,
+                while allowing the user to press a Cancel button to abort
+                processing. TbxRunDialog is the parent of the
+                TbxPercentDialog and TbxPrintDialog objects.
+
+                To use a TbxRunDialog you must provide a Process method. The
+                Process method is where all work be done.
+                TbxRunDialog.Execute will repeatedly call your Process
+                method, until there is nothing left to do. Your Process
+                method needs to do the work in small bits, so that Execute
+                can run and check for user input. When all the work is done,
+                Process sets the RunState flag to cmJobComplete and Execute
+                terminates. If RunState is ever set to cmCancelJob, which
+                means the user aborted, your Process method must close down
+                whatever it is doing so that Execute can terminate safely.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Msg             Msg : PStaticText;
+
+                Static text message displayed in first row of the dialog.
+
+RunState	RunState : Word;
+
+                Current state of the processing.
+
+pfFlags         pfFlags : Word;
+
+                Holds the dialog button options.
+
+BtnRow          BtnRow : Byte;
+
+                The row in the dialog box where the buttons are inserted.
+
+SButton         SButton : PButton;
+CButton         CButton : PButton;
+
+                Pointers to the dialog box buttons. The buttons change
+                depending on the current state of the dialog box.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; ATitle: TTitleStr;
+                                 AMessage: String; AOptions: Word;
+                                 ButtonRow: Byte);
+
+                ATitle is the dialog box title. You can choose several
+                different combinations of buttons for the dialog. If AOptions
+                equals mfCancel, only a cancel button will be added. If it
+                equals mfCancel and mfOk, start and cancel buttons will be
+                added. If AOptions includes mfPause, the dialog will also
+                have pause capabilities. ButtonRow is the dialog box row
+                where all buttons will be inserted.
+
+                You can display a changeable message for the user by
+                including mfMessageLine in AOptions. After the dialog is
+                initialized, call ChangeMessage to display or change the
+                message line. AMessage is the initial message to display,
+                messages can only be displayed if AOptions includes
+                mfMessageLine.
+
+Load            Constructor Load(var S: TStream);
+ChangeMessage	Procedure ChangeMessage(AMessage: String);
+
+                Change the message displayed in the first row of the dialog
+                box. This method has no effect if mfMessageLine was not
+                included in the AOptions parameter passed to Init.
+
+Execute         Function Execute: Word; Virtual;
+
+                Execute consists of a loop that calls the Process method you
+                have defined. At the bottom of the loop, RunState is checked
+                to see if execution should continue.
+
+                Repeat
+                  GetEvent(Event);
+                  HandleEvent(Event);
+                  Process;
+                Until (RunState > cmContinueJob);
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Handles switching states of the dialog as buttons are
+                pressed. Whenever a button is pressed HandleEvent sets the
+                RunState field to the command of the pressed button.
+
+Process         Procedure Process; Virtual;
+
+                You MUST ALWAYS override this method. In Process you will
+                include code to do the work. It must be able to do the work
+                in small chunks, so the dialog box can occasionally get
+                control back and check for user input. When processing is
+                done, set the RunState field to cmJobComplete.
+
+                Here is what a typical Process method might look like:
+
+                Case RunState of
+                  cmStartJob : {DO SETUP}
+                    ....     Do setup and set RunState to cmContinueJob.
+                  cmContinueJob : {DO NEXT TASK}
+                    ....     This might be a short loop, that does the work
+                             in steps. If there is nothing left to do set
+                             RunState to cmJobComplete.
+                  cmPauseJob : {DO NOTHING}
+                    ....
+                  cmCancelJob : {SHUT DOWN, USER ABORTED}
+                    ....
+                end;
+
+Store           Procedure Store(var S: TStream);
+See also	TDialog, cmXXXX constants, mfXXXX constants
+
+TbxScrollDialog (TDialog)                                       TvScroll
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxScrollDialog provides a scrolling dialog box for large
+                data entry forms. It contains a TGroup that provides the
+                clipping region needed for a scrolling interior. A
+                TbxScrollDialog can have vertical and horizontal scroll bars.
+
+                If it has the gfScrollXY bit set in its GrowMode field, any
+                view (TInputLines, TCheckBoxes, TStaticText, etc.) inserted
+                into a TbxScrollDialog can be scrolled. The dialog can be
+                scrolled with the scroll bars. It can also scroll as needed,
+                on Tab and mouse presses, to keep the focused subview in full
+                view.
+
+                To insert scrolling views into a TbxScrollDialog use
+                InsertToScroll instead of the standard Insert call.
+                InsertToScroll will set the gfScrollXY bit set in the
+                GrowMode field of the view.
+
+                You must also call SetLimit, to control the size of the
+                scrolling interior.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Limit           Limit : TPoint;
+
+                Holds the scrolling limits of the interior of the dialog.
+
+VScrollBar	VScrollBar : PScrollBar;
+
+                Pointer to the vertical scroll bar.
+
+HScrollBar	HScrollBar : PScrollBar;
+
+                Pointer to the horizontal scroll bar.
+
+Interior	Interior : PbxScrollGroup;
+
+                Pointer to the scrolling interior group.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; ATitle: String;
+                                 ofFlag: Word);
+
+                Initializes the dialog, by creating scroll bars and the
+                interior scrolling group. Inserts the  covering background
+                view created by InitBackground into the scrolling interior.
+
+                The ofFlag parameter controls the creation of scroll bars.
+                Set ofFlag to ofHScrollbar and/or ofVScrollbar to create
+                vertical and/or horizontal scroll bars as needed. Remember to
+                call SetLimit to establish the size of the scrolling area in
+                the dialog box.
+
+Load            Constructor Load(var S: TStream);
+InitBackground	Function InitBackground: PView; Virtual;
+
+                Creates a blank covering view for the dialog background.
+
+InsertToScroll	Procedure InsertToScroll(P: PView);
+
+                Inserts the view into the interior group and sets GrowMode to
+                include gfScrollXY.
+
+AutoPosition	Procedure AutoPosition(Enable: Boolean);
+
+                Sets the AutoPos field of the interior. If Interior^.AutoPos
+                is True, then the dialog will scroll on Tab and mouse presses
+                to keep the current focused view displayed. AutoPos is True
+                by default.
+
+SetLimit	Procedure SetLimit(X, Y: Integer);
+
+                Sets the size of the scrolling area. You MUST call SetLimit
+                or the dialog will not scroll.
+
+Store           Procedure Store(var S: TStream);
+See also	TbxScrollGroup, TbxScrollWindow, TDialog
+
+TbxScrollGroup (TGroup)                                         TvScroll
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxScrollGroup  serves as the Interior scrolling view for
+                TbxScrollDialog and TbxScrollWindow. It is created by those
+                objects and should never be directly accesed by your program.
+                TbxScrollGroup is the view that controls the scrolling of
+                subviews.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+VScrollBar	VScrollBar : PScrollBar;
+
+                Pointer to a vertical scroll bar inserted in the parent view.
+
+HScrollBar	HScrollBar : PScrollBar;
+
+                Pointer to a horizontal scroll bar inserted in the parent
+                view.
+
+OldPos          OldPos : TPoint;
+
+                Holds the last position of the upper left corner of the
+                scrolling area.
+
+AutoPos         AutoPos : Boolean;
+
+                If True then the current focused subview will be scrolled
+                into view on Tab and mouse presses in the subview.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; AHScrollBar: PScrollBar;
+                                 AVScrollBar: PScrollBar);
+
+                Bounds equals the full interior area of the parent view.
+                AHScrollBar and AVScrollBar are pointers to scroll bars
+                inserted into the parent view.
+
+Load            Constructor Load(var S: TStream);
+HandleEvent     Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Adjusts the subview positions as needed to implement the
+                scrolling view. Subview positions are always adjusted in
+                response to scroll bar changes. They will also be adjusted in
+                response to the tab key and mouse presses, if the AutoPos
+                flag is True.
+
+Store           Procedure Store(var S: TStream);
+See also	TbxScrollDialog, TbxScrollWindow, TGroup
+
+TbxScrollInputLine (TInputLine)                                 TvScroll
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxScrollInputLine overrides the default GetPalette to create
+                a TInputLine that can be inserted into a TWindow, or
+                descendant such as TbxScrollWindow. IT SHOULD NOT BE INSERTED
+                INTO A TbxScrollDialog.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+GetPalette	Function GetPalette: PPalette; Virtual;
+
+                Returns a pointer the CScrollInputLine palette.
+See also	TbxScrollWindow, TInputLine
+
+TbxScrollView (TView)                                           TvScroll
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                This is the base object for creating new kinds of scrolling
+                views for TbxScrollDialogs and TbxScrollWindows. It is only
+                an abstract object and is not intended to be created
+                directly. It is included mostly as an example of what needs
+                to be done to create a scrolling, moveable, and resizeable
+                field in a scrolling window.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect);
+
+                Sets DragMode to dmDragMove and dmDragGrow,  the view is
+                moveable and resizeable. Sets EventMask to include
+                evBroadcast.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Handles processing for resizing and moving the view.
+                HandleEvent begins dragging if a cmDragView command is
+                received, when the mouse is pressed and held on the top row
+                of the view (moving), or when the mouse is pressed and held
+                on the lower right corner (resizing). The DragMode mode field
+                controls the dragging behavior, i.e. whether the view can be
+                moved and/or resized.
+
+SetState	Procedure SetState(AState: Word; Enable: Boolean); Virtual;
+
+                Processes the state changes needed to allow for moving and
+                resizing. Whenever AState includes sfDragging or sfActive the
+                view must be redrawn to have the correct frame and colors.
+See also	TbxScrollDialog, TbxScrollWindow, TView
+
+TbxScrollWindow (TbxWindow)                                     TvScroll
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxScrollWindow is a window that is intended to have subviews
+                such as TInputLines inserted into it. It could be used to
+                create spreadsheet views, or form layout views. If a view has
+                the gfScrollXY bit set in its GrowMode field, it can be
+                scrolled in a TbxScrollWindow. The window can be scrolled
+                with the scroll bars, or can scroll as needed, on Tab and
+                mouse presses, to keep the focused subview in full view.
+
+                To insert scrolling views into a TbxScrollWindow, use
+                InsertToScroll instead of the standard Insert call.
+                InsertToScroll will set the gfScrollXY bit in the GrowMode
+                field of the view.
+
+                You must call SetLimit, to control the size of the scrolling
+                interior.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Limit           Limit : TPoint;
+
+                Holds the scrolling limits of the interior of the window.
+
+VScrollBar	VScrollBar : PScrollBar;
+
+                Pointer to the vertical scroll bar.
+
+HScrollBar	HScrollBar : PScrollBar;
+
+                Pointer to the horizontal scroll bar.
+
+Interior	Interior : PbxScrollGroup;
+
+                Pointer to the scrolling interior group.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; ATitle: String;
+                                 ofFlag: Word);
+
+                Initializes the window, by creating scroll bars and the
+                interior scrolling group. Inserts the  covering background
+                view created by InitBackground into the scrolling interior.
+
+                The ofFlag parameter controls the creation of scroll bars.
+                Set ofFlag to ofHScrollbar and/or ofVScrollbar to create
+                vertical or horizontal scroll bars as needed. Remember to
+                call SetLimit to establish the size of the scrolling area in
+                the dialog box.
+
+Load            Constructor Load(var S: TStream);
+InitBackground	Function InitBackground: PView; Virtual;
+
+                Creates a blank covering view for the window background.
+
+InsertToScroll	Procedure InsertToScroll(P: PView);
+
+                Inserts the view into the interior group and sets GrowMode to
+                include gfScrollXY.
+
+AutoPosition	Procedure AutoPosition(Enable: Boolean);
+
+                Sets the AutoPos field of the interior. If Interior^.AutoPos
+                is True, then the window will scroll on Tab and mouse presses
+                to keep the current focused view displayed. AutoPos is True
+                by default.
+
+SetLimit	Procedure SetLimit(X, Y: Integer);
+
+                Sets the size of the scrolling area. You MUST call SetLimit
+                or the window will not scroll.
+
+Store           Procedure Store(var S: TStream);
+See also	TbxScrollDialog, TbxScrollGroup, TbxScrollInputLine, TDialog
+
+TbxSelectObject (TbxObject)                                     TvObjects
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                This object is be used with the TbxCheckListBox. It has a
+                Boolean field which saves the object's "Selected" state.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Selected	Selected : Boolean;
+
+                Records the "Selected" state of the object. It will be True
+                if the object is checked in a TbxCheckListBox.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Load            Constructor Load(var S: TStream);
+GetSelect	Function GetSelect: Boolean; Virtual;
+
+                Returns the value of Selected.
+
+SetSelect	Procedure SetSelect(AState: Boolean); Virtual;
+
+                Sets the value of Selected.
+
+Store           Procedure Store(var S: TStream);
+See also	TbxCheckListBox, TbxCollection, TbxObject, TObject
+
+TbxSelectStr (TbxSelectObject)                                  TvObjects
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxSelectStr is a descendant of TbxSelectObject to be used
+                for string records. TbxSelectStr can be used in the
+                collection of a TbxCheckListBox.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+St              St: PString;
+
+                The stored string data.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init (const AString: String);
+
+                Uses NewStr to create a string to store AString.
+
+Load            Constructor Load(var S: TStream);
+Done            Destructor Done; Virtual;
+
+                Calls DisposeStr to free memory used to store the string.
+
+GetText         Function GetText(MaxLen: Integer): String; Virtual;
+
+                Returns the first MaxLen characters from the string.
+
+Store           Procedure Store(var S: TStream);
+See also        TbxCheckListBox, TbxCollection, TbxObject, TbxSelectObject,
+                TObject
+
+TbxSlider (TGroup)                                              TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxSlider is a slider control created from a scroll bar.
+                Sliders are used to set a value that must be within a fixed
+                range. The "knob" on the slider is moved back and forth to
+                adjust the value. This version of the slider can only be
+                created horizontally.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+ScrollBar	ScrollBar : PScrollBar;
+
+                Pointer to the scroll bar that serves as the slider.
+
+ID              ID : Word;
+
+                Currently assigned id number. Id numbers are assigned
+                automatically by TbxEntryDialog.Insert. Id numbers must be
+                unique.
+
+LLabel          LLabel : PLabel;
+
+                Pointer to the text label associated with the control.
+
+EditFlags	EditFlags : Word;
+
+                Controls various options of the slider field.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; AMin: Integer;
+                                 AMax: Integer; const AMinLabel: String;
+                                 const AMaxLabel: String);
+
+                AMin is the smallest value for the slider. AMax is the
+                largest value for the slider. AMinLabel is the label to
+                display at the "bottom" end of the slider. AMaxLabel is the
+                label to display at the "top" end of the slider. Bounds must
+                include an area large enough to include the min and max
+                labels.
+
+Load            Constructor Load(var S: TStream);
+AddLabel	Procedure AddLabel(ALabel: PLabel);
+
+                Associates a label with the slider. All labels should be
+                attached to their corresponding controls so that when the
+                control is locked the label can be locked too. Label text
+                will be used to construct the default error messages.
+
+GetData         Procedure GetData(var Rec); Virtual;
+
+                Returns the current slider value as an integer in Rec.
+
+GetID           Function GetID: Word;
+
+                Returns the ID number assigned to the slider.
+
+GetFieldName	Function GetFieldName: String; Virtual;
+
+                Returns the field name. The default implementation returns
+                the text in the label pointed to by LLabel.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Processes mouse clicks on the scroll bar. Handles events,
+                CmSetId and cmIdentify, for setting and getting the ID
+                number.
+
+Lock            Procedure Lock;
+
+                Locks the field by executing SetState(sfDisabled, True).
+
+SetData         Procedure SetData(var Rec); Virtual;
+
+                Sets the current slider value to the integer passed in Rec.
+
+SetEditFlags	Procedure SetEditFlag(AFlag: Word; Enable: Boolean); Virtual;
+
+                Sets or clears bits in the EditFlag field. There are
+                currently no edit flags which affect the behavior of a
+                slider.
+
+SetID           Procedure SetID(AFieldID: Word);
+
+                Sets ID to the value of AFieldID parameter.
+
+SetState	Procedure SetState(AState: Word; Enable: Boolean); Virtual;
+
+                If AState contains sfDisabled, then SetState sets the scroll
+                bar and labels states to the same value of sfDisabled.
+
+Store           Procedure Store(var S: TStream);
+UnLock          Procedure UnLock;
+
+                Unlocks the field by executing SetState(sfDisabled, False).
+See also	TbxEntryDialog, TGroup, TScrollBar
+
+TbxSpinBar (TScrollBar)                                         TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxSpinBar is scroll bar without the position indicator. It
+                is attached to a TbxSpinEdit control. A TbxSpinEdit control
+                is an integer input line. A TbxSpinBar is used to increase
+                and decrease the value of a TbxSpinEdit by fixed amounts. A
+                TbxSpinEdit may also be directly edited.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Chars           Chars: TbxSpinChars;
+
+                Characters used to draw the control.
+
+SpinEdit	SpinEdit : PbxSpinEdit;
+
+                Pointer to the TbxSpinEdit control the spin bar is attached
+                to.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect);
+
+                Bounds can specify a vertical or horizontal spin control.
+
+Load            Constructor Load(var S: TStream);
+Draw            Procedure Draw; Virtual;
+
+                Overrides TScrollBar.Draw so just the arrows are drawn.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Processes mouse presses on the arrows. For each mouse press,
+                Value is incremented or decremented by ArStep.
+
+Store           Procedure Store(var S: TStream);
+See also	TbxSpinEdit, TScrollBar
+
+TbxSpinEdit (TbxIntegerEdit)                                    TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxSpinEdit is an input line for integer values. It has a
+                TbxSpinBar attached that can be used to increment or
+                decrement the integer value by a fixed amount.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+SpinBar         SpinBar : PbxSpinBar;
+
+                Pointer to the spin bar control.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; const AMask: String;
+                                 ASpinBar: PbxSpinBar);
+
+                The AMask parameter can be anything that would work with a
+                normal TbxIntegerEdit. ASpinBar must point to a valid
+                TbxSpinBar, IT CANNOT BE NIL.
+
+Load            Constructor Load(var S: TStream);
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Processes cmScrollBarChanged events from SpinBar by setting
+                the current value to SpinBar^.Value.
+
+SetData         Procedure SetData(var Rec); Virtual;
+
+                Sets the current value of the input line and calls
+                SpinBar^.SetValue to set the spin bar value.
+
+SetState	Procedure SetState(AState: Word; Enable: Boolean); Virtual;
+Valid           Function Valid(Command: Word): Boolean; Virtual;
+
+                Validates the current value against SpinBar^.Min and
+                SpinBar^.Max.
+See also	TbxIntegerEdit, TbxSpinBar, TInputLine
+
+TbxTextWindow (TbxWindow)                                       TvViews
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxTextWindow is a window that contains an instance of
+                TTerminal for instant text display capabilities. If you need
+                a quick text display window, but don't want the bother of
+                defining a Draw method, just slap one of these into the
+                desktop. Call the Write method with any strings you want to
+                display.
+
+                Alternately, you can create a cmDisplayStr broadcast event
+                with a string pointer in the InfoPtr field. The string will
+                be displayed in any open TbxTextWindow on the desktop.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Interior	Interior  : PTerminal;
+
+                Pointer to the window's TTerminal subview.
+
+HScrollBar	HScrollBar : PScrollBar;
+
+                Pointer to the horizontal scroll bar.
+
+VScrollBar	VScrollBar : PScrollBar;
+
+                Pointer to the vertical scroll bar.
+
+Width           Width : Byte;
+
+                Maximum display width of the window. Extra characters from
+                any line longer than Width will be wrapped to the next line.
+
+Height          Height : Byte;
+
+                Maximum number of lines in the view.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(Bounds: TRect; WinTitle: String;
+                                 WinNumber: Word; AOptions: Word;
+                                 AMaxLines: Word);
+
+                Pass ofVScrollBar and/or ofHScrollBar in AOptions, if you
+                want scroll bars with the window. Height is set to the
+                AMaxLines parameter. Width is set to the desktop width.
+                Width * Height is the maximum numbers of characters in the
+                buffer at one time.
+
+Load    	Constructor Load(var S: TStream);
+Clear    	Procedure Clear;
+
+                Clears the display and buffer. You can also clear the window
+                by generating a  cmDisplayClr broadcast event.
+
+HandleEvent    	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Processes broadcast events cmDisplayStr and cmDisplayClr.
+
+Store    	Procedure Store(var S: TStream);
+Write    	Procedure Write(St: String);
+
+                Calls TTerminal.WriteStr to display the string. Displays any
+                characters beyond Width on the next line.
+See also	TTerminal, TWindow, TbxWindow
+
+TbxUnsortedStringCollection (TStringCollection)                 TvObjects
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                The TbxUnsortedStringCollection stores strings in unsorted
+                order. Each string is stored in the order it was inserted
+                into the collection.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Insert          Procedure Insert(Item: Pointer); Virtual;
+
+                Does an AtInsert(Count, Item) to insert the string at the end
+                of the list.
+See also	TCollection, TStringCollection
+
+TbxVListBox (TListBox)                                          TvDialog
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                Note : In the following descriptions the generic term FILE is
+                used in reference to any sort of large ordered list of
+                records that is too large to fit into memory. The actual list
+                may or may not be stored in a disk file. It is recommended
+                that you thoroughly understand the use of the normal list box
+                and its collection before trying to use the TbxVListBox.
+
+                A normal list box can only display collections of up to 16K
+                items, and are not very good for large databases.
+                TbxVListBoxes can display FILES of any size. Virtual list
+                boxes allow complete freedom of movement in the FILE. Virtual
+                list boxes work by storing only a small portion of the FILE
+                in memory. To create a virtual list box, you must derive a
+                new object from TbxVListBox that is able to move through and
+                fetch items from the FILE.
+
+                In the derived list box you MUST override GetItem, you will
+                probably override MatchItem, and you may override the
+                PageSize method. GetItem provides page by page movement
+                through a FILE. TbxVListBox will not function unless you
+                supply a GetItem method that works with your specific data.
+                MatchItem searches for a particular item in a FILE. PageSize
+                sets the size of the virtual paging through the FILE.
+
+                In addition to overriding GetItem, you must do the original
+                fill of the list box collection. This first fill will set the
+                maximum collection size, so put an optimum number of items in
+                it. After the list box has been initialized, create a new
+                collection for the list box, fill it from the FILE, and call
+                NewList to add the collection to the list box. Once you have
+                setup the initial list box collection, TbxVListBox will
+                handle the rest.
+
+                One drawback to virtual list boxes is that the vertical
+                scroll bar does not indicate a relative position in the FILE.
+                The scroll bars only indicate the position in the current
+                data stored in memory. However; there are flags that indicate
+                when the top or bottom of the FILE has been reached.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+AtMin           AtMin : Boolean;
+
+                At the top of the FILE? This flag can be examined to see if
+                movement before the start of the current list in memory is
+                possible.
+
+AtMax           AtMax : Boolean;
+
+                At the bottom of the FILE? This flag can be examined to see
+                if movement past the end of the current list in memory is
+                possible.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(Bounds: TRect; ANumCols: Word;
+                                 AHScrollBar: PScrollBar;
+                                 AVScrollBar: PScrollBar);
+
+                This is the same interface as the standard Init. After
+                calling the inherited Init, it sets AtMin and AtMax to
+                False. Also calls SetComandState to disable the cmPrevPage,
+                cmNextPage, cmFirstPage, and cmLastPage global commands.
+
+                After the list box is initialized, you must fill it.
+                Create and fill a collection with data, then call
+                NewList to add it to the list box. You should set the
+                collection size to some optimum value, as the initial size is
+                the largest the list will ever be. You should also set the
+                AtMax and AtMin flags.
+
+                After the list box is filled initially, TbxVListBox will
+                handle any subsquent changes.
+
+Load            Constructor Load(var S: TStream);
+FillByPage	Function FillByPage(Forward : Boolean): Integer; Virtual;
+
+                Adds a new page of items to the top or bottom of the list
+                box. FillByPage is called whenever a cmPrevPage or cmNextPage
+                command is received by HandleEvent. New items are appended
+                after the last item in the list box, if Forward is True. If
+                Forward is False, items are inserted in front of the first
+                item in the list box. In other words; items are added from
+                the top up, or the bottom down. As each new item is inserted,
+                one existing item is deleted from the opposite end of the
+                list box.
+
+                FillByPage calls GetItem to retrieve each item from the FILE.
+                It inserts items into the list box until GetItem returns nil
+                or PageSize items have been inserted. If fewer than PageSize
+                items are added, either the AtMin or AtMax flag will be set
+                to True, depending on the direction of the fill. FillByPage
+                returns the number of items inserted into the list.
+
+FillFrom        Function FillFrom(FromTop : Boolean): Integer; Virtual;
+
+                Fills the list box from the top or bottom of the FILE.
+                FillFrom is called by HandleEvent whenever a cmLastPage or
+                cmFirstPage command is received. In other words, FillFrom is
+                called to move to the top or bottom of the FILE. The FromTop
+                parameter specifies the start position and direction of the
+                fill. If FromTop is True, the list box is filled downward
+                from the top of the FILE. If it is False, the list box is
+                filled upward from the bottom of the FILE. Before any new
+                items are inserted, all existing items are deleted from list
+                box by calling List^.FreeAll.
+
+                FillFrom calls GetItem to retrieve each item from the FILE.
+                It inserts items into the list box until GetItem returns nil
+                or List^.Limit is reached. If fewer than PageSize items are
+                added, either the AtMin or AtMax flag will be set to True,
+                depending on the direction of the fill. FillFrom returns the
+                number of items inserted into the list.
+
+FocusItem	Procedure FocusItem(Item : Integer); Virtual;
+
+                Calls the inherited FocusItem then redraws the list box.
+
+GetItem         Function GetItem(ACommand : Word): PObject; Virtual;
+
+                You MUST override GetItem in all your derived objects. This
+                method reads the FILE and returns a pointer to the next item
+                that will be inserted into the list box. The list box will
+                not function without this method.
+
+                GetItem first establishes a new position in the FILE. The new
+                FILE position is indicated by ACommand. ACommand will be a
+                value such as vlNext or vlPrev, which mean move to the next
+                or previous item in the FILE. The current FILE position just
+                established must be preserved between calls to GetItem.
+
+                If the correct file position can be established, GetItem
+                returns a pointer to the new item. The pointer is to an
+                object of the same type as in the list box collection, so
+                that it can be inserted into the list box collection. If
+                ACommand cannot be executed, say vlNext while already at the
+                end of the FILE, then a nil pointer is returned.
+
+                The following commands may be passed to GetItem :
+
+                Command         Meaning
+                vlMin           Move to first item in file, return a pointer
+                                to it.
+                vlMax           Move to last item in file, return a pointer
+                                to it.
+                vlCurrent       Return a pointer to the current item in the
+                                file.
+                vlNext          Advance to the next item in the file, return
+                                a pointer to it.
+                vlPrev          Move to the previous item in the file, return
+                                a pointer to it.
+                vlListMax       Move to the item in the file that matches the
+                                first item in the list box, and return a
+                                pointer to it.
+                vlListMin       Move to the item in the file that matches the
+                                last item in the list box, and return a
+                                pointer to it.
+
+HandleEvent     Procedure HandleEvent(var Event : TEvent); Virtual;
+
+                Handles cmPrevPage, cmNextPage, cmFirstPage, and cmLastPage
+                commands for list movement. These commands are global and may
+                be generated by your program. One way to allow paging through
+                an entire FILE would be to create a dialog box with Page Up,
+                Page Down, Go To First Record, and Go To Last Record buttons.
+                The commands cmPrevPage, cmNextPage, cmFirstPage, and
+                cmLastPage are enabled and disabled by the collection fill
+                methods according to the state of the AtMin and AtMax flags.
+
+Lookup          Function Lookup(P : PObject): Boolean; Virtual;
+
+                LookUp provides a means for searching the FILE for a
+                specified item and displaying the results. LookUp calls
+                MatchItem to do the searching. The P parameter is a pointer
+                to the object to you want to search for. P is the same object
+                type as returned by GetItem and as in the list box
+                collection.
+
+                LookUp, returns True if the item pointed by P is found. If P
+                is found, LookUp refills the list box starting from the
+                matching item, focuses the first item, and redraws the list
+                box.
+
+MatchItem	Function MatchItem(P : PObject): Boolean; Virtual;
+
+                MatchItem searches the entire FILE (not just that portion
+                stored in memory), to find a match for the item pointed to by
+                P. P is the same object type as in the list box collection
+                and the same type returned by the GetItem method.
+
+                If a match is found, MatchItem must set the current position
+                in the FILE to the position of the matching item. MatchItem
+                returns True if a match is found and False otherwise. The
+                default MatchItem method always returns False.
+
+                When no match is found, MatchItem may set up a closest match.
+                In that case it would always return True and MatchItem would
+                set the current position in the FILE to the closest matching
+                item.
+
+NewList         Procedure NewList(AList: PCollection); Virtual;
+
+                Inserts the collection pointed to by AList into the list box.
+                Sets the enabled state of the cmNextPage, cmLastPage,
+                cmPrevPage, and cmFirstPage global commands.
+
+PageSize	Function PageSize : Integer; Virtual;
+
+                This method returns the virtual page size for movement in the
+                list. The default value returned is List^.Limit DIV 3. You
+                may want to override to allow a large page size when stepping
+                through the file.
+
+SetCommandState Procedure SetCommandState(Enable : Boolean);
+
+                Set the state of the cmNextPage, cmLastPage, cmPrevPage, and
+                cmFirstPage global commands according to the values of AtMin,
+                AtMax, and the Enable parameter.
+See also	TCollection, TListBox
+
+TbxWindow (TWindow)                                             TvViews
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                TbxWindow is a window that can be minimized (displayed as an
+                icon). TbxWindow also has a popup control menu. The control
+                menu can be displayed by pressing Alt-Minus or clicking the
+                right mouse button on the close icon.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+MinMax          MinMax : PbxMinMaxButton;
+
+                Pointer to the minimize icon in the window frame.
+
+Icon            Icon : PbxWindowIcon;
+
+                Pointer to the view (icon) that displays when the window is
+                minimized.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; ATitle: TTitleStr;
+                                 ANumber: Integer);
+
+                Calls TWindow.Init passing Bounds, ATitle, and ANumber.
+                Inserts a minimize icon into the window frame. Calls the
+                InitIcon method to create the icon that will display on the
+                desktop when the window is minimized. Inserts the view
+                returned by InitIcon into the desktop.
+
+Load            Constructor Load(var S: TStream);
+ControlMenu	Procedure ControlMenu(Mouse: Boolean);
+
+                Pops the window control menu. Mouse indicates whether the
+                menu is popping up because of a right mouse button press on
+                the window close icon. The control menu contains the
+                following options :  "Close", "Zoom", "Minimize", "Previous",
+                "Next", "Resize/move", "Tile", and "Cascade".
+
+HandleEvent    	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Handles the kbAltMinus and cmPopMenu commands that popup the
+                control menu. Minimizes the window to an icon whenever a
+                cmMinimize command is received.
+
+InitFrame    	Procedure InitFrame; Virtual;
+
+                Overrides the default InitFrame to setup a TbxFrame that can
+                respond to mouse presses on the minimize icon in the upper
+                right corner of the frame.
+
+InitIcon    	Procedure InitIcon; Virtual;
+
+                Creates a default icon that displays on the desktop when the
+                window is minimized. The default icon consists of the window
+                title.
+
+SetState    	Procedure SetState(AState: Word; Enable: Boolean); Virtual;
+
+                Overrides the default method to provide special handling for
+                the control menu and the minimize icon. SetState hides and
+                shows the minimize icon in response to setting sfActive. It
+                also enables the cmMinimize command whenever the window is
+                active.
+
+Store           Procedure Store(var S: TStream);
+See also        TbxFrame, TbxIcon, TbxMinMaxButton, TbxWindowIcon, TWindow
+
+TbxWindowIcon (TbxIcon)                                         TvViews
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                Provides an icon for a minimized TbxWindow. Icons can be
+                maximized by double clicking on the icon. They can also be
+                maximized from the control menu popped up by pressing
+                Alt-Minus.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+View            View  : PView;
+
+                Pointer to the maximized window.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(ATitle: TTitleStr; AView: PView);
+
+                ATitle is the title of the icon, and is displayed as the
+                default icon view. AView is a pointer to the maximized
+                window.
+
+Load            Constructor Load(var S: TStream);
+ControlMenu	Procedure ControlMenu(Mouse: Boolean);
+
+                Pops the window control menu. Mouse indicates whether the
+                menu is popping up because of a right mouse button press on
+                the icon. The control menu contains the following options :
+                "Close", "Maximize", "Previous", "Next", and "Move".
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Handles the kbAltMinus and cmPopMenu commands that popup the
+                control menu. Maximizes the window and hides the icon
+                whenever a cmMaximize command is seen. Also handles double
+                mouse clicks, that zoom the window, on the icon.
+
+SetState	Procedure SetState(AState: Word; Enable: Boolean); Virtual;
+
+                Whenever the icon is activated SetState enables the commands
+                cmClose, cmMinimize, cmResize, cmNext, and cmPrev.
+
+Store           Procedure Store(var S: TStream);
+See also	TbxIcon, TbxWindow
+
+TbxWordEdit (TbxLongEdit)                                       TvInput
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                A descendant of TbxLongEdit for Words.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; const AMask: String;
+                                 AMin: Byte; AMax: Byte);
+
+                The Init constructor exists mainly to provide range checking
+                of the AMin and AMax parameters. Calls the TbxLongEdit.Init
+                constructor. AMask defines a picture that controls what
+                characters may be entered. AMask can contain literal
+                characterss as well as digit place holders. Two characters
+                can be used for indicating digits, '#' and '9'. The '9'
+                allows the entry of digits 0 through 9, while the '#' also
+                allows entry of a minus sign.
+
+DataSize	Function DataSize: Word; Virtual;
+
+                Returns the size of an Integer.
+
+GetData         Procedure GetData(var Rec); Virtual;
+
+                Returns the current value as an Integer in Rec.
+
+SetData         Procedure SetData(var Rec); Virtual;
+
+                Set the current value to the Word value in Rec.
+See also	TbxEditLine, TbxLongEdit, TInputLine
+
+Tbx3DButton (TButton)                                           Tv3D
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                A Tbx3DButton implements the same behavior as a TButton but
+                is displayed in a three dimensional style. Unlike normal
+                buttons, 3D buttons accept up to two rows of text. In the
+                title string just insert a ^M in front of the text for second
+                row.
+
+                For more information please see the entry for TButton in the
+                Turbo Vision manual.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Down            Down : Boolean;
+
+                Tracks the "pressed" state of the button.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; ATitle:
+                                 TTitleStr; ACommand: Word; AFlags: Word);
+
+                Creates a button with the given bounds and title string by
+                calling TButton.Init. A 3D button title can be one or two
+                rows of text, the second row of the title must start with a
+                ^M.
+
+                Init(R, 'Save' + ^M + 'File', ....), will create a two line
+                button with a title of "Save File" displayed on two lines.
+
+Load            Constructor Load(var S: TStream);
+Draw            Procedure Draw; Virtual;
+
+                Overrides TButton.Draw to display a one or two line 3D
+                button. Draws the button with the palette and outline
+                (returned by GetFrame) appropriate for the current state.
+
+DrawTitle       Procedure DrawTitle(ATitle: TTitleStr; Color: Word;
+                                    Row: Word); Virtual;
+
+                Called by Draw to display the button title.
+
+GetFrame	Procedure GetFrame(var F: TbxFrameArray); Virtual;
+
+                Returns the set of frame characters to be used to draw the 3D
+                outline for the button. If Down is True then the ButtonPress
+                frame is returned. If the button is selected but not pressed,
+                the ButtonSelect frame is returned. Otherwise, the
+                ButtonNormal frame is returned. This method can be overridden
+                to change the outline frame styles.
+
+GetPalette	Function GetPalette: PPalette; Virtual;
+
+                Returns a pointer to the default palette C3DButton.
+
+HandleEvent	Procedure HandleEvent(var Event: TEvent); Virtual;
+
+                Overrides the TButton.HandleEvent so the button can be drawn
+                in 3D styles appropriate to the current button state.
+See also        ButtonNormal, ButtonPress, ButtonSelect, TButton
+
+Tbx3DDialog (TDialog)                                           Tv3D
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                Tbx3DDialog replaces TDialog so all controls can be displayed
+                with a 3D effect. All controls will have a 3D outline added
+                if the ofFramed bit in the Options flag is set when they are
+                inserted into the dialog. You should only set the ofFramed
+                bit for controls like input lines and list boxes which do not
+                have specific 3D versions. Do not set the ofFramed bit on
+                Tbx3DButton or Tbx3DHistory objects.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+GetPalette	Function GetPalette: PPalette; Virtual;
+
+                Returns a pointer to the default palette C3DDialog.
+
+Insert          Procedure Insert(P: PView); Virtual;
+
+                If the Options field of the view has the ofFramed bit set, an
+                outline object (with bounds one larger in each dimension) is
+                inserted into the dialog before the view. When inserting a
+                view that will be outlined make sure to position the view to
+                allow room for the outline.
+See also	Tbx3DOutline, TDialog
+
+Tbx3DHistory (THistory)                                         Tv3D
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                Tbx3DHistory replaces THistory with a history list arrow
+                button with a 3D look. This object implements all features of
+                the standard THistory object.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; ALink: PInputLine;
+                                 AHistoryId: Word);
+
+                Use the same bounds you would for a normal THistory view,
+                they will be changed to accommodate the 3D effect.
+
+Draw            Procedure Draw; Virtual;
+
+                Draws a 3D history button with a single line frame.
+
+GetPalette	Function GetPalette: PPalette; Virtual;
+
+                Returns a pointer to the default palette C3DHistory.
+See also	THistory
+
+Tbx3DOutline (TView)                                            Tv3D
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                Tbx3DOutline is used to give controls, such as input lines
+                and list boxes, a 3D look when inserted into a 3D dialog. Any
+                view that has its ofFramed bit set, when inserted into a
+                Tbx3DDialog will get an outline. See Tbx3DDialog for more
+                information.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect);
+
+                Grows Bounds by one in all directions and calls TView.Init to
+                create the object.
+
+Draw            Procedure Draw; Virtual;
+
+                Draws an outline with the frame characters returned by
+                GetFrame.
+
+GetFrame	Procedure GetFrame(var F: TbxFrameArray); Virtual;
+
+                Returns the frame characters to be used to draw the 3D
+                outline. This method can be overridden to change the outline
+                style.
+
+GetPalette	Function GetPalette: PPalette; Virtual;
+
+                Returns a pointer to the default palette C3DOutline.
+See also	Tbx3DDialog, TView
+
+Tbx3DToolBar (Tbx3DDialog)                                      Tv3D
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                The Tbx3DToolBar implements a 3D tool/button bar using
+                Tbx3DToolButtons. Tool bars are really just modeless dialogs
+                that can't be selected or closed. The default tool bar has no
+                frame and cannot be moved, this can be changed by overriding
+                the InitFrame method.
+
+                Tool bars can be vertical or horizontal and grow as needed to
+                hold more buttons. The starting bounds of a tool bar specify
+                only the upper left corner. Buttons are added to the tool bar
+                by calling AddTool, passing the button title and command id.
+
+                Tool bars respond only to mouse presses. Tool bars by
+                themselves do no processing. When a button on the tool bar is
+                pressed the associated command is broadcast throughout the
+                application. Your application's HandleEvent method must be
+                changed to receive these broadcast messages and implement any
+                desired behavior.
+
+                Tool bars are inserted directly into the desktop and MUST BE
+                THE FIRST OBJECT INSERTED INTO THE DESKTOP! It is probably
+                best to create a new InitDesktop method for your application
+                and create a tool bar immediately after calling the inherited
+                InitDesktop method.
+
+Fields 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+IsVertical	IsVertical: Boolean;
+
+                Is the tool bar display vertical or horizontal. Do not change
+                this after the bar is initialized!
+
+LastX           LastX: Word;
+
+                The last X coordinates used by a button.
+
+LastY           LastY: Word;
+
+                The last Y coordinates used by a button.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+Init            Constructor Init(var Bounds: TRect; Vertical: Boolean);
+
+                Calls Tbx3Dialog.Init to create a 3D dialog. Default flags
+                are ofTileable, ofSelectable, sfShadow and wfClose off, and
+                ofFirstClick on. If there is no frame, the dialog bounds are
+                decreased by one.
+
+Load            Constructor Load(var S: TStream);
+AddTool         Procedure AddTool(ATitle: TTitleStr; ACommand: Word);
+
+                Add a button to the tool bar. ATitle is the text displayed on
+                the button, ACommand is the command id that will be broadcast
+                whenever the button is pressed. Titles may be one or two
+                lines, insert a ^M in front of text for the second line.
+
+InitFrame	Procedure InitFrame; Virtual;
+
+                Overrides the TDialog.InitFrame and sets the frame pointer to
+                nil.
+
+SizeLimits	Procedure SizeLimits(var Min, Max: TPoint); Virtual;
+
+                Overrides TDialog.SizeLimits to keep the tool bar from being
+                resized.
+
+Store           Procedure Store(var S: TStream);
+See also	Tbx3DDialog, Tbx3DToolButton
+
+Tbx3DToolButton (Tbx3DButton)                                   Tv3D
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+                3D buttons for tool bars. A special toolbar button was
+                created to give these buttons an appropriate outline.
+
+Methods 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+GetFrame	Procedure GetFrame(var F: TbxFrameArray); Virtual;
+
+                Returns the frame characters to be used to draw the 3D
+                outline. A tool button only has two states Down or Up, and
+                only two frame styles. This method can be overridden to change
+                the outline style.
+
+GetPalette	Function GetPalette: PPalette; Virtual;
+
+                Returns a pointer to the default palette C3DToolButton.
+See also	Tbx3DButton, Tbx3DToolBar, TButton
+
+Trim procedure                                                  TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Procedure Trim(var S: String);
+Function	Return string S with leading and trailing blanks removed.
+See also	FTrim
+
+TrimCh procedure                                                TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Procedure TrimCh(var S: String; Ch: Char);
+Function        Return string S with all leading and trailing characters
+                equal to Ch removed.
+See also	FTrimCh
+
+TrimLead procedure                                              TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Procedure TrimLead(var S: String);
+Function	Return string S with leading spaces removed.
+See also	FTrimLead
+
+TrimLeadZero procedure                                          TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Procedure TrimLeadZero(var S: String);
+Function	Return string S with leading zeros removed.
+See also	FTrimLeadZero
+
+TrimTrail procedure                                             TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration	Procedure TrimTrail(var S: String);
+Function	Return string S with trailing spaces removed.
+See also	FTrimTrail
+
+TruncateStr procedure                                           TvString
+컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+Declaration     Procedure TruncateStr(var S: String; Len: Byte);
+Function        If string S is longer than length Len, then truncate S to
+                size Len characters.
+See also	FTruncateStr

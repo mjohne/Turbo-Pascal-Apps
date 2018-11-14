@@ -1,0 +1,142 @@
+UNIT TvApp;
+{$B+}
+{$X+}
+{$V-}
+
+{$I TVDEFS.INC}
+
+INTERFACE
+
+
+USES
+  App, Dialogs, Drivers, Objects, Views;
+
+
+CONST
+  { Palette Layout }
+  { 1-63 are normal palette entries }
+  { 64-127 are reserved by Borland }
+  { 128-135 are the help colors defined in HELPFILE.PAS }
+  {         they need to go in ahead of new colors. }
+  { 136-185 are TV Tool Box colors }
+  { 136 is the busy window color }
+  { 137-171 are 3D palette entries }
+  { 172-190 are reserved by TV Tool Box for future use }
+
+  { 136 = Busy indicator }
+  { 137 = Frame normal }
+  { 138 = Frame shaded }
+  { 139 = Frame passive }
+  { 140 = Frame icon }
+  { 141 = Button normal }
+  { 142 = Button text }
+  { 143 = Button disabled text }
+  { 144 = Button shortcut text }
+  { 145 = Button shaded }
+  { 146 = Button default text }
+  { 147 = Outline normal }
+  { 148 = Outline shaded }
+  { 149 = Inputline active }
+  { 150 = Inputline selected text }
+  { 151 = Inputline arrow }
+  { 152 = Cluster normal }
+  { 153 = Cluster selected }
+  { 154 = Cluster shortcut }
+  { 155 = Cluster disabled }
+  { 156 = ListViewer normal }
+  { 157 = ListViewer focused }
+  { 158 = ListViewer selected }
+  { 159 = ListViewer divider }
+  { 160 = History arrow }
+  { 161 = History normal }
+  { 162 = History shaded }
+  { 163 = HistoryWindow scrollbar page area }
+  { 164 = HistoryWindow scrollbar controls }
+  { 165 = Scroll bar page areas }
+  { 166 = Scroll bar arrows/indicator }
+  { 167 = Static text }
+  { 168 = Label normal }
+  { 169 = Label selected }
+  { 170 = Label shortcut }
+  { 171 = InfoPane }
+
+  CHelpColor      = #$37#$3F#$3A#$13#$13#$30#$3E#$1E;
+  CHelpBlackWhite = #$07#$0F#$07#$70#$70#$07#$0F#$70;
+  CHelpMonochrome = #$07#$0F#$07#$70#$70#$07#$0F#$70;
+
+  CColor      =
+   {Busy|     Frame     |        Button         |}
+    #$CF#$7F#$70#$70#$70#$7F#$70#$78#$7E#$70#$7F +
+   {|Outline|Input Line |  Cluster      |  List Viewer  |}
+    #$7F#$70#$70#$07#$70#$70#$7F#$7F#$78#$70#$07#$7F#$70 +
+   {|  History  |Hist Wn|Sc. Bar|S T|   Label   |I P}
+    #$70#$7F#$70#$78#$0F#$07#$0F#$78#$70#$7F#$7E#$70;
+
+  CBlackWhite =
+    #$8F#$7F#$70#$78#$70#$7F#$70#$78#$0F#$70#$7F +
+    #$7F#$70#$70#$07#$0F#$70#$07#$0F#$78#$70#$07#$7F#$70 +
+    #$70#$7F#$70#$78#$0F#$07#$0F#$78#$70#$7F#$0F#$7F;
+
+  CMonochrome =
+    #$8F#$7F#$70#$78#$70#$7F#$70#$78#$0F#$70#$7F +
+    #$7F#$70#$70#$07#$0F#$70#$07#$0F#$78#$70#$07#$7F#$70 +
+    #$70#$7F#$70#$78#$0F#$07#$0F#$78#$70#$7F#$0F#$7F;
+
+  CBusyWindow = #136#136#136#136#136#136#136#136;
+
+
+TYPE
+  PbxBusyWindow = ^TbxBusyWindow;
+  TbxBusyWindow = Object(TWindow)
+    Constructor Init(const AMessage : String);
+    Function    GetPalette: PPalette;                     Virtual;
+    Procedure   Show;                                     Virtual;
+  end;
+
+
+  PbxApplication = ^TbxApplication;
+  TbxApplication = Object(TApplication)
+    MouseVisible : Boolean;
+    ToggleMouse  : Boolean;
+
+    Constructor Init;
+    Constructor Load(var S: TStream);
+    Procedure   CloseAllWindows;
+    Procedure   GetEvent(var Event: TEvent);              Virtual;
+    Function    GetPalette: PPalette;                     Virtual;
+    Procedure   HandleEvent(var Event: TEvent);           Virtual;
+    Procedure   HideBusy;
+    Procedure   SetMouseToggle(const Enable : Boolean);
+    Procedure   ShowBusy;
+    Procedure   Store(var S: TStream);
+  end;
+
+
+CONST
+  BusyWindow  : PbxBusyWindow = nil;
+
+
+
+{ TvApp registration procedure }
+
+Procedure RegisterTVApp;
+
+
+{ Stream Registration Records }
+
+CONST
+  RbxBusyWindow: TStreamRec = (
+    ObjType : 5200;
+    VmtLink : Ofs(TypeOf(TbxBusyWindow)^);
+    Load    : @TbxBusyWindow.Load;
+    Store   : @TbxBusyWindow.Store
+  );
+
+CONST
+  RbxApplication: TStreamRec = (
+    ObjType : 5201;
+    VmtLink : Ofs(TypeOf(TbxApplication)^);
+    Load    : @TbxApplication.Load;
+    Store   : @TbxApplication.Store
+  );
+

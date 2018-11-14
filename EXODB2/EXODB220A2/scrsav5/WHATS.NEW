@@ -1,0 +1,18 @@
+Fixes/Updates for version 5
+컴컴컴컴컴컴컴컴컴컴컴컴컴�
+- The screensaver has become a TObject so it can be stored on a stream.
+  Thanks to Michael Turner (115:4401/4@PascalNet or 2:254/80@FidoNet)
+  for it!
+
+- Improved Worm-screensaver (it no longer walks though the end of the
+  screen).
+
+- Fixed some memory losses. This happened because I forgot the dispose
+  both the Options-dialog and the StringCollection in it. Sorry, won't
+  happen again.
+
+- Savingtime is no longer in seconds but in minutes.
+
+Fixes/Updates for version 4
+컴컴컴컴컴컴컴컴컴컴컴컴컴�
+- Initial release after a little beta-run in PascalNet

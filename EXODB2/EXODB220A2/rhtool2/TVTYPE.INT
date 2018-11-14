@@ -1,0 +1,153 @@
+UNIT TvType;
+{$B+}
+{$X+}
+{$V-}
+
+{$I TVDEFS.INC}
+
+INTERFACE
+
+USES
+  Dos,
+  Objects;
+
+
+CONST
+  DateSlash : Char = '/';
+
+
+CONST
+  BaseYear  : Word = 1900;
+
+
+TYPE
+  TbxFrameArray = Array[1..8] of Char;
+
+
+  PbxCharArray  = ^TbxCharArray;
+  TbxCharArray  = Array[0..$FFE0] of Char;
+
+
+  PbxByteArray  = ^TbxByteArray;
+  TbxByteArray  = Array[0..$FFE0] of Byte;
+
+
+  TbxCharSet    = Set of Char;
+  TbxByteSet    = Set of Byte;
+
+
+  TbxLong    = record
+    Low, High : Word;
+  end;
+
+
+  { Record passed between two TbxPairedListBox objects }
+  PbxItemRec = ^TbxItemRec;
+  TbxItemRec = record
+    Owner,Item : Pointer;
+  end;
+
+
+  { DATE TYPES }
+
+  TbxDateSt   = String[12]; {"mm/dd/yyyy", etc.}
+
+
+  { Record for TbxDate GetData and SetData }
+  TbxDateRec  = record
+    Day   : Byte;
+    Month : Byte;
+    Year  : Word;
+  end;
+
+
+  PbxDate = ^TbxDate;
+  TbxDate = Object(TObject)
+    Day   : Byte;
+    Month : Byte;
+    Year  : Word;
+
+    Constructor Init(D : Byte; M : Byte; Y : Word);
+    Constructor Load(var S : TStream);
+    Function    Compare(var ADate : PbxDate): Integer;
+    Function    DateString(Picture : TbxDateSt): TbxDateSt;
+    Function    DaysInMonth: Word;
+    Procedure   ExtractDate(Picture : TbxDateSt;
+                            ADateSt : TbxDateSt);
+    Procedure   GetData(var Rec);
+    Function    GetDay: Byte;
+    Function    GetMonth: Byte;
+    Function    GetYear: Word;
+    Function    LeapYear: Boolean;
+    Procedure   SetData(var Rec);
+    Procedure   SetDay(D : Byte);
+    Procedure   SetMonth(M : Byte);
+    Procedure   SetToday;
+    Procedure   SetYear(Y : Word);
+    Procedure   Store(var S : TStream);
+    Function    Valid: Boolean;                           Virtual;
+    private
+    Function    FourDigitYear(Y : Word): Word;
+  end;
+
+
+CONST
+  MonthString : Array[1..12] of string[9] =
+    (
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+    );
+
+CONST
+  DayString : Array[1..7] of string[9] =
+    (
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday'
+    );
+
+
+Function IsLeapYear(Year : Word): Boolean;
+
+Function DaysInMonth(Date : TbxDateRec): Word;
+
+Function CompareDate(Date1 : TbxDateRec;
+                     Date2 : TbxDateRec): Integer;
+
+Function DateToDateString(Date    : TbxDateRec;
+                          Picture : TbxDateSt): TbxDateSt;
+
+Procedure ExtractDateFromString(var Date    : TbxDateRec;
+                                    Picture : TbxDateSt;
+                                    ADateSt : TbxDateSt);
+
+
+{ TvType registration procedure }
+
+Procedure RegisterTVType;
+
+
+{ Stream Registration Records }
+
+CONST
+  RbxDate: TStreamRec = (
+    ObjType : 5050;
+    VmtLink : Ofs(TypeOf(TbxDate)^);
+    Load    : @TbxDate.Load;
+    Store   : @TbxDate.Store
+  );
+
