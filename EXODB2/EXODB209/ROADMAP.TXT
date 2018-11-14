@@ -1,0 +1,72 @@
+Version 0.9  Geplant:     * Laden aller Datens?tze aus dem Stammverzeichnis
+                            \EXO\ fÅr die Programm-Module "HRD", "ORBIT" und
+                            "STARMAP"
+
+                          * neue Sternliste hinzufÅgen
+
+                          * Ausw?hlen Ausschnittsvergr?·erung fÅr das
+                            Programm-Modul "STARMAP"
+
+                          * Datens?tze aus dem Stammverzeichnis \EXO\ Åber-
+                            prÅfen
+
+                          ------ #ERF?LLT# ------
+
+             Fraglich:    * PCX-Format anstatt BMP-Format fÅr das Programm-
+                            Modul "HRD" bevorzugen
+
+                          ------ #ERF?LLT# ------
+
+             Sonstiges:   * Bezeichnungen f¸r Sternbildern und Sterne im
+                            Modul "STARMAP"
+
+                          * Auswahl zwischen den Formaten PCX und BMP bei
+                            der Abspeicherung von Screen-Shots
+
+----------------------------------------------------------------------------
+
+Version 1.0  Geplant:     * Aussehen, Bedienung und Navigation verbessern
+
+                          * Datei EXO.LST erzeugen
+
+             Fraglich:    * CONVERT-Tool fÅr EXO.LST anpassen
+
+             Sonstiges:   * Datens?tze aus dem Stammverzeichnis \EXO\ Åber-
+                            prÅfen (u.a. Datum)
+
+----------------------------------------------------------------------------
+
+Version 1.1  Geplant:     * M?glichkeit der Ablagerung von Bildern unter
+                            EXO.LST
+
+                          * Anzeige der Bilder mit dem Modul "PHOTO"
+
+             Fraglich:    * Bedienung mit Mouse hinzufÅgen
+
+                          * Was wird aus dem Modul "RV"? Umwandeln
+                            in "PRES"?
+                            ("RV" = Radial Velocity)
+                            ("PRES" = Period Resonanz)
+
+             Sonstiges:   * keine
+
+----------------------------------------------------------------------------
+
+Version 1.2  Geplant:     * TimeLine-Modell erzeugen
+
+             Fraglich:    * Drucken im Grafik-Modus
+
+                          * Export nach TXT, HTML (RTF?)
+
+             Sonstiges:   * keine
+
+----------------------------------------------------------------------------
+
+Version 1.3  Geplant:     * ???
+
+             Fraglich:    * Lexikon, Publikation?
+
+             Sonstiges:   * keine
+
+----------------------------------------------------------------------------
+

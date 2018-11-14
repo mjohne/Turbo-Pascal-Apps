@@ -1,0 +1,317 @@
+{\rtf1\ansi\ansicpg1252\deff0\deftab709{\fonttbl{\f0\fswiss\fprq2\fcharset0 Arial;}{\f1\froman\fprq2\fcharset0 Thorndale;}{\f2\fmodern\fprq1\fcharset0 Courier New;}}
+\viewkind4\uc1\pard\qj\lang1031\f0\fs24\par
+\pard\qc\ul\b\fs80 Dokumentation f\'fcr EXODB2 v0.8\par
+\pard\qj\ulnone\b0\fs24\par
+\par
+\pard\qc Erarbeitet von: \i Michael Johne\i0\par
+Datum:\i 10.01.2004\i0\par
+E-Mail:\i michael-johne@gmx.de\i0\f1\par
+\f0 Homepage: \i http://www.die-exoplaneten.de.vu\i0\par
+\pard\qj\par
+\par
+\par
+\ul Inhalt:\par
+\ulnone 1. Versionsinformation\par
+2. Aufbau des Verzeichnisses und Aufgabe der Dateien\par
+3. Bedienung des Programms\par
+\f1\par
+\par
+\ul\b\f0\fs32 1. Versionsinformation\par
+\ulnone\b0\fs24 Der Name \f2\ldblquote EXODB2\ldblquote\f0  setzt sich als Wortspiel aus dem langen Worten \'84\b EXO\b0 planeten-\b D\b0 aten\b B\b0 ank\ldblquote  zusammen. Die nachstehende \f2\'842\ldblquote\f0  deutet darauf hin, dass das Programm komplett neugeschrieben worden ist. (Es gab eine Zeit lang das Vorg\'e4nger-Programm \f2\'84EXODB\f0\ldblquote  [ohne Zahl]. Doch dieses erste Programm ist mir im Internet verloren gegangen!).\f1\par
+\f0 Die aktuelle Version von \f2\ldblquote EXODB2\ldblquote  \f0 ist \b 0.8\b0 . Die lange Programmbezeichnung ist demnach \f2\ldblquote EXODB2 v0.8\ldblquote\f0 .\par
+\par
+\par
+\ul\b\fs32 2. Aufbau des Verzeichnisses und Aufgabe der Dateien\par
+\ulnone\b0\fs24\par
+\ul\fs28 2.1. Aufbau des Archiv\par
+\ulnone\fs24\par
+Der Archivname lautet \'84\i exodb208\i0\ldblquote . Je nach Archiv-Typ kann die Dateiendung \i zip\i0 , \i rar\i0  oder \i tar.gz \i0 lauten. Standardm\'e4\'dfig werden alle ben\'f6tigen Programmdateien mitgeliefert. Auf speziellen Wunsch kann auch der aktuelle Datensatz aller bisher entdeckten Exoplaneten hinzugef\'fcgt werden. Der aktuelle Datensatz lautet: \i exo-20041104\i0 . Ferner ist es m\'f6glich, Beispielgrafiken mitzugeben, die \f2\ldblquote EXODB2\ldblquote  \f0 aus einem gew\'e4hlten Datensatz erstellen werden k\'f6nnen.\par
+\par
+\par
+\ul\fs28 2.2. Die Verzeichnisse\par
+\ulnone\fs24\par
+\f2\ldblquote EXODB2\ldblquote  \f0 beinhaltet in der Regel die folgenden Verzeichnisse mit folgenden Aufgaben:\par
+\i /EXO/\par
+\i0\tab In diesem Verzeichnis werden alle Datenbanken gespeichert.\par
+\i /DISTRI/\par
+\i0\tab In diesem Verzeichnis werden alle Grafiken f\'fcr den \i Distributionen\i0  gespeichert.\par
+\i /DIAGRAM/\par
+\i0\tab In diesem Verzeichnis werden alle Grafiken f\'fcr den \i Diagramme\i0  gespeichert.\par
+\i /HRD/\par
+\i0\tab In diesem Verzeichnis werden alle Grafiken f\'fcr das \i HRD \i0 gespeichert.\par
+\i /MASSCOMP/\par
+\i0\tab In diesem Verzeichnis werden alle Grafiken f\'fcr den \i Masse-Vergleich\i0\par
+\tab gespeicht\par
+\i /ORBIT/\par
+\i0\tab In diesem Verzeichnis werden alle Grafiken f\'fcr den \i Orbit\i0  gespeichert.\par
+\i /STARMAP/\par
+\i0\tab In diesem Verzeichnis werden alle Grafiken f\'fcr die \i Sternkarte\i0  gespeichert.\par
+\par
+\par
+\ul\fs28 2.2 Die Dateien\par
+\ulnone\fs24\par
+\f2\ldblquote EXODB2\ldblquote  \f0 beinhaltet in der Regel die folgenden Dateien mit folgenden Aufgaben:\par
+\i clines.lst\par
+\i0\tab Beinhaltet Daten zur Darstellung f\'fcr Sternbilder-Verbindungslinien.\par
+\b\tab Diese Datei kann frei verwendet und ver\'e4ndert werden!\par
+\b0\i convert.exe\par
+\i0\tab Wandelt Daten von \f2\ldblquote EXODB\ldblquote  \f0 nach\f2  \ldblquote EXODB2\ldblquote  \f0 um.\par
+\tab Dieses Tool ist der Regel nicht weiter interessant.\par
+\i diagram.dat\par
+\i0\tab Programm-Modul, das zum graphischen Zeichnen von \i Diagrammen\i0  dient\par
+\i distri.dat\par
+\i0\tab Programm-Modul, das zum graphischen Zeichnen von \i Distributionen\i0  dient\par
+\i eclip.lst\par
+\i0\tab Beinhaltet Daten zur Darstellung f\'fcr die Ekliptik\par
+\tab\b Diese Datei kann frei verwendet und ver\'e4ndert werden!\b0\par
+\i egavga.bgi\par
+\i0\tab Grafik-Treiber zur graphischen Anzeige des Programms\par
+\i exodb208.exe\par
+\i0\tab Das eigentliche ausf\'fchrbare Programm.\par
+\i hrd.dat\par
+\i0\tab Programm-Modul, das zum graphischen Zeichnen des \i HRD\par
+hrd.pic\par
+\i0\tab Bild-Datei, die zum Modul \i HRD \i0 ben\'f6tigt wird\i\par
+litt.chr\par
+\i0\tab Schriftart f\'fcr eine kleine Schrift\par
+\i masscomp.dat\par
+\i0\tab Programm-Modul, das zum graphischen Zeichnen von \i Masse-Vergleiche\i0  dient.\par
+\i orbit.dat\par
+\i0\tab Programm-Modul, das zum graphischen Zeichnen von \i Orbits\i0  dient\par
+\i starmap.dat\par
+\i0\tab Programm-Modul, das zum graphischen Zeichnen von \i Sternkarten\i0  dient\par
+\i stars.lst\par
+\i0\tab Beinhaltet Daten f\'fcr 1284 Sterne zur Darstellung f\'fcr die \i Sternkarten\i0 .\f1\par
+\f0\tab Die tabellarische Reihenfolge in dieser Datei ist: \ul Rektaszension\ulnone  (J2000),\f1\par
+\f0\tab\ul Deklination\ulnone  (J2000), \ul Helligkeit\ulnone  (mag), \ul interne Angabe\ulnone  (kann ignoriert \tab werden), \ul Sternbild\ulnone  (Abk\'fcrzung) und \ul Eigenname\ulnone  (optional).\par
+\tab\b Diese Datei kann frei verwendet und ver\'e4ndert werden!\b0\par
+\b\par
+\b0\i\par
+\ul\i0\fs28 2.3. Aufbau des EXO-Datenbank-Formats\par
+\ulnone\fs24\par
+F\'fcr jeden neu eingetragenen Exoplaneten wird genau eine neue Datei angelegt. Die Endung einer Datenbank hei\'dft \i\'84.exo\ldblquote\i0 . Die Daten werden jeweils immer zeilenweise abgelegt (sie k\'f6nnen auch manuell mit einen Texteditor ver\'e4ndert werden). Jede Zeile entspricht dabei folgenden astronomischen Daten:\par
+\par
+- Name des Zentralsterns\par
+- Spektraltyp/Leuchtkraftklasse\par
+- Scheinbare Helligkeit (mag)\par
+- Masse des Zentralstern (Sonne=1)\par
+- Metallizit\'e4t (+ optional: Fehlerquelle)\par
+- Entfernung zum Zentralstern (Parsec)\par
+- Rektaszension (2000)\par
+- Deklination (2000)\par
+- Sternbild\par
+- Standardbezeichnung des Exoplaneten\par
+- Masse des Exoplaneten (Jupiter=1; + optional: Fehlerquelle)\par
+- Gro\'dfe Halbachse (AE; + optional: Fehlerquelle)\par
+- Umlaufzeit (Tage; + optional: Fehlerquelle)\par
+- Num. Exzentrizit\'e4t (+ optional: Fehlerquelle)\par
+- Methode der Entdeckung\line - Entdeckungsdatum\par
+- Entdecker(-team)\par
+- Notiz, Bemerkung etc.\par
+\par
+\b Achtung: Um sp\'e4ter eine Datenbank (Datei) zu ver\'e4ndern, m\'fcssen Sie sich den Dateinamen merken, unter dem Sie diese astronomische Daten abspeichern. Der Dateiname ist dabei auf einer Zeichenl\'e4nge von max. 8 Zeichen beschr\'e4nkt.\par
+\b0\par
+\par
+\ul\b\fs32 3. Bedienung des Programms\par
+\ulnone\b0\fs24\par
+\ul\fs28 3.1. Neuen Datensatz anlegen\par
+\ulnone\fs24\par
+1. Dr\'fccken Sie die Taste \f2\'841\ldblquote\f0 , um einen neuen Datensatz anzulegen.\par
+\par
+2. Es erfolgt die Frage: \f2\'84Mit Fehlerspanne (j/n)\ldblquote\f0 . Bei der \'84Fehlerquelle\ldblquote  handelt es sich um einen Zahlenwert, den bei den Astronomen, die diesen Exoplaneten entdeckt haben, als Fehlerfehler dient. Sie m\'fcssen die Taste\f2  \'84j\ldblquote  \f0 dr\'fccken, um sp\'e4ter den die einzelnen Fehlerquelle f\'fcr die jeweiligen Positionen mit anzugeben, oder \f2\'84n\ldblquote  \f0 dr\'fccken, um keine Fehlerquelle mit anzugeben. Standardm\'e4\'dfig k\'f6nnen Sie \f2\'84n\ldblquote  \f0 f\'fcr \i\'84nein\ldblquote\i0  eingeben, da die Eingabe der Fehlerquelle nur als Verf\'fcgungstellung der Information steht, aber sonst bei der Erstellung (noch) keine Rolle spielt.\par
+Danach arbeiten Sie die einzelnen Positionen ab und geben die jeweilige Angabe ein, die die Position auffordert.\par
+\par
+3. Bei folgenden Positionen m\'fcssen die Zahlen eingeben:\par
+\par
+- Scheinbare Helligkeit (mag)\par
+- Masse des Zentralstern (Sonne=1)\par
+- Metallizit\'e4t (+ optional: Fehlerquelle)\par
+- Entfernung zum Zentralstern (Parsec)\par
+- Rektaszension (2000)\par
+- Deklination (2000)\par
+- Masse des Exoplaneten (Jupiter=1; + optional: Fehlerquelle)\par
+- Gro\'dfe Halbachse (AE; + optional: Fehlerquelle)\par
+- Umlaufzeit (Tage; + optional: Fehlerquelle)\par
+- Num. Exzentrizit\'e4t (+ optional: Fehlerquelle)\par
+\par
+In den folgenden Positionen k\'f6nnen Sie W\'f6rter und Zahlen benutzen (Wenn die Position leer sein leer, dr\'fccken Sie einfach Enter):\par
+- Name des Zentralsterns\par
+- Spektraltyp/Leuchtkraftklasse\par
+- Sternbild\par
+- Standardbezeichnung des Exoplaneten\par
+- Methode der Entdeckung\line - Entdeckungsdatum\par
+- Entdecker(-team)\par
+- Notiz, Bemerkung etc.\par
+\par
+4. Speziell in den Positionen \i\'84Rektaszension\ldblquote\i0  und \i\'84Deklination\ldblquote\i0  gibt es etwas zu beachten: Grundlegend werden nur Zahlen eingegeben. Allerdings erfolgt die Angabe f\'fcr die Rektaszention im Format \i\'84h m s\ldblquote\i0  und in der Deklination \i\'b0 ' '\i0 '.\f1\par
+\f0\par
+Ein Beispiel f\'fcr die \ul Rektaszension\ulnone :\par
+\ul Anzeige:\ulnone\f2 Rektaszension (hms):\par
+\f0 Zahl f\'fcr\f2  \'84h\ldblquote  \f0 eingeben! Enter!\par
+\ul Anzeige:\ulnone\f2 Rektaszension (hms): 15 h\par
+\f0 Zahl f\'fcr\f2  \'84m\ldblquote  \f0 eingeben! Enter!\par
+\ul Anzeige:\ulnone\f2 Rektaszension (hms): 15 h 01 m\par
+\f0 Zahl f\'fcr\f2  \'84s\ldblquote  \f0 eingeben! Enter!\f1\par
+\ul\f0 Anzeige:\ulnone\f2 Rektaszension (hms): 15 h 01 m 1 s\par
+\f0\par
+Ein Beispiel f\'fcr die \ul Deklination\ulnone :\par
+\ul Anzeige:\ulnone\f2 Deklination (\'b0'\ldblquote ):\par
+\f0 Zahl f\'fcr\f2  \'84\'b0\ldblquote  \f0 eingeben! Enter!\par
+\ul Anzeige:\ulnone\f2 Deklination (\'b0'\ldblquote ): 10\'b0\par
+\f0 Zahl f\'fcr\f2  \'84'\ldblquote  \f0 eingeben! Enter!\par
+\ul Anzeige:\ulnone\f2 Deklination (\'b0'\ldblquote ): 10\'b0 57'\par
+\f0 Zahl f\'fcr\f2  \'84''\ldblquote  \f0 eingeben! Enter!\par
+\ul Anzeige:\ulnone\f2 Deklination (\'b0'\ldblquote ): 10\'b0 57' 05''\par
+\f0\par
+Geben Sie dann den Dateinamen ein, unter dem er als \i .exo\i0 -Datei abgespeichert werden soll. Beschr\'e4nken Sie sich dabei auf einer L\'e4nge von maximal 8 Zeichen. Die Dateierweiterung \i .exo\i0  m\'fcssen Sie nicht mit angeben. Sie wird automatisch mit angef\'fcgt. \par
+\par
+\par
+\ul\fs28 3.2. Vorhandenen Datensatz \'e4ndern\par
+\ulnone\fs24\par
+1. Um einen vorhandenen Datensatz zu \'e4ndern, dr\'fccken Sie dazu die Taste\f2  \'842\ldblquote\f0 . Sie haben auch die M\'f6glichkeit zus\'e4tzlich den Datensatz mitzuver\'e4ndern. Sie entscheiden mit der Taste\f2  \'84n\ldblquote  \f0 f\'fcr \i\'84nein\ldblquote\i0  und mit der Taste \f2\'84j\ldblquote  \f0 f\'fcr \i\'84ja\ldblquote\i0 .\par
+\par
+2. Danach geben Sie den (Datei-)Namen ohne der Erweiterung \i\'84.exo\ldblquote\i0  des zu ver\'e4nderten Datensatz ein.\par
+\par
+3. Anschliessend erfolgt eine Auflistung mit allen Eigenschaften. Vor jeder Eigenschaft steht eine zweistellige Zahl. Um eine Eigenschaft nun zu \'e4ndern, geben Sie einfach diese zweistellige Zahl ein (Nicht mit \i Enter\i0  best\'e4tigen!).\par
+\par
+4. Nun k\'f6nnen Sie im freigemachten Feld der zu ver\'e4ndernden Eigenschaft einen neuen Wert eingeben.\par
+\par
+5. Haben Sie alle Eigenschaften ge\'e4ndert, die Sie \'e4ndern wollten, dann geben Sie die Tasten\f2  \'8430\ldblquote  \f0 ein und die neue Datei wird automatisch gespeichert.\par
+\par
+\par
+\ul\fs28 3.3. Existierenden Datensatz l\'f6schen\par
+\ulnone\fs24\par
+1. Es ist auch m\'f6glich, einen Datensatz \'fcber einen Printer auszudrucken. Dr\'fccken Sie dazu die Taste\f2  \'844\ldblquote\f0 . Sie haben auch die M\'f6glichkeit zus\'e4tzlich den Datensatz mit zudr\'fccken. Sie entscheiden mit der Taste\f2  \'84n\ldblquote  \f0 f\'fcr \i\'84nein\ldblquote\i0  und mit der Taste \f2\'84j\ldblquote  \f0 f\'fcr \i\'84ja\ldblquote\i0 .\par
+\par
+2. Danach geben Sie den (Datei-)Namen ohne der Erweiterung \i\'84.exo\ldblquote\i0  des zu druckenden Datensatz ein. Es sollte dann ein Ausdruck \'fcber den Printer erfolgen.\par
+\par
+\par
+\ul\fs28 3.4. Vorhandenen Datensatz drucken\par
+\ulnone\fs24\par
+1. Es ist auch m\'f6glich, einen Datensatz \'fcber einen Printer auszudrucken. Dr\'fccken Sie dazu die Taste\f2  \'844\ldblquote\f0 . Sie haben auch die M\'f6glichkeit zus\'e4tzlich den Datensatz mit Fehlerquelle zudrucken. Sie entscheiden mit der Taste\f2  \'84n\ldblquote  \f0 f\'fcr \i\'84nein\ldblquote\i0  und mit der Taste \f2\'84j\ldblquote  \f0 f\'fcr \i\'84ja\ldblquote\i0 .\par
+\par
+2. Danach geben Sie den (Datei-)Namen ohne der Erweiterung \i\'84.exo\ldblquote  \i0 des zu druckenden Datensatz ein. Es sollte dann ein Ausdruck \'fcber den Printer erfolgen.\par
+\par
+\par
+\ul\fs28 3.5. Suchen nach Zahlen und W\'f6rter\par
+\ulnone\fs24\par
+1. Mit diesem Eintrag k\'f6nnen ist es m\'f6glich, in allen vorhandenen Datens\'e4tzen einer bestimmte Zahl oder einem bestimmten Zeichenkette zu suchen. Dr\'fccken Sie dazu die Taste\f2  \'84s\ldblquote\f0 .\par
+\par
+2. Geben Sie dann die zu suchende Zahl oder Zeichenkette ein. Es erfolgt dann eine Ausgabe, wo der gesuchte Begriff (Zahl od. Wort) in welcher Position in einem Datensatz austauscht.\par
+\par
+In Beispiel:\par
+Anzeige:\f2  Eingabe der gesuchten Zahl bzw. Wortes:\f0\par
+Eingabe:\f2  hd 83443\f0\par
+Anzeige:\par
+\f2 Der gesuchte Begriff \'84hd 83443\ldblquote  entspricht dem Zentralstern \'84HD 83443\ldblquote  des Datensatzes \'8483443-1.EXO\ldblquote\par
+...\par
+\f0\par
+\b Achtung: Bei diesem Such-Operation handelt es sich um einen simplen Such-Algorithmus. Es gleicht zeilenweise die Eintr\'e4ge in einem Datensatz ab, bis es alle Datens\'e4tze gefunden hat. Die Suche nach Teil-Strings in einem gesamten String ist daher nicht m\'f6glich!\par
+\b0\par
+\par
+\ul\fs28 3.6. Konvertierung EXO-DB -> EXO-DB2\par
+\ulnone\fs24\par
+Dieser Eintrag dient zur Konvertierung von Datens\'e4tzen nach\f2  \'84EXODB2\ldblquote\f0 , die zuvor mit \f2\'84EXODB\ldblquote  \f0 erstellt wurden sind. Da\f2  \'84EXODB\ldblquote  \f0 jedoch nie offiziell ver\'f6ffentlicht wurde, wird dieser Eintrag nicht weiter behandelt!\par
+\par
+\par
+\ul\fs28 3.7. Grafik \i\'84Orbit-Abbild\ldblquote\i0\par
+\ulnone\fs24\par
+Mit \i\'84Orbit-Abbild\ldblquote  \i0 haben Sie die M\'f6glichkeit, von einem bestimmten extrasolaren Planetensystem ein Abbild des Orbit (von oben gesehen) mit einem Vergleich zum Sonnensystem zu sehen.\par
+\par
+1. Dr\'fccken Sie im Hauptmen\'fc die Taste\f2  \'845\ldblquote .\f0\par
+\f2\par
+\f0 2. Nun k\'f6nnen Sie einen \i Zoom-Wert\i0  zwischen 0-100 Prozent eingeben. Diese Angabe ist hilfreich, falls Sie einmal auf weiter oder naher Distanz beobachten wollten. Es reicht in der Regel auch der Wert\f2  \'84100\ldblquote  \f0 (entspricht genau 100 %).\par
+\par
+3. Nun haben Sie die M\'f6glichkeit, die bestimmte Anzahl von Exoplaneten miteinander darzustellen. Maximal sind 20 Exoplaneten erlaubt. Geben Sie einfach den Wert zwischen 1-20 ein.\par
+\par
+4. In Anzahl der miteinander darzustellende Exoplaneten geben Sie ihren Dateinamen ohne Erweiterung \i\'84.exo\ldblquote\i0  nachfolgend immer ein.\f1\par
+\f0\par
+5. Nun k\'f6nnen Sie entscheiden, ob Sie den Mittelpunkt der Bahn im graphischen Koordinaten verschieben wollen. Diese Angabe ist hilfreich, falls es einmal passieren sollte, dass die Bahn auf dem Bildschirm nur teilweise angezeigt wird. Durch die \i Mittelpunkt-Verschiebung\i0  k\'f6nnen Sie die Bahn sprichw\'f6rtlich zurechtr\'fccken. Die Zahlenangabe erfolgt als Pixelverschiebung in die gegebene Richtung:\par
+\par
+\ul Mittelpunkt-Verschiebung X-Achse:\par
+\ulnone Werte gr\'f6\'dfer gleich 1: \i Verschiebung nach recht\i0\par
+Werte kleiner gleich -1:\i  Verschiebung nach links\i0\par
+\ul\par
+Mittelpunkt-Verschiebung Y-Achse:\par
+\ulnone Werte gr\'f6\'dfer gleich 1: \i Verschiebung nach unten\i0\par
+Werte kleiner gleich -1:\i Verschiebung nach oben\par
+\i0\par
+6. Sobald das Bild angezeigt wird, k\'f6nnen Sie das Bild im PCX-Format in einer Gr\'f6\'dfe von 640x480 in 16 Farben abspeichern. Dr\'fccken Sie dazu einfach die Taste\f2  \'84s\ldblquote\f0 . Das Bild wird nun automatisch im Ordner \\\i ORBIT\\\i0  abgespeichert. Der Dateiname der PCX-Grafik ist der Name des zuerst gew\'e4hlten Datensatzes, der zur graphischen Anzeige diente.\f1\par
+\f0\par
+\par
+\ul\fs28 3.8. Grafik \i\'84Sternkarte\ldblquote\i0\par
+\ulnone\fs24\par
+Mit \i\'84Sternkarte\ldblquote  \i0 haben Sie die M\'f6glichkeit, einen bestimmten extrasolaren Planeten auf  der gesamte Hemisph\'e4re (Sternkarte) abzubilden.\par
+\par
+1. Dr\'fccken Sie im Hauptmen\'fc die Taste\f2  \'846\ldblquote .\f0\par
+\f2\par
+\f0 2. Nun haben Sie die M\'f6glichkeit, eine bestimmte Anzahl von Exoplaneten zu verwenden. Maximal sind 20 Exoplaneten erlaubt. Geben Sie einfach den Wert zwischen 1-20 ein.\par
+\par
+3. In Anzahl der miteinander darzustellende Exoplaneten geben Sie ihren Dateinamen ohne Erweiterung \i\'84.exo\ldblquote\i0  nachfolgend immer ein.\f1\par
+\f0\par
+4. Zus\'e4tzlich haben Sie die M\'f6glichkeit, ein \i einfaches Gradnetz\i0 , \i Ekliptik & Himmels\'e4quator\i0  oder die \i Verbindungslinien der Sternbilder\i0  mit anzeigen zu lassen. Bei der Abfrage entscheiden Sie mit der Taste\f2  \'84n\ldblquote  \f0 f\'fcr \i\'84nein\ldblquote\i0  und mit der Taste \f2\'84j\ldblquote  \f0 f\'fcr \i\'84ja\ldblquote\i0 .\par
+\par
+5. Sobald das Bild angezeigt wird, k\'f6nnen Sie das Bild im PCX-Format in einer Gr\'f6\'dfe von 640x480 in 16 Farben abspeichern. Dr\'fccken Sie dazu einfach die Taste\f2  \'84s\ldblquote\f0 . Das Bild wird nun automatisch im Ordner \\\i STARMAP\\\i0  abgespeichert. Der Dateiname der PCX-Grafik ist der Name des zuerst gew\'e4hlten Datensatzes, der zur graphischen Anzeige diente.\f1\par
+\f0\par
+\par
+\ul\fs28 3.9. Grafik \i\'84Masse-Vergleich\ldblquote\i0\par
+\ulnone\fs24\par
+Mit \i\'84Masse-Vergleich\ldblquote  \i0 haben Sie die M\'f6glichkeit, einen bestimmten extrasolaren Planeten (oder mehrere) mit den 4 Gasplaneten unseres Sonnensystems als Vergleich zwischen ihren Massen in einem S\'e4ulendiagramm darzustellen.\par
+\par
+1. Dr\'fccken Sie im Hauptmen\'fc die Taste\f2  \'847\ldblquote .\f1\par
+\f2\par
+\f0 2. Sie k\'f6nnen eine bestimmte Anzahl von Exoplaneten zu verwenden. Maximal sind 5 Exoplaneten erlaubt. Geben Sie einfach den Wert zwischen 1-5 ein.\par
+\par
+3. In Anzahl der miteinander darzustellende Exoplaneten geben Sie ihren Dateinamen ohne Erweiterung \i\'84.exo\ldblquote\i0  nachfolgend immer ein.\f1\par
+\f0\par
+4. Sobald das Bild angezeigt wird, k\'f6nnen Sie das Bild im PCX-Format in einer Gr\'f6\'dfe von 640x480 in 16 Farben abspeichern. Dr\'fccken Sie dazu einfach die Taste\f2  \'84s\ldblquote\f0 . Das Bild wird nun automatisch im Ordner \i\\MASSCOMP\\\i0  abgespeichert. Der Dateiname der PCX-Grafik ist der Name des zuerst gew\'e4hlten Datensatzes, der zur graphischen Anzeige diente.\f1\par
+\f0\par
+\par
+\ul\fs28 3.10. Grafik \i\'84Distributionen\ldblquote\ulnone\i0\fs24\par
+\par
+Mit \i\'84Distributionen\ldblquote  \i0 nehmen Sie eine Gesamtz\'e4hlung aller existierenden Datens\'e4tze durch, die diese dann als S\'e4ulendiagramm gezeichnet werden. Folgende Eigenschaften k\'f6nnen gez\'e4hlt werden: \i Num. Exzentrizit\'e4t\i0 , \i Masse des Exoplaneten\i0  und \i Gro\'dfe Halbachse\i0 .\par
+\par
+1. Dr\'fccken Sie im Hauptmen\'fc die Taste\f2  \'848\ldblquote .\f1\par
+\f2\par
+\f0 2. Sie k\'f6nnen zwischen den angezeigten Eigenschaften entscheiden, die gez\'e4hlt werden soll: \i Num. Exzentrizit\'e4t\i0 , \i Masse des Exoplaneten\i0  und \i Gro\'dfe Halbachse\i0 . Geben Sie einfach einen Wert zwischen 1-3 ein.\par
+\par
+3. Sobald das Bild angezeigt wird, k\'f6nnen Sie das Bild im PCX-Format in einer Gr\'f6\'dfe von 640x480 in 16 Farben abspeichern. Dr\'fccken Sie dazu einfach die Taste\f2  \'84s\ldblquote\f0 . Das Bild wird nun automatisch im Ordner \i\\DISTRI\\\i0  abgespeichert. Je nach gew\'e4hlter Eigenschaft zum Z\'e4hlen werden Sie in folgende PCX-Grafiken gespeichert:\f1\par
+\f0\par
+- Num. Exzentrizit\'e4t:\i  \\DISTRI\\ecc.pcx\i0\par
+- Masse des Exoplaneten:\i  \\DISTRI\\mass.pcx\i0\par
+- Gro\'dfe Halbachse:\i  \\DISTRI\\axis.pcx\i0\par
+\par
+\par
+\ul\fs28 3.11. Grafik \i\'84Diagramme\ldblquote\ulnone\i0\fs24\par
+\par
+Mit \i\'84Diagramme\ldblquote  \i0 nehmen Sie Diagramme zu bestimmten Verh\'e4ltnissen dreier Eigenschaften von Exoplaneten graphisch auf den Bildschirm dar. Folgende Kombination dieser Eigenschaften sind m\'f6glich:\par
+\par
+- Diagramm \i\'84Gro\'dfe Halbachse / Num. Exzentrizit\'e4t\ldblquote\i0\f1\par
+\f0 - Diagramm \i\'84Gro\'dfe Halbachse /Masse d. Exoplaneten\ldblquote\i0\f1\par
+\f0 - Diagramm \i\'84Num. Exzentrizit\'e4t / Masse d. Exoplaneten\ldblquote\i0\f1\par
+\f0\par
+1. Dr\'fccken Sie im Hauptmen\'fc die Taste\f2  \'849\ldblquote .\f1\par
+\f2\par
+\f0 2. Sie k\'f6nnen zwischen den angezeigten Kombinationen der Eigenschaften als Diagramme entscheiden (Kombinationen: siehe oben). Geben Sie einfach einen Wert zwischen 1-3 ein.\par
+\par
+3. Sobald das Bild angezeigt wird, k\'f6nnen Sie das Bild im PCX-Format in einer Gr\'f6\'dfe von 640x480 in 16 Farben abspeichern. Dr\'fccken Sie dazu einfach die Taste\f2  \'84s\ldblquote\f0 . Das Bild wird nun automatisch im Ordner \i\\DIAGRAM\\\i0  abgespeichert. Je nach gew\'e4hlter Eigenschaft zum Z\'e4hlen werden Sie in folgende PCX-Grafiken gespeichert:\f1\par
+\f0\par
+- Diagramm \i\'84Gro\'dfe Halbachse / Num. Exzentrizit\'e4t\ldblquote : \'84axis_ecc.pcx\ldblquote\i0\f1\par
+\f0 - Diagramm \i\'84Gro\'dfe Halbachse /Masse d. Exoplaneten\ldblquote : \'84axis_mas.pcx\ldblquote\i0\f1\par
+\f0 - Diagramm \i\'84Num. Exzentrizit\'e4t / Masse d. Exoplaneten\ldblquote : \'84mass_ecc.pcx\ldblquote\i0\f1\par
+\f0\par
+\par
+\ul\fs28 3.12. Grafik \i\'84HRD\ldblquote\ulnone\i0\fs24\par
+\par
+Mit \i\'84HRD\ldblquote  \i0 k\'f6nnen Sie die Zentralsterne bestimmter extrasolarer Planeten in einem auf dem Bildschirn gezeichneten HRD (Hertzsprung-Russell-Diagramm) platziert werden.\i\par
+\i0\par
+1. Dr\'fccken Sie im Hauptmen\'fc die Taste\f2  \'84h\ldblquote .\f1\par
+\f2\par
+\f0 2. Sie k\'f6nnen eine bestimmte Anzahl von Exoplaneten zu verwenden. Maximal sind 20 Exoplaneten erlaubt. Geben Sie einfach den Wert zwischen 1-20 ein.\par
+\par
+3. In Anzahl der miteinander darzustellende Exoplaneten geben Sie ihren Dateinamen ohne Erweiterung \i\'84.exo\ldblquote\i0  nachfolgend immer ein.\f1\par
+\f0\par
+4. Sobald das Bild angezeigt wird, k\'f6nnen Sie das Bild im BMP-Format in einer Gr\'f6\'dfe von 640x480 in 16 Farben abspeichern. Dr\'fccken Sie dazu einfach die Taste\f2  \'84s\ldblquote\f0 . Das Bild wird nun automatisch im Ordner \i\\HRD\\\i0  abgespeichert. Der Dateiname der BMP-Grafik ist der Name des zuerst gew\'e4hlten Datensatzes, der zur graphischen Anzeige diente.\f1\par
+\f0\par
+}
+ 
