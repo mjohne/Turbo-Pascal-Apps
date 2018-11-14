@@ -1,0 +1,29 @@
+Program CLONE.EXE
+----------------------------------
+
+Bei dem Programm CLONE.EXE handelt es sich um ein Versuch, ein Programm zu entwerfen, dass sich selbständig replizieren kann. Grundlage dieser Idee ist der Gedanke, dass es möglich sein könnte, dass sich in der Realität existierende Maschinen nach eigenen Bauplänen sich neu erstellen und erweitern. Dieser Vorgang wird nun auf CLONE.EXE übertragen.
+
+Features:
+- "Rename Protection": Das Programm ist gegen eine Umbenennung seines Dateinamen oder einer Umbenennung des Verzeichnisses immun. Es ermittelt aus sich selbst heraus, im welchem Verzeichnis es sich gerade befindet und wie es heißt.
+
+- "Copy|Hidden Flag Check": Dieses Programm kann überprüfen, ob der Schreibschutz/Tarnmodus an sich selbst oder anderen Kopien von sich aktiviert ist! Damit kann es mögliche Fehlermeldungen vorbeugen und den Attribut-Status von sich selbst oder seiner Kopie nach Verändern wieder herstellen.
+
+- "Write Protection|Disguising Mode": Das Programm ist auch in der Lage sich oder seine Kopien einen Schreibschutz/Tarn-Modus zu aktivieren. Es basiert auf den "Write|Hidden-Flag" seines Datei-Attributs. Es ist möglich, es zufällig geschehen zu lassen.
+
+- "Self Destruction": Auf Wunsch kann das Programm sich selbst zerstören. Durch mehrmaliges Löschen ist das Programm dann nicht wieder herstellbar.
+
+- "Filesize Veiling": Es besteht die Möglichkeit, das das Programm und seiner erstellten Kopien die tatsächliche Dateigröße verschleiern kann. Das Programm fertigt zufallsmäßig Vielfache seiner tatsächlichen Dateigröße an.
+
+- "Multiple Names": Das Programm und seine Kopien sind in der Lage, von sich erstellte Kopien mit zufälligen Dateinamen zu versehen. Damit fällt das sofortige und automatisierende Identifieren eines Dateinamens etwas schwerer aus.
+
+- "Lower Directory Porting": Per Benutzereingabe kann die Verzeichnis-Tiefe der zu erstellten Kopierung gewählt werden. Standardmäßig wird bis zum tiefsten Verzeichnis vorgedrungen.
+
+- "Drive Spreading": Das Programm kann nur das Laufwerk benutzen, indem es sich befindet oder aber auch auf anderen Laufwerke hinüberspringen. CD- und DVD-Laufwerke werden jedoch nicht benutzt.
+
+- ("Kill CMOS": Das Programm kann den gesamten CMOS-Inhalt löschen. Somit wird auch ein eventuelles BIOS-Passwort gelöscht. Nach PC-Neustart wird das BIOS mit Standardeinstellungen neu geladen.)
+
+- ("Lock Down": Das Program ist der Lage, die Tastatur und die Diskettenlaufwerke auf Lese/Schreib-Zugriffe zu sperren.)
+
+- ("EXE Assimilating": Das Program ist der Lage, EXE- und andere ausführbare Datei zu identifizieren und sie zu assimilieren. Es überträgt eine Kopie von sich an die ausführbare Datei. "Copy|Hidden Flag Check" und "Filesize Veiling" sind innbegriffen und machen eine Wiederherstellung der Ursprungsdatei schwerer. Alle anderen Modi, Optionen und Eigenschaften sind ggf. enthalten.)
+
+- ("Reload Function": Ferner ist das Programm in der Lage, Autostart-Einträge von DOS und WINDOWS zu ermitteln und sich dort einzutragen, um sich bei jedem PC-Neustart auszuführen.)

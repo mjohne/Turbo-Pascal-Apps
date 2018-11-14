@@ -1,0 +1,49 @@
+Version 0.1 (CLONE01):
+- Erstellung von CLONE
+- Integration von "Rename Protection"
+
+Version 0.2 (CLONE02):
+- Integration von "Copy|Hidden Flag Check"
+
+Version 0.3 (CLONE03):
+- Integration von "Write Protection|Disguising Mode"
+
+Version 0.4 (CLONE04):
+- Integration von "Self Destruction"
+
+Version 0.5 (CLONE05):
+- Integration von "Filesize Veiling"
+
+Version 0.6 (CLONE06):
+- Integration von "Multiple Names"
+
+Version 0.7 (CLONE07):
+- Integration von "Lower Directory Porting"
+
+Version 0.8 (CLONE08):
+- Integration von "Drive Spreading"
+- Implementation von "Runtime Watch"
+
+Version 0.9 (CLONE09):
+- Bugfixes-Release
+
+Version 1.0 final (CLONE10 oder JVN10):
+- Umbenennung von CLONE in JVN (= "John von Neumann", 1903-1957, gewidmet für den ersten "Theoretiker von sich selbstreproduzierenden Automaten auf Rechenmaschinen", sog, "Neumannsche Maschinen")
+#- Vermeidung von privater Datenspeicherung auf Diskettenlaufwerken
+#- Integration einer Kommandozeilen-Eingabe
+#- Integration der Möglichkeit einer "Infinite Replication"; nur bei "Multiple Names" möglich
+- Integration der Möglichkeit eines "Log File Record"
+- Integration der "Increase Rate Control"; nur bei "Filesize Veiling" möglich
+- Anzeige von Verzeichnistiefe, Zeitmessung, benutzten Festplattenspeicher und Kopien pro Sekunde
+
+Version 1.1v (CLONE11v):
+- Integration von "Kill CMOS"
+
+Version 1.2v (CLONE12v):
+- Integration von "Lock Down"
+
+Version 1.3v (CLONE13v):
+- Integration von "EXE Assimilating"
+
+Version 1.4v (CLONE14v):
+- Integration von "Reload Function"

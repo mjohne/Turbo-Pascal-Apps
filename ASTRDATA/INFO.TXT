@@ -1,0 +1,35 @@
+PROGRAM-INFO:
+-------------
+PROGRAMMNAME: ASTEROIDEN-DATENBANK
+VERSION     : 1.1
+DATEINAME   : ASTRDATA
+AUTOR       : Michael Johne
+SPRACHE     : Deutsch
+RUBRIKEN    : Astronomie
+SYSTEM      : Dos
+BESCHREIBUNG: Nach einer Eingabe einer speziellen Nummer werden alle dazu-
+              geh”rigen Bahnelemente eines Asteroiden angezeigt. Es liegen
+              Daten von insgesamt 7316 Asteroiden vor.
+----------------------------------------------------------------------------
+
+FILE-LISTING:
+-------------
+ASTRDATA.EXE - Startdatei des Programms            38256 Bytes
+ASTRDATA.PAS - Source-Code des Programms           20371 Bytes
+ASTR0001.DAT - Datensatz 01                        55498 Bytes
+ASTR0002.DAT - Datensatz 02                        55498 Bytes
+ASTR0003.DAT - Datensatz 03                        55498 Bytes
+ASTR0004.DAT - Datensatz 04                        55498 Bytes
+ASTR0005.DAT - Datensatz 05                        55498 Bytes
+ASTR0006.DAT - Datensatz 06                        55498 Bytes
+ASTR0007.DAT - Datensatz 07                        55498 Bytes
+ASTR0008.DAT - Datensatz 08                        55498 Bytes
+ASTR0009.DAT - Datensatz 09                        55498 Bytes
+ASTR0010.DAT - Datensatz 10                        55498 Bytes
+ASTR0011.DAT - Datensatz 11                        55498 Bytes
+ASTR0012.DAT - Datensatz 12                        55498 Bytes
+ASTR0013.DAT - Datensatz 13                        55498 Bytes
+ASTR0014.DAT - Datensatz 14                        55498 Bytes
+ASTR0015.DAT - Datensatz 15                        35074 Bytes
+INFO .TXT    - Infomationsdatei                     1752 Bytes
+----------------------------------------------------------------------------
