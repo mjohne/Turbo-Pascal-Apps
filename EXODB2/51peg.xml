@@ -1,0 +1,64 @@
+<!-- Dieses Dokument wurde mit EXO-DB2 1.6 am 15.01.2005 19:38 erzeugt. -->
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!DOCTYPE XEL_DTD_10 [
+  <!ELEMENT xel (system)>
+    <!ELEMENT system (centralstar, exoplanet)>
+      <!ELEMENT centralstar (starname, spectraltype, magnitude, starmass, metalicity, distance, rectascension, declination, constellation)>
+        <!ELEMENT starname (#PCDATA)>
+        <!ELEMENT spectraltype (#PCDATA)>
+        <!ELEMENT magnitude (#PCDATA)>
+          <!ATTLIST magnitude unit (mag) "mag">
+          <!ATTLIST magnitude kind (visual | absolute) #REQUIRED>
+        <!ELEMENT starmass (#PCDATA)>
+          <!ATTLIST starmass unit (kg | sun | earth | jupiter) #REQUIRED>
+        <!ELEMENT metalicity (#PCDATA)>
+        <!ELEMENT distance (#PCDATA)>
+          <!ATTLIST distance unit (km | ae | pc | ly) #REQUIRED>
+        <!ELEMENT rectascension (#PCDATA)>
+          <!ATTLIST rectascension unit (hours) "hours">
+          <!ATTLIST rectascension format (h.cc | hms) #REQUIRED>
+        <!ELEMENT declination (#PCDATA)>
+          <!ATTLIST declination unit (degrees) "degrees">
+          <!ATTLIST declination format (d.cc | dms) #REQUIRED>
+        <!ELEMENT constellation (#PCDATA)>
+      <!ELEMENT exoplanet (planetname, planetmass, semimayoraxis, period, eccentricity, discoverymethod, discoverydate, discoverer, remarks)>
+        <!ELEMENT planetname (#PCDATA)>
+        <!ELEMENT planetmass (#PCDATA)>
+          <!ATTLIST planetmass unit (kg | sun | earth | jupiter) #REQUIRED>
+        <!ELEMENT semimayoraxis (#PCDATA)>
+          <!ATTLIST semimayoraxis unit (km | ae | pc | ly) #REQUIRED>
+        <!ELEMENT period (#PCDATA)>
+          <!ATTLIST period unit (day | year) #REQUIRED>
+        <!ELEMENT eccentricity (#PCDATA)>
+        <!ELEMENT discoverymethod (#PCDATA)>
+        <!ELEMENT discoverydate (#PCDATA)>
+          <!ATTLIST discoverydate format (yyyymmdd | ddmmyyyy | mmddyyyy | dd.mm.yyyy) #REQUIRED>
+        <!ELEMENT discoverer (#PCDATA)>
+        <!ELEMENT remarks (#PCDATA)>
+]>
+<xel>
+  <system>
+    <centralstar>
+      <starname>51 Pegasi</starname>
+      <spectraltype>G2 IV</spectraltype>
+      <magnitude unit="mag" kind="visual">5.49000</magnitude>
+      <starmass unit="sun">0.95000</starmass>
+      <metalicity>0.06000</metalicity>
+      <distance unit="pc">14.70000</distance>
+      <rectaszension unit="hours" format="h.cc">22.9575000000</rectaszension>
+      <declination unit="degrees" format="d.cc">20.7680555560</declination>
+      <constellation>Pegasus</constellation>
+    </centralstar>
+    <exoplanet>
+      <planetname>51 Pegasi b</planetname>
+      <planetmass unit="jupiter">0.46800</planetmass>
+      <semimayoraxis unit="ae">0.05200</semimayoraxis>
+      <period unit="day">4.23000</period>
+      <eccentricity>0.00000</eccentricity>
+      <discoverymethod>Radialgeschwindigkeit</discoverymethod>
+      <discoverydate format="yyyymmdd">19951106</discoverydate>
+      <discoverer>M. Mayor &amp; D. Queloz</discoverer>
+      <remarks>HD 217014, HIP 113357</remarks>
+    </exoplanet>
+  </system>
+</xel>

@@ -1,0 +1,26 @@
+
+ZipV 1.1  -  Verbose ZIP directory listing  -  S.H.Smith, 2-17-89
+
+Works with PK's new "ZIP" files.   Includes source code.
+
+Courtesy of  Samuel H. Smith  and  The Tool Shop BBS (602) 279-2673.
+
+
+Usage: ZipV [directory\]zipfile[.zip]
+
+
+Can also be used with PCBoard's PCBTEXT function --
+
+ZipV %1 >PCBVIEW.TXT
+
+
+
+Revision history
+----------------
+
+1.0 2-2-89
+        initial coding and release
+
+1.1 2-17-89
+        added wildcards
+        slight improvement in display formats

@@ -1,0 +1,24 @@
+distri:
+rv
+
+diag:
+AE/Teff - exo
+Rv / Mjup - exo
+FeH / Mjup - exo
+FeH / axis - exo
+
+Normalized PSR
+spec / rv
+FeH / Teff - star
+BV / Rv
+B-V / Mvis
+Teff / Rv - star
+Teff / Mass - star
+
+
+
+
+??? Hill-Sphere r(H) = D(Mp/3Msol)^1/3; D= AE
+Teff = Tstar(Rstar/2a)^0.5*(1-Alebdo)^0.25; Alebdo = 0.35
+Massfun = m1*Sini)^3/(m1+m2)^2
+tb-reihe a(n)=a+bc^

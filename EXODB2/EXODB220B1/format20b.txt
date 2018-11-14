@@ -1,0 +1,38 @@
+Anzahl der Sterne
+Name des Stern
+Sterntyp
+Staubscheibe vorhanden
+Spetraltyp/Leuchtkraftklasse
+Deklination
+Rektaszension
+Masse
+Radius
+Leuchtkraft
+Alter
+Entfernung
+Metallizität
+RV
+Scheinbare Heligkeit
+Absolute Helligkeit
+B-V
+* anzahl der sterne größer 1 dann
+  gr. halbachse, ecc, periode
+Sternbild
+Notizen
+Anzahl der Exoplaneten
+Name des Exoplaneten
+Masse
+Radius
+Gr. Halbachse
+Periode
+Exzentrizität
+Bahnneigung
+Periheldurchgang
+omega?
+RV
+Entdeckungsstatus [bestätigt|vermutet|widerrufen]
+Entdeckungsmethode
+Entdeckungsdatum
+Entdecker
+Notizen
+[offen für staubscheibe]
