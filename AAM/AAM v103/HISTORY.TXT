@@ -1,0 +1,35 @@
+HISTORY for AAM v1.03
+=====================
+
+* menu and frame border can be enabled/disabled
+
+* colored menu
+
+------------------------------------------------------------------------------
+
+HISTORY for AAM v1.02
+=====================
+
+* asc pictures can be shown now, too
+
+* support textmode 80x50; detect text mode automatically
+
+* files can be centered or shown above on the left
+
+------------------------------------------------------------------------------
+
+HISTORY for AAM v1.01
+=====================
+
+* improved file-handling
+
+* 3 new options:
+
+  - loop a movie
+
+  - roll-Up effect
+
+  - clear canvas after any frame
+    (for some files which have too few blanks at the line ending)
+
+* options from the command line controllable

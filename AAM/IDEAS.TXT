@@ -1,0 +1,20 @@
+IDEAS
+=====
+
+* dis/en-abling menu
+
+* colored
+
+* file directory
+
+* list of AAM-files
+
+* irnaview <- | ->
+
+* text modes dissolving more highly /vesa
+
+* gzipped AAM files (GAM)
+
+* forward, reward, speed etc.
+
+* save screen
