@@ -1,0 +1,126 @@
+lzssdemo inoff01.bmp inoff01.lzs
+lzssdemo inoff02.bmp inoff02.lzs
+lzssdemo inoff03.bmp inoff03.lzs
+lzssdemo inoff04.bmp inoff04.lzs
+lzssdemo inoff05.bmp inoff05.lzs
+lzssdemo inoff06.bmp inoff06.lzs
+lzssdemo inoff07.bmp inoff07.lzs
+lzssdemo inoff08.bmp inoff08.lzs
+lzssdemo inoff09.bmp inoff09.lzs
+lzssdemo inoff10.bmp inoff10.lzs
+
+lzssdemo inoff11.bmp inoff11.lzs
+lzssdemo inoff12.bmp inoff12.lzs
+lzssdemo inoff13.bmp inoff13.lzs
+lzssdemo inoff14.bmp inoff14.lzs
+lzssdemo inoff15.bmp inoff15.lzs
+lzssdemo inoff16.bmp inoff16.lzs
+lzssdemo inoff17.bmp inoff17.lzs
+lzssdemo inoff18.bmp inoff18.lzs
+lzssdemo inoff19.bmp inoff19.lzs
+lzssdemo inoff20.bmp inoff20.lzs
+
+lzssdemo inoff21.bmp inoff21.lzs
+lzssdemo inoff22.bmp inoff22.lzs
+lzssdemo inoff23.bmp inoff23.lzs
+lzssdemo inoff24.bmp inoff24.lzs
+lzssdemo inoff25.bmp inoff25.lzs
+lzssdemo inoff26.bmp inoff26.lzs
+lzssdemo inoff27.bmp inoff27.lzs
+lzssdemo inoff28.bmp inoff28.lzs
+lzssdemo inoff29.bmp inoff29.lzs
+lzssdemo inoff30.bmp inoff30.lzs
+
+lzssdemo inoff31.bmp inoff31.lzs
+lzssdemo inoff32.bmp inoff32.lzs
+lzssdemo inoff33.bmp inoff33.lzs
+lzssdemo inoff34.bmp inoff34.lzs
+lzssdemo inoff35.bmp inoff35.lzs
+lzssdemo inoff36.bmp inoff36.lzs
+lzssdemo inoff37.bmp inoff37.lzs
+lzssdemo inoff38.bmp inoff38.lzs
+lzssdemo inoff39.bmp inoff39.lzs
+lzssdemo inoff40.bmp inoff40.lzs
+
+lzssdemo inoff41.bmp inoff41.lzs
+lzssdemo inoff42.bmp inoff42.lzs
+lzssdemo inoff43.bmp inoff43.lzs
+lzssdemo inoff44.bmp inoff44.lzs
+lzssdemo inoff45.bmp inoff45.lzs
+lzssdemo inoff46.bmp inoff46.lzs
+lzssdemo inoff47.bmp inoff47.lzs
+lzssdemo inoff48.bmp inoff48.lzs
+lzssdemo inoff49.bmp inoff49.lzs
+lzssdemo inoff50.bmp inoff50.lzs
+
+lzssdemo inoff51.bmp inoff51.lzs
+lzssdemo inoff52.bmp inoff53.lzs
+lzssdemo inoff53.bmp inoff53.lzs
+lzssdemo inoff54.bmp inoff54.lzs
+lzssdemo inoff55.bmp inoff55.lzs
+lzssdemo inoff56.bmp inoff53.lzs
+lzssdemo inoff57.bmp inoff57.lzs
+lzssdemo inoff58.bmp inoff58.lzs
+lzssdemo inoff59.bmp inoff59.lzs
+lzssdemo inoff60.bmp inoff60.lzs
+
+lzssdemo inoff61.bmp inoff61.lzs
+lzssdemo inoff62.bmp inoff62.lzs
+lzssdemo inoff63.bmp inoff63.lzs
+lzssdemo inoff64.bmp inoff64.lzs
+lzssdemo inoff65.bmp inoff65.lzs
+lzssdemo inoff66.bmp inoff66.lzs
+lzssdemo inoff67.bmp inoff63.lzs
+lzssdemo inoff68.bmp inoff68.lzs
+lzssdemo inoff69.bmp inoff69.lzs
+lzssdemo inoff70.bmp inoff70.lzs
+
+lzssdemo inoff71.bmp inoff71.lzs
+lzssdemo inoff72.bmp inoff72.lzs
+lzssdemo inoff73.bmp inoff73.lzs
+lzssdemo inoff74.bmp inoff74.lzs
+lzssdemo inoff75.bmp inoff75.lzs
+lzssdemo inoff76.bmp inoff76.lzs
+lzssdemo inoff77.bmp inoff73.lzs
+lzssdemo inoff78.bmp inoff78.lzs
+lzssdemo inoff79.bmp inoff79.lzs
+lzssdemo inoff80.bmp inoff80.lzs
+
+lzssdemo inoff81.bmp inoff81.lzs
+lzssdemo inoff82.bmp inoff82.lzs
+lzssdemo inoff83.bmp inoff83.lzs
+lzssdemo inoff84.bmp inoff84.lzs
+lzssdemo inoff85.bmp inoff85.lzs
+lzssdemo inoff86.bmp inoff86.lzs
+lzssdemo inoff87.bmp inoff83.lzs
+lzssdemo inoff88.bmp inoff88.lzs
+lzssdemo inoff89.bmp inoff89.lzs
+lzssdemo inoff90.bmp inoff90.lzs
+
+lzssdemo inoff91.bmp inoff91.lzs
+lzssdemo inoff92.bmp inoff92.lzs
+lzssdemo inoff93.bmp inoff93.lzs
+lzssdemo inoff94.bmp inoff94.lzs
+lzssdemo inoff95.bmp inoff95.lzs
+lzssdemo inoff96.bmp inoff96.lzs
+lzssdemo inoff97.bmp inoff93.lzs
+lzssdemo inoff98.bmp inoff98.lzs
+lzssdemo inoff99.bmp inoff99.lzs
+lzssdemo inoff100.bmp inoff100.lzs
+
+lzssdemo inoff101.bmp inoff101.lzs
+lzssdemo inoff102.bmp inoff102.lzs
+lzssdemo inoff103.bmp inoff103.lzs
+lzssdemo inoff104.bmp inoff104.lzs
+lzssdemo inoff105.bmp inoff105.lzs
+lzssdemo inoff106.bmp inoff106.lzs
+lzssdemo inoff107.bmp inoff107.lzs
+lzssdemo inoff108.bmp inoff108.lzs
+lzssdemo inoff109.bmp inoff109.lzs
+lzssdemo inoff10.bmp inoff110.lzs
+
+lzssdemo inoff111.bmp inoff111.lzs
+lzssdemo inoff112.bmp inoff112.lzs
+lzssdemo inoff113.bmp inoff113.lzs
+lzssdemo inoff114.bmp inoff114.lzs
+lzssdemo inoff115.bmp inoff115.lzs
