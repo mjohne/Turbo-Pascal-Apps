@@ -1,0 +1,20 @@
+
+ E X O P L A N E T E N- D A T E N B A N K
+
+             (E X O -D B 2)
+
+
+  Version: 1.7 vom xx.04.2006
+  Programmierer: Michael Johne
+                 michael-johne@gmx.de
+  Internet: http://www.exodb.de.vu
+
+
+EXO-DB2 ist ein Programm zum Verwalten von
+DatensÑtzen von extrasolaren Planeten.
+
+Man kann DatensÑtze Åber Exoplaneten erstel-
+len, Ñndern, drucken oder lîschen. Es steh-
+en zudem grafische Module zum Anzeigen von
+Sternkarten, Orbits, Vergleiche, HRDs, Dia-
+grammen oder ZÑhlungen zur VerfÅgung.
