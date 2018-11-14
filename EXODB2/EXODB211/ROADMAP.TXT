@@ -1,0 +1,35 @@
+Version 1.1  Geplant:     
+
+                          * Hilfe
+kommadozeile
+
+                          * TimeLine-Modell erzeugen
+
+
+             Fraglich:    * Bedienung mit Mouse hinzufgen
+
+                          * Was wird aus dem Modul "RV"? Umwandeln
+                            in "PRES"?
+                            ("RV" = Radial Velocity)
+                            ("PRES" = Period Resonanz)
+
+                          * Bin„rlisten
+                            (Konvertierung von *.LST -> *.BIN)
+                            -> Folge: Kleinere Dateigr”áe
+
+                          * Drucken im Grafik-Modus
+
+             Sonstiges:   * keine
+
+1.2
+
+moul "discovery date"
+timeline begrenzen 1999-2000
+* M?glichkeit der Ablagerung von Bildern
+                          * Anzeige der Bilder mit dem Modul "PHOTO"
+
+2.0 neues format copy /bin
+weitere eigenschaften dreh2.pas
+größe-mdoul
+metalicity-diagram
+weitere export
