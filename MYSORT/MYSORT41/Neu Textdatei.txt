@@ -1,0 +1,28 @@
+
+bubblesort(field A, int l, int r) {
+  for i:=r downto l+1 do pipelined {
+    for j:=l to i-1 do {
+      if (A[j] > A[j+1]) then {
+        exchange(A[j], A[j+1]);
+      }
+    }
+  }
+}
+
+
+bubblesort(field A, int l, int r) {
+  for i:=r downto l+1 do {
+    flipped:= false;
+    for j:=l to i-1 do {
+      if (A[j] > A[j+1]) then {
+        exchange(A[j], A[j+1]);
+        flipped:= true;
+      }
+    }
+    if (not flipped) then {
+      return;
+    }
+  }
+}
+
+

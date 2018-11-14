@@ -1,0 +1,822 @@
+NOTE: This file can serve as both source and documentation.  You
+      can compile by stripping the 1st few lines (these notes) and
+      the last portion (the cross-references), and then deleting
+      the left hand 8 columns of what remains.  Wordstar can do
+      this column deletion, and I believe EDLIN can also. CBF
+
+NOTE: The procedural cross referencer (refrence) will not run
+      with the procedure type definitions in lines 58 to 59
+      below.  They were commented out for the run.  Thus the
+      calls to readbyte and putbyte within decode are not shown.
+
+NOTE: This program has been deliberately written to isolate the
+      decode operation, and make it useful in other operations.
+      One anomaly with LZHUF (and LHARC) is that they become
+      very slow when compressing a long string of identical
+      bytes (i.e. a file full of blanks, or nuls).  I believe
+      this would be improved by preceding the encoding with
+      run length compression, using 90h as the encodeing signal,
+      so that <char> 90h nn (with 2 <= nn <= 255) represents
+      <char> followed by nn repetitions, i.e. at least a total
+      of nn+1 occurences of <char>.  <90h 0> would represent 90h
+      itself, and 90h cannot be run length encoded.  <90h 1>
+      would represent EOF, thus embedding a specific EOF marker
+      in the file.  This allows use where the actual file length
+      is unknown before it is reached, i.e. in communications.
+
+NOTE: The attached LZHUFE.EXE file was compiled with the $r-
+      option.  However for any development etc the source should
+      be compiled with $r+ (run-time range checks on) option.
+      This found many evil gotchas.
+
+NOTE: LZHUFE.EXE is just as fast, within crude measurements, as
+      LZHUF.  This shows that even Turbo Pascals relatively
+      crude code generation competes favorably with C.  There
+      is much room for optimization left.  However I believe
+      the Pascal source is much clearer than the C source.
+
+NOTE: The debug mechanism is guarded both by the Turbo {$IFDEF}
+      construct, and by individual constants.  The latter is
+      ISO compatible.  However, Turbo does not strip inaccessible
+      IF statements, as does PascalP, thus the dual mechanism.
+
+     1  {$M 12000,0,0}  (* see notes to "decode" *)
+     2
+     3  PROGRAM lzhufe(infile, outfile, output);
+     4  (* Based on decode section of lzhuf.c               *)
+     5  (* Written by Haruyasu Yoshizaki 1988/11/20         *)
+     6  (* Some minor changes 1989/4/6                      *)
+     7  (* Comments translated by Haruhiko Okumura 1989/4/7 *)
+     8
+     9  (* Converted to Pascal by C.B. Falconer, 1989/4/25  *)
+    10  (* I have attempted to use only ISO constructs, but *)
+    11  (* some Turboisms have remained, especially in the  *)
+    12  (* file access area, and the use of inc/dec, hex    *)
+    13  (* constants, longints, bytes and words.  I have    *)
+    14  (* also attempted to use the maximum range checking *)
+    15
+    16    (********** LZSS compression **********)
+    17
+    18    CONST            (* These only take effect if 'dbg' is defined *)
+    19      debuga         = false;     (* show recorded size *)
+    20      debugb         = true;      (* display output chars *)
+    21
+    22      iobuffsize     = 4096;      (* for Turbo block i/o only *)
+    23      eofmark        = $1a;       (* textfile eof mark *)
+    24
+    25      (* These constants are used by the file-handling *)
+    26      (* procedures when opening and closing disk      *)
+    27      (* files. The mode fields of Turbo Pascal's file *)
+    28      (* variables will contain one of these values    *)
+    29      fmclosed       = $d7b0;
+    30      fminput        = $d7b1;     (* reference data *)
+    31      fmoutput       = $d7b2;
+    32      fminout        = $d7b3;
+    33
+    34    TYPE
+    35      iobuffer       = ARRAY[1..iobuffsize] OF byte;
+    36      iobufptr       = 0..iobuffsize;  (* 0 = empty *)
+    37
+    38      (* reference data, actual contents of FILE type *)
+    39      filerec        = RECORD (* typed and untyped file record *)
+    40        handle         : word;
+    41        mode           : word;
+    42        recsize        : word;
+    43        private        : ARRAY[1..26] OF byte;
+    44        userdata       : ARRAY[1..16] OF byte;
+    45        name           : ARRAY[0..79] OF char;
+    46        END; (* filerec *)
+    47
+    48      fcb            = RECORD
+    49        fid            : FILE;      (* Turbo untyped block i/o *)
+    50        fwrtaccess     : boolean;
+    51        feof           : boolean;
+    52        bufflast,                   (* posn of last in buffer *)
+    53        buffndx        : iobufptr;  (* last read from buffer *)
+    54        buff           : iobuffer;  (*   0 = empty *)
+    55        END; (* fcb *)
+    56
+    57      (* Non-standard method of passing procedures *)
+    58      putbproc       = PROCEDURE(b : byte);
+    59      getbfunc       = FUNCTION(VAR b : byte) : boolean;
+    60
+    61    VAR
+    62      infile,
+    63      outfile        : fcb;
+    64      endofinput     : boolean;
+    65
+    66    (* 1---------------1 *)
+    67
+    68    (* In this group we attempt to follow standard Pascal semantics *)
+    69    (* i.e. output files always have feof true, and it is an error  *)
+    70    (* to write to a file without this condition.                   *)
+    71    (* The system is incomplete, intended for this program only.    *)
+    72
+    73    FUNCTION freset(VAR f : fcb; fn : string) : boolean;
+    74    (* equivalent to assign/reset pair *)
+    75
+    76      BEGIN (* freset *)
+    77      WITH f DO BEGIN
+    78        buffndx := 0; bufflast := 0; (* mark empty *)
+    79        fwrtaccess := false;
+    80        assign(fid, fn);
+    81  {$i-} reset(fid, 1); {$i+}
+    82        feof := ioresult <> 0;
+    83        freset := NOT feof; END;
+    84      END; (* freset *)
+    85
+    86    (* 1---------------1 *)
+    87  {$F+}                      (* passed procs must be FAR *)
+    88    FUNCTION readbyte(VAR c : byte) : boolean;
+    89    (* assumes using infile. Returns false at eof *)
+    90
+    91      BEGIN (* readbyte *)
+    92      WITH infile DO BEGIN
+    93        IF (buffndx >= bufflast) AND NOT feof THEN BEGIN (* reload *)
+    94  {$i-}   blockread(fid, buff, iobuffsize, bufflast); {$i+}
+    95          buffndx := 0;
+    96          feof := (ioresult <> 0) OR (bufflast = 0); END;
+    97        IF feof THEN c := eofmark
+    98        ELSE BEGIN
+    99          buffndx := succ(buffndx); c := buff[buffndx]; END;
+   100        readbyte := NOT feof; END;
+   101      END; (* readbyte *)
+   102  {$F-}
+   103    (* 1---------------1 *)
+   104
+   105    FUNCTION frewrite(VAR f : fcb; fn : string) : boolean;
+   106    (* equivalent to assign/rewrite pair *)
+   107
+   108      BEGIN (* frewrite *)
+   109      WITH f DO BEGIN
+   110        buffndx := 0; bufflast := 0; (* mark empty *)
+   111        fwrtaccess := true;
+   112        assign(fid, fn);
+   113  {$i-} rewrite(fid, 1); {$i+}
+   114        feof := ioresult = 0;
+   115        frewrite := feof; END;
+   116      END; (* frewrite *)
+   117
+   118    (* 1---------------1 *)
+   119
+   120    PROCEDURE fflush(VAR f : fcb);
+   121    (* empty output buffers to disk. Not checking status *)
+   122
+   123      BEGIN (* fflush *)
+   124      WITH f DO BEGIN
+   125        IF (bufflast > 0) AND feof AND fwrtaccess THEN BEGIN
+   126  {$i-}   blockwrite(fid, buff, bufflast, buffndx); {$i+}
+   127          IF (ioresult <> 0) OR (buffndx <> bufflast) THEN
+   128            feof := false;         (* no longer writeable *) END;
+   129        buffndx := 0; bufflast := 0;  (* mark empty *)  END;
+   130      END; (* fflush *)
+   131
+   132    (* 1---------------1 *)
+   133  {$F+}                            (* passed procs must be FAR *)
+   134    PROCEDURE putbyte(c : byte);
+   135    (* assumes using outfile *)
+   136
+   137      BEGIN (* putbyte *)
+   138      WITH outfile DO
+   139        IF fwrtaccess AND feof THEN BEGIN
+   140          inc(bufflast); buff[bufflast] := c;
+   141          IF bufflast = iobuffsize THEN fflush(outfile); END;
+   142      (* buffer cannot be full on exit *)
+   143      END; (* putbyte *)
+   144  {$F-}
+   145    (* 1---------------1 *)
+   146
+   147    PROCEDURE fclose(VAR f : fcb);
+   148
+   149      VAR
+   150        fr   : filerec ABSOLUTE f; (* depends on turbo alignments *)
+   151
+   152      BEGIN (* fclose *)
+   153      WITH f DO BEGIN
+   154        IF ((fr.mode = fmoutput) OR (fr.mode = fminout)) AND feof THEN
+   155          fflush(f);
+   156        IF fr.mode <> fmclosed THEN close(fid); END;
+   157      END; (* fclose *)
+   158
+   159    (* 1---------------1 *)
+   160
+   161    PROCEDURE error(message : string);
+   162
+   163      BEGIN
+   164      writeln; writeln(message); halt(1);
+   165      END;
+   166
+   167    (* 1---------------1 *)
+   168
+   169    PROCEDURE decode(readbyte : getbfunc;    (* get data *)
+   170                     putbyte  : putbproc;    (* put data *)
+   171                     monitor  : boolean);    (* show activity *)
+   172    (* This uses about 9k of stack space for local variables.   *)
+   173    (* They might be better assigned on the heap.  However that *)
+   174    (* reduces the clarity, and I wanted to isolate the decoder *)
+   175    (* Unfortunately Turbos memory scheme does not allow the    *)
+   176    (* stack to expand automatically.  A 16k stack suffices.    *)
+   177
+   178      CONST
+   179        n              = 4096;      (* buffer size. Power of 2 *)
+   180        f              = 60;        (* lookahead buffer size *)
+   181        encodemin      = 3;         (* min encode string length *)
+   182        max_freq       = $8000;     (* updates tree when the root *)
+   183                                    (* frequency reaches this value.*)
+   184
+   185        (* derived constants. No expression for ISO compatibility *)
+   186        threshold      = 2;         (* encodemin - 1 *)
+   187        bufmax         = 4155;      (* n+f-1 *)
+   188        codemax        = 313;       (* 256-encodemin+f *)
+   189        n_char         = 314;       (* codemax + 1; kinds of chars *)
+   190
+   191        (* Huffman coding *)
+   192        tblsize        = 627;       (* 2*n_char - 1 *) (* was T *)
+   193                                    (* Root at tblsize, others nodes *)
+   194        huffroot       = 626;       (* tblsize - 1 *)  (* was R *)
+   195        tblmax         = 628;       (* tblsize + 1 *)
+   196        parentmax      = 941;       (* tblsize + n_char *)
+   197
+   198      TYPE
+   199        bufindex       = 0..bufmax;
+   200        charindex      = 0..codemax;
+   201
+   202      VAR
+   203        i, j, k, r, c  : integer;
+   204        count          : longint;
+   205        textsize       : longint;
+   206        printcount     : longint;
+   207        getbuf         : word;
+   208        getlen         : byte;
+   209
+   210        (* Huffman coding *)
+   211
+   212        (* table to encode/decode the upper 6 bits of position *)
+   213        huffcode       : ARRAY[0..255] OF RECORD
+   214          code, len      : byte;
+   215          END; (* huffcode *)
+   216
+   217        freq           : ARRAY[0..tblmax] OF word;  (* freq table *)
+   218
+   219        (* pointers to parent nodes, except for    *)
+   220        (* the elements[T..T + N_CHAR - 1] which   *)
+   221        (* are used to get the positions of leaves *)
+   222        (* corresponding to the codes.             *)
+   223        parent         : ARRAY[0..parentmax] OF word;
+   224
+   225        (* pointers to child nodes (son[], son[] + 1) *)
+   226        son            : ARRAY[0..tblsize] OF integer;
+   227
+   228        (* LZSS table *)
+   229        histbuff       : ARRAY[bufindex] OF byte;
+   230
+   231      (* 2---------------2 *)
+   232
+   233      PROCEDURE starthuff;
+   234      (* initialization of tree *)
+   235
+   236        VAR
+   237          i              : integer;
+   238          j              : integer;
+   239
+   240        (* 3---------------3 *)
+   241
+   242        PROCEDURE ihuff;
+   243        (* Form decoding tables huffcode.len and huffcode.code *)
+   244        (* This replaces the original initialized data area,   *)
+   245        (* and is compatible with standard Pascal.             *)
+   246
+   247          VAR
+   248            i, nxtcode   : integer;
+   249
+   250          (* 4---------------4 *)
+   251
+   252          PROCEDURE enter(ix, lgh : integer);
+   253
+   254            BEGIN (* enter *)
+   255            WITH huffcode[ix] DO BEGIN
+   256              len := lgh; code := nxtcode; END;
+   257            IF succ(ix) MOD (1 shl (8-lgh)) = 0 THEN
+   258              nxtcode := succ(nxtcode);
+   259            END; (* enter *)
+   260
+   261          (* 4---------------4 *)
+   262
+   263          BEGIN (* ihuff *)
+   264          nxtcode := 0;
+   265          FOR i :=   0 TO  31 DO enter(i, 3);
+   266          FOR i :=  32 TO  79 DO enter(i, 4);
+   267          FOR i :=  80 TO 143 DO enter(i, 5);
+   268          FOR i := 144 TO 191 DO enter(i, 6);
+   269          FOR i := 192 TO 239 DO enter(i, 7);
+   270          FOR i := 240 TO 255 DO enter(i, 8);
+   271          END; (* ihuff *)
+   272
+   273        (* 3---------------3 *)
+   274
+   275        BEGIN (* starthuff *)
+   276        ihuff;
+   277        FOR i := 0 TO pred(n_char) DO BEGIN
+   278          freq[i] := 1;
+   279          son[i] := i + tblsize; parent[i + tblsize] := i; END;
+   280        i := 0; j := n_char;
+   281        WHILE (j <= huffroot) DO BEGIN
+   282          freq[j] := freq[i] + freq[succ(i)];
+   283          son[j] := i; parent[i] := j; parent[succ(i)] := j;
+   284          i := i + 2; j := succ(j); END;
+   285        freq[tblsize] := $ffff; parent[huffroot] := 0;
+   286        END; (* starthuff *)
+   287
+   288      (* 2---------------2 *)
+   289
+   290      PROCEDURE nextbyte;
+   291
+   292        VAR
+   293          c    : byte;
+   294
+   295        BEGIN (* nextbyte *)
+   296        IF endofinput THEN BEGIN
+   297          fclose(outfile);
+   298          error('Read past eof'); END;
+   299        WHILE (getlen <= 8) DO BEGIN
+   300          IF NOT readbyte(c) THEN BEGIN  (* delay eof for buffer *)
+   301            endofinput := true; c := 0; END;
+   302          getbuf := getbuf OR (c shl (8 - getlen));
+   303          getlen := getlen + 8; END;
+   304        END; (* nextbyte *)
+   305
+   306      (* 2---------------2 *)
+   307
+   308      FUNCTION getbit : boolean;      (* get one bit *)
+   309
+   310        BEGIN (* getbit *)
+   311        IF getlen <= 8 THEN nextbyte;
+   312        getbit := (getbuf AND $8000) <> 0;
+   313        getbuf := getbuf shl 1; getlen := pred(getlen);
+   314        END; (* getbit *)
+   315
+   316      (* 2---------------2 *)
+   317
+   318      FUNCTION getbyte : integer;     (* get one byte *)
+   319
+   320        BEGIN (* getbyte *)
+   321        IF getlen <= 8 THEN nextbyte;
+   322        getbyte := getbuf shr 8;
+   323        getbuf := getbuf shl 8; getlen := getlen - 8;
+   324        END; (* getbyte *)
+   325
+   326      (* 2---------------2 *)
+   327
+   328      FUNCTION decodechar : integer;
+   329
+   330        VAR
+   331          c              : word;
+   332
+   333        (* 3---------------3 *)
+   334
+   335        PROCEDURE update (c : integer);
+   336        (* advance frequency of code c, and update tree *)
+   337
+   338          VAR
+   339            i, j, k, l     : integer;
+   340
+   341          (* 4---------------4 *)
+   342
+   343          PROCEDURE reconst;
+   344          (* reconstruction of tree *)
+   345
+   346            VAR
+   347              i, j, k        : integer;
+   348              f, l           : word;
+   349
+   350            BEGIN (* reconst *)
+   351            (* collect leaf nodes in the first half of the   *)
+   352            (* table and replace the freq by (freq + 1) / 2. *)
+   353            j := 0;
+   354            FOR i := 0 TO huffroot DO BEGIN
+   355              IF (son[i] >= tblsize) THEN BEGIN
+   356                freq[j] := succ(freq[i]) shr 1 (* DIV 2 *);
+   357                son[j] := son[i]; j := succ(j); END;
+   358              END;
+   359
+   360            (* begin constructing tree by connecting sons *)
+   361            i := 0;
+   362            FOR j := n_char TO huffroot DO BEGIN
+   363              k := succ(i);
+   364              f := freq[i] + freq[k]; freq[j] := f;
+   365              k := pred(j);
+   366              WHILE (f < freq[k]) DO k := pred(k);
+   367              k:= succ(k); l := (j - k) * 2;
+   368              move(freq[k], freq[k+1], l); freq[k] := f;
+   369              move(son[k], son[k+1], l); son[k] := i;
+   370              i := i + 2; END;
+   371
+   372            (* connect parent *)
+   373            FOR i := 0 TO huffroot DO BEGIN
+   374              k := son[i]; parent[k] := i;
+   375              IF k < tblsize THEN parent[succ(k)] := i; END;
+   376            END; (* reconst *)
+   377
+   378          (* 4---------------4 *)
+   379
+   380          BEGIN (* update *)
+   381          IF (freq[tblmax] = max_freq) THEN reconst;
+   382          c := parent[c + tblsize];
+   383          REPEAT
+   384            k := succ(freq[c]); freq[c] := k;
+   385            (* if the order is disturbed, exchange nodes *)
+   386            l := succ(c);
+   387            IF (k > freq[l]) THEN BEGIN
+   388              REPEAT
+   389                inc(l);
+   390              UNTIL k <= freq[l];
+   391              dec(l);
+   392
+   393              freq[c] := freq[l]; freq[l] := k;
+   394
+   395              i := son[c]; parent[i] := l;
+   396              IF (i < tblsize) THEN parent[succ(i)] := l;
+   397              j := son[l]; son[l] := i;
+   398
+   399              parent[j] := c;
+   400              IF (j < tblsize) THEN parent[succ(j)] := c;
+   401              son[c] := j;
+   402
+   403              c := l; END;
+   404            c := parent[c];
+   405          UNTIL c = 0;                 (* repeat up to root *)
+   406          END; (* update *)
+   407
+   408        (* 3---------------3 *)
+   409
+   410        BEGIN (* decodechar *)
+   411        c := son[huffroot];
+   412        (* travel from root to leaf, choosing the smaller *)
+   413        (* child node (son[]) if the read bit is 0, the   *)
+   414        (* bigger (son[] +1; if the read bit is 1         *)
+   415        WHILE (c < tblsize) DO c := son[c + ord(getbit)];
+   416        c := c - tblsize;
+   417        update(c); decodechar := c;
+   418        END; (* decodechar *)
+   419
+   420      (* 2---------------2 *)
+   421
+   422      FUNCTION decodeposition : integer;
+   423
+   424        VAR
+   425          i, j, c        : word;
+   426
+   427        BEGIN (* decodeposition *)
+   428        (* recover upper 6 bits from table *)
+   429        i := getbyte;
+   430        WITH huffcode[i] DO BEGIN
+   431          c := code shl 6; j := len; END;
+   432        (* read lower 6 bits verbatim *)
+   433        (* comment/code dont match *)
+   434        dec(j, 2);
+   435        WHILE j <> 0 DO BEGIN
+   436          dec(j); i := i + i + ord(getbit); END;
+   437        decodeposition := c OR (i AND $3f);
+   438        END; (* decodeposition *)
+   439
+   440      (* 2---------------2 *)
+   441
+   442      FUNCTION readlong : longint;
+   443      (* Read 4 bytes, convert into LSByte 1st 32 bit integer *)
+   444
+   445        VAR
+   446          i         : integer;
+   447          buff      : RECORD
+   448            CASE boolean OF
+   449  false :   ( long    : longint);
+   450  true  :   (  bytes  : ARRAY[0..3] OF byte);
+   451            END; (* buff record *)
+   452
+   453        BEGIN (* readlong *)
+   454        FOR i := 0 TO 3 DO
+   455          IF NOT readbyte(buff.bytes[i]) THEN buff.long := 0;
+   456        readlong := buff.long;
+   457        END; (* readlong *)
+   458
+   459      (* 2---------------2 *)
+   460
+   461      BEGIN (* decode *)
+   462      textsize := 0; printcount := 0; count := 0;
+   463      getbuf := 0; getlen := 0;
+   464      textsize := readlong;              (* header is size of text *)
+   465      IF textsize > 0 THEN BEGIN
+   466  {$IFDEF dbg}
+   467        IF debuga THEN writeln('Size=', textsize);
+   468  {$ENDIF}
+   469        starthuff;
+   470        FOR i := 0 TO n - f - 1 DO (* prefill with common char *)
+   471          histbuff[i] := ord(' ');
+   472        r := n - f;
+   473
+   474        WHILE count < textsize DO BEGIN
+   475          c := decodechar;
+   476          IF (c < 256) THEN BEGIN        (* a verbatim character *)
+   477  {$IFDEF dbg}
+   478            IF debugb THEN write(chr(c));
+   479  {$ENDIF}
+   480            putbyte(c);
+   481            histbuff[r] := c;            (* record in history buff *)
+   482            r := succ(r) AND pred(n);    (* advance MODULO n *)
+   483            inc(count); END
+   484          ELSE BEGIN                     (* posn/lgh in buffer *)
+   485            i := pred(r - decodeposition) AND pred(n);
+   486            j := c - 255 + threshold;
+   487  {$IFDEF dbg}
+   488            IF debugb THEN write('<', j, '>');   (* show size *)
+   489  {$ENDIF}
+   490            FOR k := 0 TO j - 1 DO BEGIN (* copy the string *)
+   491              c := histbuff[(i + k) AND pred(n)];
+   492  {$IFDEF dbg}
+   493              IF debugb THEN write(chr(c));
+   494  {$ENDIF}
+   495              putbyte(c);
+   496              histbuff[r] := c;          (* revising the buffer *)
+   497              r := succ(r) AND pred(n); inc(count); END;
+   498            END;
+   499          IF monitor AND (count > printcount) THEN BEGIN
+   500            write(count : 12, #13);      (* show progress *)
+   501            printcount := printcount + 1024; END;
+   502          END;
+   503        END;
+   504      IF monitor THEN writeln(count : 12);
+   505      END; (* decode *)
+   506
+   507    (* 1---------------1 *)
+   508
+   509    BEGIN (* lzhufe *)
+   510    filemode := 0;          (* so Turbo handles r/o files *)
+   511    IF paramcount <> 2 THEN BEGIN
+   512      writeln('Decodes files encoded by LZHUF');
+   513      error('Usage: lzhufe infile outfile'); END
+   514    ELSE IF NOT freset(infile, paramstr(1)) THEN
+   515      error('Can''t open: ' + paramstr(1))
+   516    ELSE BEGIN
+   517      endofinput := false;
+   518      IF NOT frewrite(outfile, paramstr(2)) THEN BEGIN
+   519        error('Can''t create: ' + paramstr(2)); END
+   520      ELSE BEGIN
+   521        decode(readbyte, putbyte, true);      (* do the real work *)
+   522        fclose(outfile); END;
+   523      fclose(infile); END;
+   524    END. (* lzhufe *)
+
+Files cross referenced on 1989 Apr 27  8:18 :
+  lzhufe.pas
+
+IDENTIFIER         OCCURRENCES
+==========         ===========
+absolute           150
+assign              80    112
+b                   58     59
+blockread           94
+blockwrite         126
+boolean             50     51     59     64     73     88    105    171
+               .   308    448
+buff                54     94     99    126    140    447    455    456
+bufflast            52     78     93     94     96    110    125    126
+               .   127    129    140    141
+buffndx             53     78     93     95     99    110    126    127
+               .   129
+bufindex           199    229
+bufmax             187    199
+byte                35     43     44     58     59     88    134    208
+               .   214    229    293    450
+bytes              450    455
+c                   88     97     99    134    140    203    293    300
+               .   301    302    331    335    382    384    386    393
+               .   395    399    400    401    403    404    405    411
+               .   415    416    417    425    431    437    475    476
+               .   478    480    481    486    491    493    495    496
+char                45
+charindex          200
+chr                478    493
+close              156
+code               214    256    431
+codemax            188    200
+count              204    462    474    483    497    499    500    504
+debuga              19    467
+debugb              20    478    488    493
+dec                391    434    436
+decode             169    521
+decodechar         328    417    475
+decodeposition     422    437    485
+encodemin          181
+endofinput          64    296    301    517
+enter              252    265    266    267    268    269    270
+eofmark             23     97
+error              161    298    513    515    519
+f                   73     77    105    109    120    124    147    150
+               .   153    155    180    348    364    366    368    470
+               .   472
+false               19     79    128    449    517
+fcb                 48     63     73    105    120    147
+fclose             147    297    522    523
+feof                51     82     83     93     96     97    100    114
+               .   115    125    128    139    154
+fflush             120    141    155
+fid                 49     80     81     94    112    113    126    156
+filemode           510
+filerec             39    150
+fmclosed            29    156
+fminout             32    154
+fminput             30
+fmoutput            31    154
+fn                  73     80    105    112
+fr                 150    154    156
+freq               217    278    282    285    356    364    366    368
+               .   381    384    387    390    393
+freset              73     83    514
+frewrite           105    115    518
+fwrtaccess          50     79    111    125    139
+getbfunc            59    169
+getbit             308    312    415    436
+getbuf             207    302    312    313    322    323    463
+getbyte            318    322    429
+getlen             208    299    302    303    311    313    321    323
+               .   463
+halt               164
+handle              40
+histbuff           229    471    481    491    496
+huffcode           213    255    430
+huffroot           194    281    285    354    362    373    411
+i                  203    237    248    265    266    267    268    269
+               .   270    277    278    279    280    282    283    284
+               .   339    347    354    355    356    357    361    363
+               .   364    369    370    373    374    375    395    396
+               .   397    425    429    430    436    437    446    454
+               ,   455    470    471    485    491
+ihuff              242    276
+inc                140    389    483    497
+infile               3     62     92    514    523
+integer            203    226    237    238    248    252    318    328
+               .   335    339    347    422    446
+iobuffer            35     54
+iobuffsize          22     35     36     94    141
+iobufptr            36     53
+ioresult            82     96    114    127
+ix                 252    255    257
+j                  203    238    280    281    282    283    284    339
+               .   347    353    356    357    362    364    365    367
+               .   397    399    400    401    425    431    434    435
+               .   436    486    488    490
+k                  203    339    347    363    364    365    366    367
+               .   368    369    374    375    384    387    390    393
+               .   490    491
+l                  339    348    367    368    369    386    387    389
+               .   390    391    393    395    396    397    403
+len                214    256    431
+lgh                252    256    257
+long               449    455    456
+longint            204    205    206    442    449
+lzhufe               3
+max_freq           182    381
+message            161    164
+mode                41    154    156
+monitor            171    499    504
+move               368    369
+n                  179    470    472    482    485    491    497
+n_char             189    277    280    362
+name                45
+nextbyte           290    311    321
+nxtcode            248    256    258    264
+ord                415    436    471
+outfile              3     63    138    141    297    518    522
+output               3
+paramcount         511
+paramstr           514    515    518    519
+parent             223    279    283    285    374    375    382    395
+               .   396    399    400    404
+parentmax          196    223
+pred               277    313    365    366    482    485    491    497
+printcount         206    462    499    501
+private             43
+putbproc            58    170
+putbyte            134    170    480    495    521
+r                  203    472    481    482    485    496    497
+readbyte            88    100    169    300    455    521
+readlong           442    456    464
+reconst            343    381
+recsize             42
+reset               81
+rewrite            113
+shl                257    302    313    323    431
+shr                322    356
+son                226    279    283    355    357    369    374    395
+               .   397    401    411    415
+starthuff          233    469
+string              73    105    161
+succ                99    257    258    282    283    284    356    357
+               .   363    367    375    384    386    396    400    482
+               .   497
+tblmax             195    217    381
+tblsize            192    226    279    285    355    375    382    396
+               .   400    415    416
+textsize           205    462    464    465    467    474
+threshold          186    486
+true                20    111    301    450    521
+update             335    417
+userdata            44
+word                40     41     42    207    217    223    331    348
+               .   425
+write              478    488    493    500
+writeln            164    467    504    512
+
+   124 Identifiers   728 Occurences
+     1 Collisions      2 Misses
+
+Procedural Cross-Referencer - Version T2.0
+==========================================
+
+ Line   Program/procedure/function heading
+-------------------------------------------
+
+    3   PROGRAM lzhufe(infile, outfile, output);
+   73     FUNCTION freset(VAR f : fcb; fn : string) : boolean;
+   88     FUNCTION readbyte(VAR c : byte) : boolean;
+  105     FUNCTION frewrite(VAR f : fcb; fn : string) : boolean;
+  120     PROCEDURE fflush(VAR f : fcb);
+  134     PROCEDURE putbyte(c : byte);
+  147     PROCEDURE fclose(VAR f : fcb);
+  161     PROCEDURE error(message : string);
+  169     PROCEDURE decode(readbyte : getbfunc;    (* get data *)
+  170                      putbyte  : putbproc;    (* put data *)
+  171                      monitor  : boolean);    (* show activity *)
+  233       PROCEDURE starthuff;
+  242         PROCEDURE ihuff;
+  252           PROCEDURE enter(ix, lgh : integer);
+  290       PROCEDURE nextbyte;
+  308       FUNCTION getbit : boolean;      (* get one bit *)
+  318       FUNCTION getbyte : integer;     (* get one byte *)
+  328       FUNCTION decodechar : integer;
+  335         PROCEDURE update (c : integer);
+  343           PROCEDURE reconst;
+  422       FUNCTION decodeposition : integer;
+  442       FUNCTION readlong : longint;
+  524   END. (* lzhufe *)
+
+
+Procedural Cross-Referencer - Version T2.0
+==========================================
+
+ Head   Body   Notes                    Calls made to
+------------------------------------------------------
+  169    461          decode          : readlong        starthuff
+                                        decodechar      decodeposition
+  328    410          decodechar      : getbit          update
+  422    427          decodeposition  : getbyte         getbit
+  252    254          enter           :
+  161    163          error           :
+  147    152          fclose          : fflush
+  120    123          fflush          :
+   73     76          freset          :
+  105    108          frewrite        :
+  308    310          getbit          : nextbyte
+  318    320          getbyte         : nextbyte
+  242    263          ihuff           : enter
+    3    509          lzhufe          : error           freset
+                                        frewrite        decode
+                                        readbyte        putbyte
+                                        fclose
+  290    295          nextbyte        : fclose          error
+  134    137          putbyte         : fflush
+   88     91          readbyte        :
+  442    453          readlong        :
+  343    350          reconst         :
+  233    275          starthuff       : ihuff
+  335    380          update          : reconst
+
+
+Procedural Cross-Referencer - Version T2.0
+==========================================
+
+ Head   Body   Notes                    Called by
+------------------------------------------------------
+  169    461          decode          : lzhufe
+  328    410          decodechar      : decode
+  422    427          decodeposition  : decode
+  252    254          enter           : ihuff
+  161    163          error           : nextbyte        lzhufe
+  147    152          fclose          : nextbyte        lzhufe
+  120    123          fflush          : putbyte         fclose
+   73     76          freset          : lzhufe
+  105    108          frewrite        : lzhufe
+  308    310          getbit          : decodechar      decodeposition
+  318    320          getbyte         : decodeposition
+  242    263          ihuff           : starthuff
+    3    509          lzhufe          :
+  290    295          nextbyte        : getbit          getbyte
+  134    137          putbyte         : lzhufe
+   88     91          readbyte        : lzhufe
+  442    453          readlong        : decode
+  343    350          reconst         : update
+  233    275          starthuff       : decode
+  335    380          update          : decodechar
+
+Files scanned on 1989 Apr 27  8:19
+  lzhufe.pas
+…ˆ

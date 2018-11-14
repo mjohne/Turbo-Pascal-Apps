@@ -1,0 +1,1319 @@
+{+-------------------------------------------------------------------------+}
+{|                                                                         |}
+{|                             MYSORT 4.0                                  |}
+{|                             ----------                                  |}
+{|                                                                         |}
+{+-------------------------------------------------------------------------+}
+{|                                                                         |}
+{|  Name:                      MYSORT                                      |}
+{|  Version:                   4.0                                         |}
+{|  Sprache:                   Turbo Pascal 7.0 (Borland Inc.)             |}
+{|  Fertigstellung:            11 Juli 2004                                |}
+{|                                                                         |}
+{|                                                                         |}
+{|  Author:                    Michael Johne                               |}
+{|  Kurzbeschreibung:          Demonstration verschiedener Sortier-        |}
+{|                             verfahren                                   |}
+{|                                                                         |}
+{|                                                                         |}
+{|  Credits:                   * Peter Weigel; www.peter-weigel.de,        |}
+{|                               www.sortieralgorithmen.de                 |}
+{|                                                                         |}
+{|                                                                         |}
+{|  Copyrights:                (C) 2002-2004; MYSORT, RandomSort,          |}
+{|                                 BruteSort by Michael Johne              |}
+{|                                                                         |}
+{|                             Eine freie Weitergabe, Verwendung und Ver-  |}
+{|                             vielfÑltigung ist erwÅnscht!                |}
+{|                                                                         |}
+{+-------------------------------------------------------------------------+}
+
+PROGRAM My_Sort_40;
+
+USES Crt,Dos,Graph;
+
+TYPE
+  Aptr  = 1..200;    {Aptr - Feld von RND[x] fÅr PROCEDURE MergeSort(1,Max);}
+  Aptr2 = 0..200+1;   {Aptr2 - Feld von Aptr fÅr PROCEDURE MergeSort(1,Max);}
+
+VAR
+  RND                  {RND[SortMethod] - Datenfelder; werden stets sortiert}
+        : ARRAY[0..10,1..200] OF Integer;
+  FieldStatus,               {FieldStatus - informiert ueber den Feldzustand}
+  Mode,                          {Mode - Index fÅr die gewaehlte Darstellung}
+  SortMethod,  {SortMethod - Index fÅr die Zusammenstellungen der Feldes RND}
+  SortNumber,         {SortNumber - Index fÅr das gewaehlte Sortierverfahren}
+  SortObject  {SortObject - Index fÅr die Darstellungsobjekte der Feldes RND}
+        : Byte;
+  Finished,Okay                     {Finished - Flag fÅr ein sortiertes Feld}
+        : Boolean;
+  Input1,Input2,Input3                       {Input[1..3] - Eingabevariablen}
+        : Char;
+  Swap,                  {Swap - Temp-Variable zum Vertauschen zweier Zahlen}
+  Max,                    {Max - speichert die Groesse der sortierten Feldes}
+  GraphDriver,                 {GraphDriver - Variable fÅr den Grafiktreiber}
+  GraphMode,                       {GraphMode - Variable fÅr den Grafikmodus}
+  Control,   {Control - Kontroll-Variable fuer die Umwandlung String -> Zahl}
+  i,j,l,r,m,n,a,b,k,q   {i,j,l,r,m,n,a,b,k,q - Zaehl- und Schleifenvariablen}
+         : Integer;
+  Vergleiche,              {Vergleiche - speichert die Anzahl der Vergleiche}
+  Vertauschungen,  {Vertauschungen - speichert die Anzahl der Vertauschungen}
+  StartZeit,                                {StartZeit - misst die Startzeit}
+  EndZeit,                                  {EndZeit - speichert die Endzeit}
+  Zeit                 {Zeit - errechnet die Laufzeit eines Sortierverfahren}
+         : LongInt;
+  Sec                                 {Sec - Angabe der Laufzeit in Sekunden}
+         : Real;
+  regs                                {regs - Variable fÅr Code mit Register}
+         : Registers;
+  SortName,            {SortName - speichert den Namen der Sortierverfahrens}
+  TempStr                                       {TempStr - Temp-Zeichenkette}
+         : STRING;
+  Pic,     {Pic - dient zur nummerierten Benennung von gespeicherten Bildern}
+  Waitting                     {Waitting - speichert die Verzîgerung (Pause)}
+         : Word;
+
+LABEL Retro;                                      {Retro - Ruecksprung-Marke}
+
+PROCEDURE ClearKeyBuffer;
+{Diese Funktion lîscht den gesamten Tastaturspeicher.}
+BEGIN
+  ASM
+    mov ax,$0C06;
+    mov dl,$FF;
+    int $21;
+  END;
+END;
+
+PROCEDURE Wait(ms : Word); ASSEMBLER;
+{Diese Funktion ist korrektere Alternative zu PROCEDURE Delay();.}
+ASM
+  mov ax, 1000;
+  mul ms;
+  mov cx, dx;
+  mov dx, ax;
+  mov ah, $86;
+  Int $15;
+END;
+
+PROCEDURE StartTimer;
+{Diese Funktion startet die Zeitmessung.}
+BEGIN
+  regs.ah := $00;
+  Intr($1A,regs);
+  StartZeit := regs.cx SHL 16+regs.dx;
+END;
+
+PROCEDURE GetTimer;
+{Diese Funktion stoppt die gemessene Zeit.}
+BEGIN
+  regs.ah := $00;
+  Intr($1A,regs);
+  EndZeit := regs.cx SHL 16+regs.dx;
+  Zeit := EndZeit-StartZeit;
+  Sec  := Zeit/18.2;
+END;
+
+PROCEDURE SavePCX(Filename : STRING);
+{Mit dieser Funktion lassen sich PCX-Grafiken der Bildschirms speichern.}
+TYPE HeaderRec = RECORD
+           pcx_id  : Byte;     { 0) 0x0a = ZSoft .PCX file          }
+           pcx_ver : Byte;     { 1) 0x05 = PC PaintBrush 3.0        }
+           encode  : Byte;     { 2) 0x01 = RLE                      }
+           bpp     : Byte;     { 3) 0x01 = bits/pixel why VGA16=1?  }
+           left    : Word;     { 4-5) Window Left                   }
+           top     : Word;     { 6-7) Window Top                    }
+           right   : Word;     { 8-9) Window Right                  }
+           bott    : Word;     { 10-11) Window Bottom               }
+           xres    : Word;     { 12-13) Horizontal resolution       }
+           yres    : Word;     { 14-15) Vertical resolution         }
+           rgb     : ARRAY[0..15,1..3] OF Byte;    { (R-G-B) values }
+           resv    : Byte;     { 64) Reserved                       }
+           bplanes : Byte;     { 65) Number of bit planes, VGA16=4  }
+           bpl     : Word;     { 66-67) # of bytes/line, VGA16=80   }
+           ptype   : Word;     { 68-69) palette type, color=1       }
+           unused  : ARRAY[70..127] OF Byte;
+     END;
+CONST BufSize = 256;
+VAR
+  Header : HeaderRec;
+  pal    : PaletteType;
+  r,g,b  : Integer;
+  i,y,j  : Integer;
+  f      : FILE;
+  data   : ARRAY[0..319] OF Byte;
+  buf    : ARRAY[1..BufSize] OF Byte;
+  bi     : Integer;
+  dta    : Byte;
+  index  : Integer;
+  count  : Integer;
+LABEL Done;
+PROCEDURE GetRGB(Color : Integer; VAR r,g,b : Integer);
+BEGIN
+  r := (((Color AND $20) SHR 5) OR ((Color AND $04) SHR 1))*84;
+  g := (((Color AND $10) SHR 4) OR ((Color AND $02)      ))*84;
+  b := (((Color AND $08) SHR 3) OR ((Color AND $01) SHL 1))*84;
+END;
+PROCEDURE FlushIt;
+BEGIN
+  BlockWrite(f,buf,bi);
+  bi := 0;
+END;
+PROCEDURE GetBitplaneInfoAtScanLine(plane,scanline : Word; VAR address);
+BEGIN
+  ASM
+    cld
+    mov bx,ds
+    mov ax,0a000h
+    mov ds,ax
+    mov ax,80
+    mul scanline
+    mov si,ax
+    mov dx,03ceh
+    mov ax,0005h
+    out dx,ax
+    mov ax,plane
+    mov ah,al
+    mov al,04h
+    out dx,ax
+    mov cx,40
+    les di,address
+    rep movsw
+    mov ax,1005h
+    out dx,ax
+    mov ax,0004h
+    out dx,ax
+    mov ds,bx
+  END;
+END;
+BEGIN
+  IF Filename = '' THEN Exit;
+  FillChar(Header,SizeOf(Header),#0);
+  WITH Header DO BEGIN
+    pcx_id  := $0A;
+    pcx_ver := $05;
+    encode  := $01;
+    bpp     := $01;
+    left    := 0;
+    top     := 0;
+    right   := 639;
+    bott    := 479;
+    xres    := 640;
+    yres    := 480;
+    GetPalette(pal);
+    FOR i := 0 TO 15 DO BEGIN
+      GetRGB(pal.colors[i],r,g,b);
+      rgb[i,1] := r;
+      rgb[i,2] := g;
+      rgb[i,3] := b;
+    END;
+    bplanes :=  4;
+    bpl     := 80;
+    ptype   :=  1;
+  END;
+  Assign(f,filename);
+  {$i-} Rewrite(f,1); {$i+}
+  IF IOResult <> 0 THEN Exit;
+  BlockWrite(f,Header,SizeOf(Header));
+  bi := 0;
+  FOR y := 0 TO 479 DO BEGIN
+    GetBitplaneInfoAtScanLine(0,y,data[0]);
+    GetBitplaneInfoAtScanLine(1,y,data[80]);
+    GetBitplaneInfoAtScanLine(2,y,data[160]);
+    GetBitplaneInfoAtScanLine(3,y,data[240]);
+    Index := 0;
+    REPEAT
+      count := 0;
+      dta := data[index];
+      REPEAT
+        Inc(index);
+        Inc(count);
+        IF count > $3F THEN BEGIN
+          IF bi = BufSize THEN FlushIt; Inc(bi); buf[bi] := $FF;
+          IF bi = BufSize THEN FlushIt; Inc(bi); buf[bi] := dta;
+          count := 1;
+        END;
+      UNTIL (index > 319) OR (data[index] <> dta);
+      Done:
+      IF count > 1 THEN BEGIN
+        IF bi = BufSize THEN FlushIt; Inc(bi); buf[bi] := $C0 OR count;
+        IF bi = BufSize THEN FlushIt; Inc(bi); buf[bi] := dta;
+      END ELSE BEGIN
+        IF (dta AND $C0) = $C0 THEN BEGIN
+          IF bi = BufSize THEN FlushIt; Inc(bi); buf[bi] := $C1;
+          IF bi = BufSize THEN FlushIt; Inc(bi); buf[bi] := dta;
+        END ELSE BEGIN
+          IF bi = BufSize THEN FlushIt; Inc(bi); buf[bi] := dta;
+        END;
+      END;
+    UNTIL Index = 320;
+  END;
+  IF bi > 0 THEN FlushIt;
+  Close(f);
+END;
+
+PROCEDURE Show;
+{
+  Diese Funktion dient der Ausgabe der aktuellen Datenfeldes
+  auf den Bildschirm.
+}
+BEGIN
+  IF Waitting <> 0 THEN Wait(Waitting);
+  IF SortObject = 1 THEN BEGIN
+    SetColor(White);
+    FOR m := 1 TO Max DO BEGIN
+      Line(11,RND[SortMethod][m],11+m,RND[SortMethod][m]);
+      Line(11+m+1,RND[SortMethod][m],11+Max,RND[SortMethod][m]);
+      PutPixel(11+m,RND[SortMethod][m],Red);
+    END
+  END ELSE BEGIN
+    FOR m := 1 TO Max DO BEGIN
+      SetColor(White);
+      Line(11,RND[SortMethod][m],11+Max,RND[SortMethod][m]);
+      SetColor(Blue);
+      Line(11,RND[SortMethod][m],11+m,RND[SortMethod][m]);
+    END
+  END;
+END;
+
+PROCEDURE BozoSort;
+{Sortierverfahren: BozoSort}
+BEGIN
+  ClearKeyBuffer;
+  Finished := False;
+  WHILE NOT(Finished) DO BEGIN
+    IF KeyPressed THEN BEGIN
+      Exit;
+    END;
+    i := Random(Max)+1;
+    j := Random(Max)+1;
+    Swap := RND[SortMethod][j];
+    RND[SortMethod][j] := RND[SortMethod][i];
+    RND[SortMethod][i] := Swap;
+    Inc(Vertauschungen);
+    IF Mode <> 3 THEN PutPixel(11+i+210,RND[SortMethod][i]+235,Blue);
+    IF Mode = 2 THEN Show;
+    Finished := True;
+    FOR n := 1 TO MAX DO BEGIN
+      Inc(Vergleiche);
+      IF Mode <> 3 THEN PutPixel(11+i,RND[SortMethod][n]+235,Green);
+      IF RND[SortMethod][n-1] > RND[SortMethod][n] THEN BEGIN
+        IF Mode = 1 THEN Show;
+        Finished := False;
+        Break;
+      END;
+    END;
+  END;
+END;
+
+PROCEDURE RandomSort;
+{Sortierverfahren: RandomSort}
+BEGIN
+  ClearKeyBuffer;
+  Finished := False;
+  WHILE NOT(Finished) DO BEGIN
+    IF KeyPressed THEN BEGIN
+      Exit;
+    END;
+    IF Finished = False THEN BEGIN
+      Okay := False;
+      REPEAT
+        a := 0;
+        FOR l := 1 TO Max DO BEGIN
+          Inc(Vergleiche);
+          IF Mode <> 3 THEN PutPixel(11+l,RND[SortMethod][l]+235,Green);
+          IF (RND[SortMethod][l] < RND[SortMethod][l+1]) THEN Inc(q);
+          IF a >= Max-1 THEN EXit;
+        END;
+        i := Random(Max)+1;
+        j := Random(Max)+1;
+        IF i < j THEN BEGIN
+          IF RND[SortMethod][i] < RND[SortMethod][j] THEN Okay := False;
+          IF RND[SortMethod][i] > RND[SortMethod][j] THEN Okay := True;
+        END ELSE IF j < i THEN BEGIN
+          IF RND[SortMethod][j] < RND[SortMethod][i] THEN Okay := False;
+          IF RND[SortMethod][j] > RND[SortMethod][i] THEN Okay := True;
+        END;
+      UNTIL Okay = True;
+      Swap    := RND[SortMethod][i];
+      RND[SortMethod][i] := RND[SortMethod][j];
+      RND[SortMethod][j] := Swap;
+      Inc(Vertauschungen);
+      IF Mode <> 3 THEN PutPixel(11+i+210,RND[SortMethod][i]+235,Blue);
+      IF Mode = 2 THEN Show;
+    END ELSE Exit;
+    IF Mode = 1 THEN Show;
+  END;
+END;
+
+PROCEDURE BruteSort;
+{Sortierverfahren: BruteSort}
+BEGIN
+  FOR n := 1 TO Max DO BEGIN
+    IF KeyPressed THEN BEGIN
+      Exit;
+    END;
+    IF Mode = 2 THEN Show;
+    Inc(Vergleiche);
+    IF Mode <> 3 THEN PutPixel(11+n,RND[SortMethod][n]+235,Green);
+    IF RND[SortMethod][n] > RND[SortMethod][n+1] THEN BEGIN
+      Swap      := RND[SortMethod][n];
+      RND[SortMethod][n]   := RND[SortMethod][n+1];
+      RND[SortMethod][n+1] := Swap;
+      Inc(Vertauschungen);
+      IF Mode <> 3 THEN PutPixel(11+n+210,RND[SortMethod][n]+235,Blue);
+      n := 0;
+      IF Mode = 1 THEN Show;
+    END;
+  END;
+END;
+
+PROCEDURE TrippelSort(l,r : Integer);
+{Sortierverfahren: TrippelSort}
+BEGIN
+  IF (l < r-1) THEN BEGIN
+    IF KeyPressed THEN BEGIN
+      Exit;
+    END;
+    k := (r-l+1) DIV 3;
+    TrippelSort(l,r-k);
+    TrippelSort(l+k,r);
+    TrippelSort(l,r-k);
+  END ELSE BEGIN
+    Inc(Vergleiche);
+    IF Mode <> 3 THEN PutPixel(11+l,RND[SortMethod][l]+235,Green);
+    IF (RND[SortMethod][l] > RND[SortMethod][r]) THEN BEGIN
+      Inc(Vertauschungen);
+      IF Mode <> 3 THEN PutPixel(11+l+210,RND[SortMethod][l]+235,Blue);
+      Swap    := RND[SortMethod][l];
+      RND[SortMethod][l] := RND[SortMethod][r];
+      RND[SortMethod][r] := Swap;
+      IF Mode = 2 THEN Show;
+    END;
+  END;
+  IF Mode = 1 THEN Show;
+END;
+
+PROCEDURE BubbleSort;
+{Sortierverfahren: BubbleSort}
+BEGIN
+  Finished := False;
+  WHILE NOT Finished DO BEGIN
+    Finished := True;
+    FOR i := 1 TO Max-1 DO BEGIN
+      IF KeyPressed THEN BEGIN
+        Exit;
+      END;
+      Inc(Vergleiche);
+      IF Mode <> 3 THEN PutPixel(11+i,RND[SortMethod][i]+235,Green);
+      IF (RND[SortMethod][i] > RND[SortMethod][i+1]) THEN BEGIN
+        Swap      := RND[SortMethod][i];
+        RND[SortMethod][i]   := RND[SortMethod][i+1];
+        RND[SortMethod][i+1] := Swap;
+        Finished := False;
+        Inc(Vertauschungen);
+        IF Mode <> 3 THEN PutPixel(11+i+210,RND[SortMethod][i]+235,Blue);
+        IF Mode = 2 THEN Show;
+      END;
+    END;
+    IF Mode = 1 THEN Show;
+  END;
+END;
+
+PROCEDURE RippleSort;
+{Sortierverfahren: RippleSort}
+BEGIN
+  WHILE Finished = False DO BEGIN
+    Finished := True;
+    FOR i := 1 TO Max-1 DO BEGIN
+      IF Mode = 1 THEN Show;
+      IF KeyPressed THEN BEGIN
+        Exit;
+      END;
+      Inc(Vergleiche);
+      IF Mode <> 3 THEN PutPixel(11+i,RND[SortMethod][i]+235,Green);
+      IF RND[SortMethod][i] > RND[SortMethod][i+1] THEN BEGIN
+        Swap      := RND[SortMethod][i];
+        RND[SortMethod][i]   := RND[SortMethod][i+1];
+        RND[SortMethod][i+1] := Swap;
+        Finished := False;
+        Inc(Vertauschungen);
+        IF Mode <> 3 THEN PutPixel(11+i+210,RND[SortMethod][i]+235,Blue);
+        IF Mode = 2 THEN Show;
+      END;
+    END;
+  END;
+END;
+
+PROCEDURE ShakerSort;
+{Sortierverfahren: ShakerSort}
+BEGIN
+  l := 2;
+  r := Max;
+  n := Max;
+  REPEAT
+    FOR j := r DOWNTO l DO BEGIN
+      IF KeyPressed THEN BEGIN
+        Exit;
+      END;
+      Inc(Vergleiche);
+      IF Mode <> 3 THEN PutPixel(11+j,RND[SortMethod][j]+235,Green);
+      IF (RND[SortMethod][j] < RND[SortMethod][j-1]) THEN BEGIN
+        Swap      := RND[SortMethod][j];
+        RND[SortMethod][j]   := RND[SortMethod][j-1];
+        RND[SortMethod][j-1] := Swap;
+        n := j;
+        Inc(Vertauschungen);
+        IF Mode <> 3 THEN PutPixel(11+j+210,RND[SortMethod][j]+235,Blue);
+        IF Mode = 2 THEN Show;
+      END;
+    END;
+    IF Mode = 1 THEN Show;
+    l := n+1;
+    FOR j := l TO r DO BEGIN
+      Inc(Vergleiche);
+      IF Mode <> 3 THEN PutPixel(11+j,RND[SortMethod][j]+235,Green);
+      IF (RND[SortMethod][j] < RND[SortMethod][j-1]) THEN BEGIN
+        Swap      := RND[SortMethod][j];
+        RND[SortMethod][j]   := RND[SortMethod][j-1];
+        RND[SortMethod][j-1] := Swap;
+        n := j;
+        Inc(Vertauschungen);
+        IF Mode <> 3 THEN PutPixel(11+j+210,RND[SortMethod][j]+235,Blue);
+        IF Mode = 2 THEN Show;
+      END;
+    END;
+    IF Mode = 1 THEN Show;
+    r := n-1;
+  UNTIL l >= r;
+END;
+
+PROCEDURE OetSort;
+{Sortierverfahren: OddEvenTransport(=Oet)-Sort}
+BEGIN
+  FOR n := 1 TO (Max DIV 2) DO BEGIN
+    FOR i := 1 TO Max-1 DO BEGIN
+      IF i > Max THEN Break;
+      IF KeyPressed THEN BEGIN
+        Exit;
+      END;
+      Inc(Vergleiche);
+      IF Mode <> 3 THEN PutPixel(11+i,RND[SortMethod][i]+235,Green);
+      IF (RND[SortMethod][i] > RND[SortMethod][i+1]) THEN BEGIN
+        Swap      := RND[SortMethod][i];
+        RND[SortMethod][i]   := RND[SortMethod][i+1];
+        RND[SortMethod][i+1] := Swap;
+        Inc(Vertauschungen);
+        IF Mode <> 3 THEN PutPixel(11+i+210,RND[SortMethod][i]+235,Blue);
+      END;
+      Inc(i);
+    END;
+    FOR i := 2 TO Max DO BEGIN
+      IF i > Max THEN Break;
+      Inc(Vergleiche);
+      IF Mode <> 3 THEN PutPixel(11+i,RND[SortMethod][i]+235,Green);
+      IF (RND[SortMethod][i] > RND[SortMethod][i+1]) THEN BEGIN
+        Swap      := RND[SortMethod][i];
+        RND[SortMethod][i]   := RND[SortMethod][i+1];
+        RND[SortMethod][i+1] := Swap;
+        Inc(Vertauschungen);
+        IF Mode <> 3 THEN PutPixel(11+i+210,RND[SortMethod][i]+235,Blue);
+        IF Mode = 2 THEN Show;
+      END;
+      Inc(i);
+    END;
+    IF Waitting <> 0 THEN Wait(Waitting);
+    IF Mode = 1 THEN Show;
+  END;
+END;
+
+PROCEDURE SelectSort;
+{Sortierverfahren: SelectSort}
+BEGIN
+  FOR i := 1 TO Max-1 DO BEGIN
+    Swap := RND[SortMethod][i];
+    n := i;
+    FOR j := i+1 TO Max DO BEGIN
+      IF KeyPressed THEN BEGIN
+        Exit;
+      END;
+      Inc(Vergleiche);
+      IF Mode <> 3 THEN PutPixel(11+j,RND[SortMethod][j]+235,Green);
+      IF RND[SortMethod][j] < Swap THEN BEGIN
+        Swap := RND[SortMethod][j];
+        n := j;
+        IF Mode = 2 THEN Show;
+      END;
+    END;
+    Inc(Vertauschungen);
+    IF Mode <> 3 THEN PutPixel(11+i+210,RND[SortMethod][i]+235,Blue);
+    RND[SortMethod][n] := RND[SortMethod][i];
+    RND[SortMethod][i] := Swap;
+    IF Mode = 1 THEN Show;
+  END;
+END;
+
+PROCEDURE SimpleSort;
+{Sortierverfahren: SimpleSort}
+BEGIN
+  FOR i := Max DOWNTO 1+1 DO BEGIN
+    FOR j := 1 TO i-1 DO BEGIN
+      IF KeyPressed THEN BEGIN
+        Exit;
+      END;
+      Inc(Vergleiche);
+      IF Mode <> 3 THEN PutPixel(11+j,RND[SortMethod][j]+235,Green);
+      IF (RND[SortMethod][j] > RND[SortMethod][i]) THEN BEGIN
+        Swap    := RND[SortMethod][j];
+        RND[SortMethod][j] := RND[SortMethod][i];
+        RND[SortMethod][i] := Swap;
+        Inc(Vertauschungen);
+        IF Mode <> 3 THEN PutPixel(11+j+210,RND[SortMethod][j]+235,Blue);
+      END;
+      IF Mode = 2 THEN Show;
+    END;
+    IF Mode = 1 THEN Show;
+  END;
+END;
+
+PROCEDURE ExchangeSort;
+{Sortierverfahren: ExchangeSort}
+BEGIN
+  FOR i := 1 TO Max DO BEGIN
+    FOR j := i+1 TO Max DO BEGIN
+      IF KeyPressed THEN BEGIN
+        Exit;
+      END;
+      Inc(Vergleiche);
+      IF Mode <> 3 THEN PutPixel(11+j,RND[SortMethod][j]+235,Green);
+      IF RND[SortMethod][i] > RND[SortMethod][j] THEN BEGIN
+        Swap    := RND[SortMethod][i];
+        RND[SortMethod][i] := RND[SortMethod][j];
+        RND[SortMethod][j] := Swap;
+        Inc(Vertauschungen);
+        IF Mode <> 3 THEN PutPixel(11+i+210,RND[SortMethod][i]+235,Blue);
+        IF Mode = 2 THEN Show;
+      END;
+    END;
+    IF Waitting <> 0 THEN Wait(Waitting);
+    IF Mode = 1 THEN Show;
+  END;
+END;
+
+PROCEDURE InsertSort;
+{Sortierverfahren: InsertSort}
+BEGIN
+  FOR i := 1 TO Max-1 DO BEGIN
+    FOR j := 1 TO i DO BEGIN
+      IF KeyPressed THEN BEGIN
+        Exit;
+      END;
+      Inc(Vergleiche);
+      IF Mode <> 3 THEN PutPixel(11+j,RND[SortMethod][j]+235,Green);
+      IF RND[SortMethod][j] > RND[SortMethod][i+1] THEN BEGIN
+        Swap := RND[SortMethod][i+1];
+        FOR n := i+1 DOWNTO j+1 DO BEGIN
+          RND[SortMethod][n] := RND[SortMethod][n-1];
+          Inc(Vertauschungen);
+          IF Mode <> 3 THEN PutPixel(11+n+210,RND[SortMethod][n]+235,Blue);
+        END;
+        RND[SortMethod][j] := Swap;
+        IF Mode = 2 THEN Show;
+      END;
+    END;
+    IF Mode = 1 THEN Show;
+  END;
+END;
+
+PROCEDURE PlaselSort;
+BEGIN
+END;
+
+PROCEDURE JumpSort;
+{Sortierverfahren: JumpSort}
+BEGIN
+  FOR i := Max DOWNTO 1+1 DO BEGIN
+    n := 1;
+    FOR j := 1 TO i-1 DO BEGIN
+      IF KeyPressed THEN BEGIN
+        Exit;
+      END;
+      Inc(Vergleiche);
+      IF Mode <> 3 THEN PutPixel(11+j,RND[SortMethod][j]+235,Green);
+      IF (RND[SortMethod][j+1] > RND[SortMethod][n]) THEN BEGIN
+        Swap      := RND[SortMethod][n];
+        RND[SortMethod][n]   := RND[SortMethod][j];
+        RND[SortMethod][j] := Swap;
+        Inc(Vertauschungen);
+        IF Mode <> 3 THEN PutPixel(11+n+210,RND[SortMethod][n]+235,Blue);
+        n := j+1;
+        IF Mode = 2 THEN Show;
+      END;
+    END;
+    Inc(Vertauschungen);
+    IF Mode <> 3 THEN PutPixel(11+n+210,RND[SortMethod][n]+235,Blue);
+    Swap      := RND[SortMethod][n];
+    RND[SortMethod][n]   := RND[SortMethod][i];
+    RND[SortMethod][i] := Swap;
+    SetColor(White);
+    IF Mode = 1 THEN Show;
+  END;
+END;
+
+PROCEDURE ShellSort;
+{Sortierverfahren: ShellSort}
+BEGIN
+  n := (Max-1) DIV 2;
+  WHILE (n >= 1) DO BEGIN
+    FOR j := n TO Max DO BEGIN
+      i := j-n;
+      IF KeyPressed THEN BEGIN
+        Exit;
+      END;
+      Inc(Vergleiche);
+      IF Mode <> 3 THEN PutPixel(11+j,RND[SortMethod][j]+235,Green);
+      WHILE ((i >= 1) AND (RND[SortMethod][i] > RND[SortMethod][i+n])) DO BEGIN
+        Inc(Vertauschungen);
+        IF Mode <> 3 THEN PutPixel(11+i+210,RND[SortMethod][i]+235,Blue);
+        Swap      := RND[SortMethod][i];
+        RND[SortMethod][i]   := RND[SortMethod][i+n];
+        RND[SortMethod][i+n] := Swap;
+        IF Mode = 2 THEN Show;
+        i := i-n;
+      END;
+    END;
+    n := n DIV 2;
+    IF Mode = 1 THEN Show;
+  END;
+END;
+
+PROCEDURE HeapSort;
+{Sortierverfahren: HeapSort}
+PROCEDURE Sift;
+BEGIN
+  i:= l;
+  j:= 2*i;
+  Swap := RND[SortMethod][i];
+  WHILE j < r DO BEGIN
+    IF i < r THEN IF RND[SortMethod][j] < RND[SortMethod][j+1] THEN Inc(j);
+    Inc(Vergleiche);
+    IF Mode <> 3 THEN PutPixel(11+j,RND[SortMethod][j]+235,Green);
+    IF Swap < RND[SortMethod][j] THEN BEGIN
+      Inc(Vertauschungen);
+      IF Mode <> 3 THEN PutPixel(11+i+210,RND[SortMethod][i]+235,Blue);
+      RND[SortMethod][i] := RND[SortMethod][j];
+      i := j;
+      j := 2*i;
+      IF KeyPressed THEN BEGIN
+        Exit;
+      END;
+      IF Mode = 2 THEN Show;
+    END ELSE j:= r+1;
+  END;
+  RND[SortMethod][i] := Swap;
+END;
+BEGIN
+  r := Max;
+  FOR l := (Max DIV 2) DOWNTO 1 DO Sift;
+  WHILE r > 1 DO BEGIN
+    l := 1;
+    Inc(Vertauschungen);
+    IF Mode <> 3 THEN PutPixel(11+i+210,RND[SortMethod][i]+235,Blue);
+    Swap    := RND[SortMethod][l];
+    RND[SortMethod][l] := RND[SortMethod][r];
+    RND[SortMethod][r] := Swap;
+    Dec(r);
+    Sift;
+    IF Mode = 1 THEN Show;
+  END;
+END;
+
+PROCEDURE MergeSort(N : Aptr);
+{Sortierverfahren: MergeSort}
+VAR
+  Aux           : ARRAY[1..200] OF Integer;
+  lb2, ub1, ub2 : Aptr;
+  lb1, I, J, K  : Aptr2;
+  Size          : Integer;
+BEGIN
+  Size := 1;
+  WHILE Size < N DO BEGIN
+    lb1 :=1;
+    K := 1;
+    WHILE lb1+Size <= N DO BEGIN
+      lb2 := lb1+Size;
+      ub1 := lb2-1;
+      IF lb2+Size-1 > N THEN ub2 := N ELSE ub2 := lb2+Size-1;
+      I := lb1;
+      J := lb2;
+      WHILE (I <= ub1) AND (J <= ub2) DO BEGIN
+        Inc(Vergleiche);
+        IF Mode <> 3 THEN PutPixel(11+i,RND[SortMethod][i]+235,Green);
+        IF RND[SortMethod][I] <= RND[SortMethod][J] THEN BEGIN
+          Aux[K] := RND[SortMethod][I];
+          I := I+1;
+        END ELSE BEGIN
+          Aux[K] := RND[SortMethod][J];
+          J := J+1;
+        END;
+        Inc(Vertauschungen);
+        IF Mode <> 3 THEN PutPixel(11+k+210,RND[SortMethod][k]+235,Blue);
+        K := K+1;
+      END;
+      WHILE I <= ub1 DO BEGIN
+        Aux[K] := RND[SortMethod][I];
+        I := I+1;
+        K := K+1;
+      END;
+      Inc(Vertauschungen);
+      IF Mode <> 3 THEN PutPixel(11+k+210,RND[SortMethod][k]+235,Blue);
+      WHILE J <= ub2 DO BEGIN
+        Aux[K] := RND[SortMethod][J];
+        J := J+1;
+        K := K+1;
+      Inc(Vertauschungen);
+      IF Mode <> 3 THEN PutPixel(11+k+210,RND[SortMethod][k]+235,Blue);
+      END;
+      lb1 := ub2+1;
+      IF KeyPressed THEN BEGIN
+        Exit;
+      END;
+      IF Mode = 2 THEN Show;
+    END;
+    I := lb1;
+    WHILE K <= N DO BEGIN
+      Aux[K] := RND[SortMethod][I];
+      K := K+1;
+      I := I+1;
+    END;
+    Inc(Vertauschungen);
+    IF Mode <> 3 THEN PutPixel(11+k+210,RND[SortMethod][k]+235,Blue);
+    FOR K := 1 TO N DO RND[SortMethod][K] := Aux[K];
+    IF Mode = 1 THEN Show;
+    Size := Size*2;
+  END;
+END;
+
+PROCEDURE QuickSort(li,re : Integer);
+{Sortierverfahren: QuickSort}
+VAR w : Integer;
+BEGIN
+  i := li;
+  j := re;
+  Swap := RND[SortMethod][((li+re) DIV 2)];
+  IF Mode = 1 THEN Show;
+  REPEAT
+    WHILE RND[SortMethod][i] < Swap DO Inc(i);
+    WHILE Swap < RND[SortMethod][j] DO Dec(j);
+    IF KeyPressed THEN BEGIN
+      Exit;
+    END;
+    Inc(Vergleiche);
+    IF Mode <> 3 THEN PutPixel(11+j,RND[SortMethod][j]+235,Green);
+    IF i <= j THEN BEGIN
+      IF KeyPressed THEN BEGIN
+        Exit;
+      END;
+      Inc(Vertauschungen);
+      IF Mode <> 3 THEN PutPixel(11+i+210,RND[SortMethod][i]+235,Blue);
+      w := RND[SortMethod][i];
+      RND[SortMethod][i] := RND[SortMethod][j];
+      RND[SortMethod][j] := w;
+      Inc(i);
+      Dec(j);
+      IF Mode = 2 THEN Show;
+    END;
+  UNTIL i > j;
+  IF li < j THEN QuickSort(li,j);
+  IF i < re THEN QuickSort(i,re);
+END;
+
+PROCEDURE BucketSort;
+{Sortierverfahren: BucketSort}
+VAR
+  Bucket : ARRAY[0..255] OF Integer;
+BEGIN
+  FOR j := 0 TO 255 DO Bucket[j] := 0;
+  FOR i := 1 TO Max DO Inc(Bucket[Ord(RND[SortMethod][i])]);
+  i := 1;
+  j := 0;
+  WHILE i <= Max DO BEGIN
+    WHILE Bucket[j] = 0 DO Inc(j);
+    RND[SortMethod][i] := j;
+    IF KeyPressed THEN BEGIN
+      Exit;
+    END;
+    Inc(Vertauschungen);
+    IF Mode <> 3 THEN PutPixel(11+i+210,RND[SortMethod][i]+235,Blue);
+    Dec(Bucket[j]);
+    Inc(i);
+    IF Mode = 2 THEN Show;
+  END;
+  IF Mode = 1 THEN Show;
+END;
+
+PROCEDURE CreateSortField;
+{
+ Mit dieser Funktion werden die Datenfelder der verschiedenen Sortier-
+ methoden erstellt.
+}
+BEGIN
+  FOR i := 1 TO Max DO BEGIN                            {Standard-Sortierung}
+    RND[0][i] := i+10;
+  END;
+  FOR i := 1 TO Max DO BEGIN                          {zufaellige Sortierung}
+    RND[1][i] := RND[0][i];
+  END;
+  FOR i := 1 TO MaxInt DO BEGIN
+    l := Random(Max)+1;
+    r := Random(Max)+1;
+    Swap      := RND[1][l];
+    RND[1][l] := RND[1][r];
+    RND[1][r] := Swap;
+  END;
+  FOR i := 1 TO Max DO BEGIN                        {aufsteigende Sortierung}
+    RND[2][i] := RND[0][i];
+  END;
+  FOR i := Max DOWNTO 1 DO BEGIN                     {absteigende Sortierung}
+    RND[3][i] := RND[0][Max-i];
+  END;
+  FOR i := 1 TO (Max DIV 2) DO BEGIN                {quadratische Sortierung}
+    IF Odd(i) THEN RND[4][i] := i+(Max DIV 2)
+      ELSE RND[4][max-i] := i+(Max DIV 2);
+  END;
+  FOR i := 1 TO (Max DIV 2) DO BEGIN
+    IF Odd(i) THEN RND[4][i+(Max DIV 2)] := i
+      ELSE RND[4][Max-(i+(Max DIV 2))] := i;
+  END;
+  FOR i := 1 TO Max DO RND[4][i] := RND[4][i]+10;
+  FOR i := 1 TO Max DO BEGIN                           {kreuzende Sortierung}
+    IF Odd(i) THEN RND[5][i] := i ELSE RND[5][i] := Max-i;
+  END;
+  FOR i := 1 TO Max DO RND[5][i] := RND[5][i]+10;
+END;
+
+BEGIN
+  Randomize;                                {Zufallsgenerator initialisieren}
+
+  Max := 200;                                          {Standard-Feldgroesse}
+  Pic := 0;
+
+  CreateSortField;                                    {Datenfelder erstellen}
+
+  GraphDriver := Detect;                                {Grafikmodus oeffnen}
+  InitGraph(GraphDriver,GraphMode,'');
+
+  Retro:                                                   {Ruecksprungmarke}
+
+  ClearDevice;                                          {Saeuberungsaktionen}
+  ClearKeyBuffer;
+
+  Max := 200;                                          {Standard-Feldgroesse}
+
+  SetFillStyle(SolidFill,White);          {Fenster erstellen und beschriften}
+  Bar(0,0,639,479);
+  SetColor(Black);
+  Rectangle(0+9,0+8,Max+13,Max+11);
+  Rectangle(0+9,0+8+235,Max+13,Max+11+235);
+  Rectangle(0+9+210,0+8+235,Max+13+210,Max+11+235);
+  SetTextStyle(2,0,4);
+  OutTextXY(15,Max+15,'Datenfeld');
+  OutTextXY(15,Max+15+235,'Vergleiche');
+  OutTextXY(15+215,Max+15+235,'Vertauschungen');
+  OutTextXY(15+435,Max+15+235,'Statistik');
+  SetColor(DarkGray);
+  OutTextXY(15+420,Max+15+030,'Sortierverfahren:');
+  OutTextXY(15+420,Max+15+040,'Darstellung:');
+  OutTextXY(15+420,Max+15+050,'Objekte');
+  OutTextXY(15+420,Max+15+060,'Feldgroesse:');
+  OutTextXY(15+420,Max+15+070,'Feldfuell-Methode:');
+  OutTextXY(15+420,Max+15+080,'Zeitverzoegerung:');
+  OutTextXY(15+420,Max+15+100,'Vergleiche:');
+  OutTextXY(15+420,Max+15+110,'Vertauschungen:');
+  OutTextXY(15+420,Max+15+120,'Gemessene Zeit:');
+  OutTextXY(15+420,Max+15+130,'Stabilitaet:');
+
+  SetColor(Black);                                  {Ausgabe der Einfuehrung}
+  SetTextStyle(2,0,8);
+  OutTextXY(380,12,'MYSORT 4.0');
+  OutTextXY(381,12,'MYSORT 4.0');
+  SetTextStyle(2,0,4);
+  SetColor(DarkGray);
+  OutTextXY(230,050,'MYSORT 4.0 ist die vierte Version meiner bekannten'
+    +' Sortierverfahren-');
+  OutTextXY(230,060,'Demonstration.');
+  OutTextXY(230,070,'Da leider die 3. Version verloren gegangen ist, habe '
+    +'ich beschlossen,');
+  OutTextXY(230,080,'eine 4. - nun `graphische` - Version zu erstellen. Das '
+    +'Ergebnis sehen');
+  OutTextXY(230,090,'Sie hier.');
+  OutTextXY(230,100,'GegenÅber der textmodus-basierten Darstellung kann nun '
+    +'im Graphik-');
+  OutTextXY(230,110,'Modus mehrere Details auf einmal und genauer angezeigt '
+    +'werden. So gibt');
+  OutTextXY(230,120,'es zum Beispiel nun die beiden neuen Fenster `Verglei'
+    +'che` und `Ver-');
+  OutTextXY(230,130,''
+    +'tauschungen`.');
+  OutTextXY(230,140,'Natuerlich kann man mehrere Sortierverfahren in versch'
+    +'iedenen Darstel-');
+  OutTextXY(230,150,'lungen anzeigen lassen, die Zeit messen oder eine Stati'
+    +'stik anzeigen.');
+  OutTextXY(230,180,'(C) 2004   -   MfG, Michael Johne!');
+  OutTextXY(340,210,'<<< Eine beliebige Taste drÅcken >>>');
+  ReadKey;
+
+  SetFillStyle(SolidFill,White);       {1. Eingabe: Sortierverfahren waehlen}
+  Bar(220,40,640,230);
+  SetColor(DarkGray);
+  OutTextXY(230,050,'1 - 2 - 3 - 4 - 5 - 6');
+  SetColor(LightGreen);
+  OutTextXY(230,050,'1');
+  SetColor(DarkGray);
+  OutTextXY(375,050,'Sortierverfahren aussuchen');
+  OutTextXY(260,080,'01. BozoSort');
+  OutTextXY(260,090,'02. RandomSort');
+  OutTextXY(260,100,'03. BruteSort');
+  OutTextXY(260,110,'04. TrippelSort');
+  OutTextXY(260,120,'05. BubbleSort');
+  OutTextXY(260,130,'06. RippleSort');
+  OutTextXY(260,140,'07. ShakerSort');
+  OutTextXY(260,150,'08. OetSort');
+  OutTextXY(260,160,'09. SelectSort');
+  OutTextXY(400,080,'10. SimpleSort');
+  OutTextXY(400,090,'11. ExchangeSort');
+  OutTextXY(400,100,'12. InsertSort');
+  OutTextXY(400,110,'13. JumpSort');
+  OutTextXY(400,120,'14. ShellSort');
+  OutTextXY(400,130,'15. HeapSort');
+  OutTextXY(400,140,'16. QuickSort');
+  OutTextXY(400,150,'17. MergeSort');
+  OutTextXY(400,160,'18. BucketSort');
+  OutTextXY(230,180,'Ihre Eingabe:');
+  SetColor(LightBlue);
+  REPEAT
+    Input1 := ReadKey;
+  UNTIL Input1 IN ['0','1'];
+  OutTextXY(310,180,Input1);
+  REPEAT
+    Input2 := ReadKey;
+  UNTIL Input2 IN ['0','1','2','3','4','5','6','7','8','9'];
+  OutTextXY(315,160,Input2);
+  CASE Input1 OF
+    '0' : BEGIN
+      CASE Input2 OF
+       '0' : Exit;
+       '1' : SortNumber := 01;
+       '2' : SortNumber := 02;
+       '3' : SortNumber := 03;
+       '4' : SortNumber := 04;
+       '5' : SortNumber := 05;
+       '6' : SortNumber := 06;
+       '7' : SortNumber := 07;
+       '8' : SortNumber := 08;
+       '9' : SortNumber := 09;
+      END;
+    END;
+    '1' : BEGIN
+      CASE Input2 OF
+       '0' : SortNumber := 10;
+       '1' : SortNumber := 11;
+       '2' : SortNumber := 12;
+       '3' : SortNumber := 13;
+       '4' : SortNumber := 14;
+       '5' : SortNumber := 15;
+       '6' : SortNumber := 16;
+       '7' : SortNumber := 17;
+       '8' : SortNumber := 18;
+      END;
+    END;
+  END;
+  CASE SortNumber OF
+    01 : SortName := 'BozoSort';
+    02 : SortName := 'RandomSort';
+    03 : SortName := 'BruteSort';
+    04 : SortName := 'TrippelSort';
+    05 : SortName := 'BubbleSort';
+    06 : SortName := 'RippleSort';
+    07 : SortName := 'ShakerSort';
+    08 : SortName := 'OetSort';
+    09 : SortName := 'SelectSort';
+    10 : SortName := 'SimpleSort';
+    11 : SortName := 'ExchangeSort';
+    12 : SortName := 'InsertSort';
+    13 : SortName := 'JumpSort';
+    14 : SortName := 'ShellSort';
+    15 : SortName := 'HeapSort';
+    16 : SortName := 'QuickSort';
+    17 : SortName := 'MergeSort';
+    18 : SortName := 'BucketSort';
+  END;
+  SetColor(LightRed);
+  OutTextXY(15+530,200+15+030,SortName);
+
+  SetFillStyle(SolidFill,White);         {2. Eingabe: Darstellung auswaehlen}
+  Bar(220,40,640,230);
+  SetColor(DarkGray);
+  OutTextXY(230,050,'1 - 2 - 3 - 4 - 5 - 6');
+  SetColor(LightGreen);
+  OutTextXY(254,050,'2');
+  SetColor(DarkGray);
+  OutTextXY(375,050,'Darstellung auswaehlen');
+  OutTextXY(260,080,'1. einfach');
+  OutTextXY(260,090,'2. genau');
+  OutTextXY(260,100,'3. keine');
+  OutTextXY(230,160,'Ihre Eingabe:');
+  SetColor(LightBlue);
+  REPEAT
+    Input1 := ReadKey;
+  UNTIL Input1 IN ['0','1','2','3'];
+  OutTextXY(310,160,Input1);
+  SetColor(LightRed);
+  CASE Input1 OF
+    '0' : Exit;
+    '1' : BEGIN
+      Mode := 1;
+      OutTextXY(15+530,200+15+040,'einfach');
+    END;
+    '2' : BEGIN
+      Mode := 2;
+      OutTextXY(15+530,200+15+040,'genau');
+    END;
+    '3' : BEGIN
+      Mode := 3;
+      OutTextXY(15+530,200+15+040,'keine');
+    END;
+  END;
+
+  SetFillStyle(SolidFill,White);  {3. Eingabe: Darstellungsobjekt auswaehlen}
+  Bar(220,40,640,230);
+  SetColor(DarkGray);
+  OutTextXY(230,050,'1 - 2 - 3 - 4 - 5 - 6');
+  SetColor(LightGreen);
+  OutTextXY(278,050,'3');
+  SetColor(DarkGray);
+  OutTextXY(375,050,'Darstellungsobjekt auswaehlen');
+  OutTextXY(260,080,'1. Punkte');
+  OutTextXY(260,090,'2. Linien');
+  OutTextXY(230,160,'Ihre Eingabe:');
+  SetColor(LightBlue);
+  REPEAT
+    Input1 := ReadKey;
+  UNTIL Input1 IN ['0','1','2'];
+  OutTextXY(310,160,Input1);
+  SetColor(LightRed);
+  CASE Input1 OF
+    '0' : Exit;
+    '1' : BEGIN
+      SortObject := 1;
+      OutTextXY(15+530,200+15+050,'Punkte');
+    END;
+    '2' : BEGIN
+      SortObject := 2;
+      OutTextXY(15+530,200+15+050,'Linien');
+    END;
+  END;
+
+  SetFillStyle(SolidFill,White);          {4. Eingabe: Feldgroesse bestimmen}
+  Bar(220,40,640,230);
+  SetColor(DarkGray);
+  OutTextXY(230,050,'1 - 2 - 3 - 4 - 5 - 6');
+  SetColor(LightGreen);
+  OutTextXY(302,050,'4');
+  SetColor(DarkGray);
+  OutTextXY(375,050,'Feldgroesse bestimmen');
+  OutTextXY(230,080,'Die Feldgroesse muss zwischen 0..200 liegen!');
+  OutTextXY(230,160,'Ihre Eingabe (ENTER = 200):');
+  SetColor(LightBlue);
+  REPEAT
+    Input1 := ReadKey;
+  UNTIL Input1 IN ['0','1','2','3','4','5','6','7','8','9',Chr(13)];
+  IF Input1 = Chr(13) THEN Max := 200 ELSE BEGIN
+    OutTextXY(395,160,Input1);
+    REPEAT
+      Input2 := ReadKey;
+    UNTIL Input2 IN ['0','1','2','3','4','5','6','7','8','9',Chr(13)];
+    IF Input2 = Chr(13) THEN BEGIN
+      Val(Input1,Max,Control);
+    END ELSE BEGIN
+      OutTextXY(400,160,Input2);
+      REPEAT
+        Input3 := ReadKey;
+      UNTIL Input3 IN ['0','1','2','3','4','5','6','7','8','9',Chr(13)];
+      IF Input3 = Chr(13) THEN BEGIN
+        Val(Input1+Input2,Max,Control);
+      END ELSE BEGIN
+        OutTextXY(405,160,Input3);
+        Val(Input1+Input2+Input3,Max,Control);
+      END;
+    END;
+  END;
+  IF (Max < 0) OR (Max > 200) THEN Max := 200;
+  SetColor(LightRed);
+  Str(Max,TempStr);
+  OutTextXY(15+530,200+15+060,TempStr);
+
+  SetFillStyle(SolidFill,White);    {5. Eingabe: Feldfuell-Methode bestimmen}
+  Bar(220,40,640,230);
+  SetColor(DarkGray);
+  OutTextXY(230,050,'1 - 2 - 3 - 4 - 5 - 6');
+  SetColor(LightGreen);
+  OutTextXY(326,050,'5');
+  SetColor(DarkGray);
+  OutTextXY(375,050,'Feldfuell-Methode bestimmen');
+  OutTextXY(260,080,'1. zufaellig');
+  OutTextXY(260,090,'2. aufsteigend');
+  OutTextXY(260,100,'3. absteigend');
+  OutTextXY(260,110,'4. quadratisch');
+  OutTextXY(260,120,'5. kreuzend');
+  OutTextXY(230,160,'Ihre Eingabe (ENTER = 1):');
+  SetColor(LightBlue);
+  REPEAT
+    Input1 := ReadKey;
+  UNTIL Input1 IN ['0','1','2','3','4','5',Chr(13)];
+  IF Input1 = Chr(13) THEN BEGIN
+    SortMethod := 1;
+    TempStr := 'zufaellig';
+    SetColor(LightRed);
+    OutTextXY(15+530,Max+15+070,TempStr);
+  END ELSE BEGIN
+    OutTextXY(395,160,Input1);
+    CASE Input1 OF
+      '0' : Exit;
+      '1' : BEGIN
+        SortMethod := 1;
+        TempStr := 'zufaellig';
+      END;
+      '2' : BEGIN
+        SortMethod := 2;
+        TempStr := 'aufsteigend';
+      END;
+      '3' : BEGIN
+        SortMethod := 3;
+        TempStr := 'absteigend';
+      END;
+      '4' : BEGIN
+        SortMethod := 4;
+        TempStr := 'quadratisch';
+      END;
+      '5' : BEGIN
+        SortMethod := 5;
+        TempStr := 'kreuzend';
+      END;
+    END;
+  END;
+  CreateSortField;
+  SetColor(LightRed);
+  OutTextXY(15+530,200+15+070,TempStr);
+
+  SetFillStyle(SolidFill,White);     {6. Eingabe: Zeitverzoergerung eingeben}
+  Bar(220,40,640,230);
+  SetColor(DarkGray);
+  OutTextXY(230,050,'1 - 2 - 3 - 4 - 5 - 6');
+  SetColor(LightGreen);
+  OutTextXY(350,050,'6');
+  SetColor(DarkGray);
+  OutTextXY(375,050,'Zeitverzoergerung eingeben');
+  OutTextXY(230,080,'Die Zeitverzoergerung (in ms) muss zwischen 0..999 liegen!');
+  OutTextXY(230,160,'Ihre Eingabe (ENTER = 0):');
+  SetColor(LightBlue);
+  REPEAT
+    Input1 := ReadKey;
+  UNTIL Input1 IN ['0','1','2','3','4','5','6','7','8','9',Chr(13)];
+  IF Input1 = Chr(13) THEN Waitting := 0 ELSE BEGIN
+    OutTextXY(395,160,Input1);
+    REPEAT
+      Input2 := ReadKey;
+    UNTIL Input2 IN ['0','1','2','3','4','5','6','7','8','9',Chr(13)];
+    IF Input2 = Chr(13) THEN BEGIN
+      Val(Input1,Waitting,Control);
+    END ELSE BEGIN
+      OutTextXY(400,160,Input2);
+      REPEAT
+        Input3 := ReadKey;
+      UNTIL Input3 IN ['0','1','2','3','4','5','6','7','8','9',Chr(13)];
+      IF Input3 = Chr(13) THEN BEGIN
+        Val(Input1+Input2,Waitting,Control);
+      END ELSE BEGIN
+        OutTextXY(405,160,Input3);
+        Val(Input1+Input2+Input3,Waitting,Control);
+      END;
+    END;
+  END;
+  IF (Waitting < 0) OR (Waitting > 999) THEN Waitting := 0;
+  SetColor(LightRed);
+  Str(Waitting,TempStr);
+  OutTextXY(15+530,200+15+080,TempStr+' ms');
+
+  Vergleiche := 0;            {Vergleiche und Vertauschungen auf NULL setzen}
+  Vertauschungen := 0;
+
+  StartTimer;                                                 {Timer starten}
+
+  CASE SortNumber OF                               {Sortierverfahren starten}
+    01 : BozoSort;
+    02 : RandomSort;
+    03 : BruteSort;
+    04 : TrippelSort(1,Max);
+    05 : BubbleSort;
+    06 : RippleSort;
+    07 : ShakerSort;
+    08 : OetSort;
+    09 : SelectSort;
+    10 : SimpleSort;
+    11 : ExchangeSort;
+    12 : InsertSort;
+    13 : JumpSort;
+    14 : ShellSort;
+    15 : HeapSort;
+    16 : QuickSort(1,Max);
+    17 : MergeSort(Max);
+    18 : BucketSort;
+  END;
+
+  GetTimer;                                                   {Timer stoppen}
+
+  ClearKeyBuffer;                                {Tastaturenspeicher lîschen}
+
+  SetColor(Green);                                    {Ausgabe der Statistik}
+  Str(Vergleiche,TempStr);
+  OutTextXY(15+530,200+15+100,TempStr);
+  Str(Vertauschungen,TempStr);
+  OutTextXY(15+530,200+15+110,TempStr);
+  Str(Sec:0:2,TempStr);
+  OutTextXY(15+530,200+15+120,TempStr+' ms');
+  Str(Vertauschungen/Vergleiche:0:2,TempStr);
+  TempStr := TempStr+' - ';
+  IF Vertauschungen/Vergleiche > 1 THEN TempStr := TempStr+'in';
+  TempStr := TempStr+'stabil';
+  OutTextXY(15+530,200+15+130,TempStr);
+
+  SetFillStyle(SolidFill,White);                       {Anfrage auf Neustart}
+  Bar(220,40,640,230);
+  SetColor(DarkGray);
+  OutTextXY(230,050,'Wollen Sie einen neuen Versuch starten?');
+  OutTextXY(230,080,'Ihre Eingabe [j/n]:');
+  REPEAT
+    Input1 := ReadKey;
+    Input1 := UpCase(Input1);
+
+    IF Input1 = 'S' THEN BEGIN                 {Geheim: Screenshot erstellen}
+      Inc(Pic);
+      Str(Pic,TempStr);
+      SavePCX(TempStr+'.pcx');
+    END;
+
+  UNTIL Input1 IN ['J','Z','Y','N'];
+  SetColor(Blue);
+  OutTextXY(350,080,Input1);
+
+  IF Input1 = 'N' THEN BEGIN                               {Programm beenden}
+    CloseGraph;
+    Halt;
+  END;
+
+  Max:= 200;
+  CreateSortField;                                {Datenfelder neu erstellen}
+
+  GOTO Retro;                                                      {Neustart}
+END.

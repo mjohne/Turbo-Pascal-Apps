@@ -1,0 +1,218 @@
+
+partitsort(field A, int l, int r) {
+  for i:= 0 to ((r-l+1) div 2) do {
+    q:= partition(A, l+i, r-i, 0);
+    do parallel {
+      partition(A, l+i, q, 1);
+    } and {
+      partition(A, q+1, r-i, 2);
+    }
+  }
+}
+
+int partition(field A, int l, int r, int k) {
+ if (l < r) then {
+   q:= (r-l+1)/2;
+   for i:= l+q to r do parallel {
+     if (A[i-q] > A[i]) then {
+       exchange(A[i-q], A[i]);
+     }
+   }
+   if      (k==0) then { return r-q; }
+   else if (k==1)      { partition(A, l    , r-q, k); }
+   else if (k==2)      { partition(A, r-q+1, r  , k); }
+  }
+  return -1;
+}
+Version  Datei     Beschreibung
+-----------------------------------------------------------------------------
+ v1.0    MYSORT10  Mit diesem Programm habe ich begonnen, ein eigenes Sort-
+                   ierverfahren zu erfinden. bzw. welches Sortierverfahren
+                   ich mir spontan erdachte. Das habe ich dann mit TURBO
+                   PASCAL 7.0 von Borland Inc. als ein Programm ungesetzt.
+                   Nebenbei implementierte ich auch noch als Demonstrations-
+                   zweck und zum Vergleich meines eigenen Sortierverfahrens
+                   eine Sequenz des bekannten Bubblesort. Wie sich aber her-
+                   austellte, war und ist Bubblesort etwas schneller als mein
+                   Sortierverfahren. (Eine genaue Beschriebung meines Sortier-
+                   verfahren kann man aus DESCRIPT.TXT entnehmen!)
+
+ v1.1    MYSORT11  In dieser nÑchsten Version wurde als erstes die Zeitanabe
+                   verbessert. Statt nur den Sekunden wurde nur auch eine
+                   Millsekunden-Anzeige hinzugefÅgt. In v1.0 beschrieb ich
+                   auch, dass mein Sortierverfahren "fast doppelt solange
+                   dauert" wie das Bubblesort, d.h. das mein Verfahren rund
+                   200 % langsamer wÑre. Diese Angabe habe ich als Prozent-
+                   vegleich an Stelle des "fast doppelt solange dauert" mit
+                   eingefÅgt. Nun erhÑlt man einen genauen Geschwindigkeits-
+                   vergleichswert. Dieser Prozentwert liegt nach ersten Er-
+                   kenntissen zwischen 150%-180%, aber es wurde auch unter
+                   BerÅckichtigung mîglicher "Systemstîrungen" auch schon
+                   ein Limit von 115% bis 235% beobachtet. Die HÑufigkeit
+                   liet aber bei einem Wert von 165% bis 169%, weshalb ich
+                   von einem mîglichen Idealwert ausgehe.
+                   Nach einer öberprÅfung der sortierten Zahlenfelder durch
+                   die beiden Sortierverfahren stellte sich heraus, dass ein
+                   Sortierverfahren nicht ordnungsgemÑss arbeitete wie es
+                   machn eigentlich sollte bzw. es wurde nicht richtig im-
+                   plementiert. Erst dachte ich, es lÑge an meinen Sortier-
+                   verfahren, doch bei gnauerem Betrachten lag die Schuld
+                   beim Bubblesort. Obwohl der Bubblesort-Algorithmus zei-
+                   chengerecht Åbernommen wurde, gab es immer noch die glei-
+                   chen Sortierfehler wie vorher. Nach einer weiteren Imple-
+                   mentierung eines anderen Bublesort-Algorithmus fand ich in
+                   einem meiner BÅcher einer weitere Variante des Bubblesort,
+                   die zum Erstaunen dem Aufbau meines eigenen Sortierver-
+                   fahren recht Ñhnlich war. Ich dachte auch, ich hÑtte un-
+                   beabsichtigt ein Bubblesort programmiert, obwohl ich dies
+                   eigentlich nicht wollte. Mit der Implementierung dieses
+                   neuen Algortihmus wurde auch das Problem behoben, also
+                   funktionierte Bubblesort wie es funktionieren sollte und
+                   die sortierten Zahlenfelder waren auch wirklich richtig
+                   sortiert. Doch leider war Bubblesort immer noch schneller
+                   als mein Sortierverfahren :-(
+                   Zudem wurden die Vertauschungen beider Sortierverfahren
+                   gemessen und am Programmende die Differenz dargelegt.
+                   "Bubblesort scho· demnach wieder ein Tor geschossen". Auch
+                   wurde nach eventuellen Rechtschreibfehler Ausschau gehal-
+                   ten und korrigiert. Und es wurde ein Auge auch mein ei-
+                   genes Sortierverfahren geworfen, ob man da nicht viel-
+                   leicht etwas verbessern kînnte, also rationalisieren oder
+                   so. Doch leider fand sich nix. Genauso fand ich auch noch
+                   kein guten geeigneten Namem fÅr mein eigenes Sortierver-
+                   fahren. Deshalb will ich Nachforschungen im WWW anstellen,
+                   ob es dieses Verfahren vielleicht schon existiert oder
+                   nicht. Da das Sortierverfahren relativ leicht zu verstehen
+                   ist und nicht in der vorteiligen Handhabung mit Bubblesort
+                   mithalten kann (sprich: es ist schlechter als Bubblesort),
+                   gehe ich davon aus, dass es dieses Verfahren mit guter
+                   Sicherheit schon geben kînnte.
+
+ v1.2    MYSORT12  Mit dieser Version habe ich wieder einmal die Implementa-
+                   tion des Bubblesort-Algorithmus korrigiert. Die letzte
+                   Implementation war nÑmlich kein Bubblesort gewesen. In dem
+                   Buch, woher ich diesen Algorithmus fand, wurde das Bei-
+                   spielprogramm als BUBBLE.PAS bezeichnet. Das verweitete
+                   mich dazu, dass es das Bubblesort-Verfahren sein kînnte.
+                   In der letzten Version habe ich auf erwÑhnt, das der nun
+                   leider falsche Algorithmus meinen eigenem Sortierverfahr-
+                   en sehr Ñhnlich ist. Ich stimmt weiterhin, doch wurde in
+                   diesem Buch der falsche Algorithmus als "selectsort" be-
+                   zeichnt. Ich glaube jedoch nicht, dass es sich hierbei um
+                   den bekannten Selectionsort handelt, denn soweit wie ich
+                   in einer visuellen Darstellungen sehen konnte, funktion-
+                   iert das Selectionsort ganz anders. Dieser und mein Sort-
+                   ierverfahren haben in gewisser Weise éhnlichkeit mit dem
+                   Loopsort. Also kînnte mein Verfahren und eine modifizier-
+                   te Variante des Loopsort sein, aber sicher ist es noch
+                   nicht. (Puh, vor lauter verschiedenen Arten der Sortier-
+                   verfahren wird es einem ganz schwindelig.)
+                   Ich habe die neusten Implementierung des Bubblesort also
+                   in der aktuellen Version durch die alte und falsche Im-
+                   plementierung ersetzt. Aber ich bin sehr sicher nun, dass
+                   diese neue Implementierung auch wirklich dem originalen
+                   Bubblesort-Verfahren entspricht. Ich habe hierzu nÑmlich
+                   den Bubblesort-Algorithmus in ein Programm fÅr visuelle
+                   Darstellungen nun eingebaut und es zeigt, dass das Sort-
+                   ieren wie Wasserblasen aufzeigen.
+                   Desweiteren waren das Anzeigen der Vertauschungen fehl-
+                   erhaft. Ich wusste nicht, dass die Vertauschungen bei
+                   einer Menge von 1000 fast bei 250.000 anstatt so bei
+                   50.000. Also nahm ich hierbei einen viel hîheren Daten-
+                   typen.
+                   Und bei meinen eigenen Algorithmus konnte man etwas
+                   Ñndern. Zwar lÑuft der Verlauf der Sortierung genau wie
+                   vorher, doch es muss die Speicherung eines Zahlenwertes
+                   aus seines Menge in einer Sicherungsvariable nicht immer
+                   passieren. Man braucht eigentlich nur speichern, wenn
+                   zwei Werte sortiert werden sollen. Dadurch kînnte man ein
+                   paar Millisekunden einsparen.
+
+ v2.0    MYSORT20  Ich habe ab der zweiten Version dieses Programm komplett
+                   neu Åberarbeitet. Diese Version unterstÅtzt statt zwei
+                   Sortierverfahren nun insgesamt 12 Verfahren, die alle kor-
+                   rekt funktionieren. Diese neuen Sortierverfahren sind:
+                   BozoSort, BubbleSort, ShakerSort, MaxSort, ExchangeSort,
+                   InsertSort, HeapSort, ShellSort, MergeSort, QuickSort und
+                   BucketSort.
+                   Zuerst habe ich eifrig nachgeforscht und verschiedene Sor-
+                   tieralgorithmen gesammelt. Ich habe sie dann ausgewertet.
+                   Dabei musste ich feststellen, dass einige Sortierverfahr-
+                   en in verschiedenen Versionen existieren. Ihre visuelle
+                   Darstellung ist dabei die gleiche, aber in diesen Sortier-
+                   verfahren konnte man z. B. ÅberflÅssige öberprÅfungen weg-
+                   fallen lassen, wodurch sie die Laufzeit um einige Milli-
+                   sekunden reduzieren konnte. Zudem konnte auch ein Verfahr-
+                   en unter verschiedene Bezeichnungen gefunden, obwohl es
+                   sich dabei im Grunde um den gleichen Sortieralgorithmus
+                   handelt. Es kam auch vor, dass einige Sortierverfahren
+                   miteinander sehr "verwandt" sein konnten, d.h. dass ihre
+                   Algorithmen recht Ñhnlich aufgebaut waren. Man kînnte nun
+                   meinen, diese seien zwei Unterversionen eines Sortierver-
+                   fahren. Doch das wÑre dann nicht dann richtig. Diese zwei
+                   "Unterversionen" haben zwei vîllig verschiedene visuelle
+                   Darstellungen, wovon ich nicht ausgehe, dass sie eines
+                   gleichem Verfahren zugehîrig sind, denn sonst hÑtten sie
+                   in der visuellen Darstellung die gleichen VerlÑufe.
+                   Wie nun bereits angesprochen, gibt es in der zweiten, Åb-
+                   erarbeiteten Version eine visuelle Darstellung. Im Grunde
+                   genommen gibt drei grosse visuelle Darstellungen auf der
+                   Welt. Die bekannteste ist die sogenannte Balkendarstellung,
+                   wodurch die Werte einer Sortiermenge Balken in ihrer Wert-
+                   gî·e zugeordnet und sie dann sortiert werden. Die zweite
+                   visuelle Darstellung ist die DPL-Zuordnung (DPL = diagona-
+                   le Punkt-Linie). Hier werden die Werte einer Sortiermenge
+                   in Punkten einer Grafik zugeorndet, bis noch aus einer
+                   chaotischen Punkte-Verteilung vorhanden ist. Durch die Sor-
+                   ierung passiert es, dass die chaotischen Punkte-Verteilung
+                   sich dann in eine diagonale Linie (von links oben nach
+                   rechts unten meistens) verwandelt.
+                   In der dritten Darstellung werden die Werte in Buchstaben
+                   verwandelt. Diese werden dann mit dem jeweiligen Sortier-
+                   verfahren sortiert und wÑhrend der Sortierung wird die Sor-
+                   tiermenge am Display des Monitors ausgegeben. Und diese
+                   Buchstaben-Darstellung habe ich in der zweiten Version mit
+                   angewandt.
+                   Diese visuelle Darstellung habe ich in meinen Programm in
+                   drei verschiedene Modi aufgeteilt. Es sind ein normale Be-
+                   trachtung, eine genaue Betrachtung oder keine. Bei der
+                   normalen Betrachtung wird nach einer kleinen Folge von
+                   Vertauschungungen die Sortiermenge angezeigt. In der ge-
+                   nauen Darstellung wird mit jeder Vertauschung die Sortier-
+                   mnge angezeigt und bei keiner Betrachtung wird dann keine
+                   angezeigt.
+                   Falls sie MY SORT v2.0 schon einmal gestartet haben, wer-
+                   den Sie festgestellt haben, dass es auch eine Tabelle an-
+                   geordnt wurde, die die jeweilige Laufzeit eines Sortier-
+                   verfahrens in verschiedenen Modi misst und anzeigt. Modus
+                   3 (= keine Betrachtung) wid die Laufzeit am schnellsten
+                   sein, da keine zusÑtzliche Zeit fÅr den Aufwand der visu-
+                   ellen Darstellung gibt. Der Modus 1 (= normale Betrachtung)
+                   wird die zweitschnelle Zeit bringen, da hier nur nach ein-
+                   igen Vertauschungen sozusagen eine Aktualisierung der Sor-
+                   tiermenge erfolgt. Modus 3 (= genaue Betrachtung) ist dem-
+                   nach dann die langsamste Darstellung, weil hier jede Ver-
+                   tauschung angezeigt wird.
+                   Modus 3 ist der Laufzeit eines Sortierverfahren am ehesten
+                   korrekt. In Modi 1 und 2 wird nÑmlich die Laufzeit eines
+                   Sortierverfahren durch Zeit des Anzeigens der Sortiermenge
+                   z. T. stark verfÑlscht. Wenn man nur die Laufzeit eines
+                   Sortierverfahrens ermitteln will, wÑre Modus 3 der richt-
+                   ige. Die beiden anderen Modi sollten nur angewandt werden,
+                   wenn die visuellen Betrachtung eines Sortierverfahrens im
+                   Vordergrund steht und die eigentliche Laufzeit eines Ver-
+                   fahrens eine untergeordnete Rolle spielt.
+                   Falls jemand einen sehr schnellen Rechner besitzt und die
+                   visuelle Darstellung zu schnell ablÑuft und angzeigt wird,
+                   habe es auch berÅcksichtigt, zwischen jeder Anzeige eine
+                   kleine Zeitpause von einigen Millisekunden bis Sekunden
+                   anzusetzen. Den Verzîgerungsfaktor dieser Zeitpause kann
+                   jeder Benutzer selbst bestimmen.
+                   Vielleicht wird man sich fragen, wenn jemand noch meine
+                   erste Verision kennt, wo mein selbst erfundenes Sortier-
+                   verfahren geblieben ist? Nun ja, dieser Sortierverfahren
+                   gibt es bereits schon. Es nennt sich MaxSort. Mein Sort-
+                   ierverfahren in nun eine "nichtverbesserte" Variante von
+                   MaxSort. Das hei·t, wÅrde man mein Sortieralgorithmus aus
+                   der ersten Version verbessern, dann wÅrde man unweigerlich
+                   auf MaxSort sto·en.
