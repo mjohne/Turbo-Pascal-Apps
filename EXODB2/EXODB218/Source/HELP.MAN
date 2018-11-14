@@ -1,0 +1,890 @@
+
+ Hilfe zu EXO-DB2 v1.7
+ =====================
+
+
+ Die Hilfe zu EXO-DB2 v1.7 steht zudem als PDF-Dokument (http://www.exodb.de.vu
+ /download/help217.pdf) oder RTF-Dokument (http://www.exodb.de.vu/download/
+ help217.rtf) zum Download (http://www.exodb.de.vu/download.htm) bereit.
+
+
+  1. Allgemeine Hinweise
+    1.1 Installation / Deinstallation
+    1.2 Systemanforderungen
+    1.3 Einsatz auf Diskette, CDs und anderen Datentr„gern
+    1.4 Lizenz und Copyrights
+    1.5 Danksagungen
+    1.6 Impressum
+  2. Aufbau des Verzeichnisses und Aufgabe der Dateien
+    2.1 Aufbau des Archivs
+    2.2 Die Verzeichnisse
+    2.3 Die Dateien
+    2.4 Aufbau des EXO-Datensatz-Formats v2
+  3. Bedienung des Programms
+    3.1 Grundlegende Bedienung
+    3.2 Neuen Datensatz anlegen
+    3.3 Vorhandene Datens„tze laden
+    3.4 Datensatz „ndern
+    3.5 Datensatz umbenennen
+    3.6 Datensatz exportieren
+    3.7 Datensatz l”schen
+    3.8 Datensatz berprfen
+    3.9 Programm-Modul "Orbit-Abbild"
+    3.10 Programm-Modul "Masse-Vergleich"
+    3.11 Programm-Modul "Sternkarte"
+    3.12 Programm-Modul "Distributionen"
+    3.13 Programm-Modul "Diagramme"
+    3.14 Programm-Modul "HRD"
+    3.15 Programm-Modul "STAR3D"
+    3.16 Rekorde
+    3.17 Planeten-Status
+    3.18 Suchen nach Zahlen und W”rter
+    3.19 Filter
+  4. Sonstiges
+    4.1 Updaten von Datens„tze
+    4.2 Splash-Screen und das Add-On "Splash Pack #1"
+      4.2.1 Anschalten der Anzeige des Splash-Screens
+      4.2.2 Hinzufgen des Add-Ons "Splash Pack #1"
+
+
+
+ 1. Allgemeine Hinweise
+ ======================
+
+
+ 1.1 Installation / Deinstallation
+ ---------------------------------
+
+ Die Installation zu "EXO-DB2" ist recht einfach:
+
+ 1.  Entpacken Sie das Archiv "exodb217" in ein beliebiges Verzeichnis
+     Ihrer Wahl.
+ 2.  Nach dem Entpacken wurde ein Ordner namens "EXODB217" erstellt,
+     der s„mtliche ben”tigten Dateien enth„lt.
+ 3.  Zum Starten fhren Sie einfach die Datei "EXODB217.EXE" aus.
+
+ Bei der Deinstallation dieses Programms muss lediglich der Ordner
+ "EXODB217" gel”scht werden.
+
+
+ 1.2 Systemanforderungen
+ -----------------------
+
+ Da EXO-DB2 ein MS-DOS basierendes Programm ist, fallen die ben”tigten
+ Systemressourcen eher knapp aus: EXO-DB2 l„uft auf allen Windows-ba-
+ sierenden Betriebssystemen auf IBM-kompatible Computer (also nicht fr Unix,
+ Linux, Mac OS, etc.). Als Festplattenspeicher werden mindestens ca. 1.8
+ MB gefordert und es wird eine EGA-Grafikkarte mit 16 Farben & einer Aufl”sung
+ von 640x480 Pixel ben”tigt.
+
+
+ 1.3 Einsatz auf Diskette, CDs und anderen Datentr„gern
+ ------------------------------------------------------
+
+ Unter folgenden Laufwerken kann EXO-DB2 zum Einsatz kommen:
+
+ Festplatte: Der Einsatz und die Lauff„higkeit stellt auf Festplatten kein
+ Problem dar.
+
+ Diskette,CDs, DVDs etc.: Der Einsatz und die Lauff„higkeit von EXO-DB2 ist
+ auf diesen Speichermedien seit Version 1.7 nicht mehr m”glich.
+ Der Grund hierfr ist, dass auf CDs & DVDs i. d. Regel nur Lesezugriffe m”-
+ glich sind. Alle oberen angefhrten Beispiele vollziehen aber einen Schreib-
+ zugriff. Dies bewirkt dann, dass das Programm abstrzt.
+
+ Andere Datentr„ger: Der Einsatz und die Lauff„higkeit von EXO-DB2 h„ngt in
+ diesem Fall von der Art des Datentr„gers selbst ab. Bei USB-Sticks und
+ speziellen ZIP-Disketten sollte es fehlerfrei funktionieren.
+
+
+ 1.4 Lizenz und Copyrights
+ -------------------------
+
+ Dieses Programm ist Freeware und kann frei und uneingeschr„nkt genutzt werden.
+
+ Die mit EXO-DB2 erstellten Grafiken k”nnen ver”ffentlicht werden, sofern ange-
+ geben wird, dass sie mit EXO-DB2 erstellt worden sind.
+
+ Die Informationen der Datens„tze aus diesem Programm sind ebenfalls fr andere
+ Benutzungen frei verwendbar. Sie stammen ursprnglich von den Preprints der
+ Planetenj„ger.
+
+ S„mtliche Splash-Screens von EXO-DB2 wurden mit Hilfe des Weltraumsimulations-
+ programm "Celestia" erstellt.
+
+
+ 1.5 Danksagungen
+ ----------------
+
+ Ohne die indirekte Hilfe vieler Menschen w„re EXO-DB2 nicht das geworden,
+ was es nun ist.
+
+ Ich danke daher allen Wissenschaftlern und Astronomen, die sich aktiv mit
+ der Suche nach fremden Planeten besch„ftigen.
+
+ Weiterhin danke ich auch allen anderen Interessierten, die sich mit Exopla-
+ neten besch„ftigen und Webseiten im Internet zur Informierung bereithalten.
+ Besonderen Dank gebe ich den Ascherslebener Sternfreunden (http://www.
+ sternfreunde-aschersleben.de) fr die Einfhrung in die Astronomie und Peter
+ Hochbaum (aka Matrix) fr seine "Neugier", die meine Arbeit an EXO-DB2 wieder
+ vorantrieb.
+
+ Zudem danke ich folgenden Versionen fr ihre Meinungen zu meinen Programm:
+ Matthias Meier (aka Bynaus; http://www.planeten.ch), Gerhard Hollaschke (aka
+ galileo2609), blue_scape, UMa und natrlich Gerd Ghne (aka Marfir; http://
+ www.marfir.de), der mein Programm genauer unter die Lupe nahm.
+
+ Zu Dank bin ich auch den Mitarbeitern von Astronomie.de (http://www.
+ astronomie.de), Astro-News (http://www.astronews.com), Raumfahrer.net
+ (http://www.raumfahrer.ent), Astrotreff.com (http.//www.astrotreff.com) und
+ Extrasolar Visions (http://www.extrasolar.net) verpflichtet, die durch den
+ Besitz eines Forums den Bekanntheitsgrad meines Programms gestiegen haben.
+
+
+ 1.6 Impressum
+ -------------
+
+ Dieses Dokument, das Programm EXO-DB2, sowie die Homepage dieses Programmes
+ (http://www.exodb.de.vu) und alle dazugeh”rigen Dateien wurden von Michael
+ Johne (michael-johne@gmx.de) verfasst.
+
+ Adresse:
+
+    Michael Johne
+    c/o Gustav
+    Ludwigshafener Str. 12
+    28325 Bremen
+
+
+
+ 2. Aufbau des Verzeichnisses und Aufgabe der Dateien
+ ====================================================
+
+
+ 2.1 Aufbau des Archivs
+ ----------------------
+
+ Der Archivname lautet "exodb217". Je nach Archiv-Typ kann die Dateiendung ZIP,
+ RAR oder TAR.GZ lauten. Standardm„áig werden alle ben”tigten Programmdateien
+ mitgeliefert. Auf speziellen Wunsch kann auch der aktuelle Datensatz aller
+ bisher entdeckten Exoplaneten hinzugefgt werden. Der aktuelle Datensatz
+ lautet: exo14 (vom 20.03.2006). Ferner ist es m”glich, Beispielgrafiken mitzu-
+ geben, die mit EXO-DB2 aus einem gew„hlten Datensatz erstellt werden k”nnen.
+
+
+ 2.2 Die Verzeichnisse
+ ---------------------
+
+ EXO-DB2 beinhaltet in der Regel die folgenden Verzeichnisse mit folgenden
+ Aufgaben:
+
+ /EXPORT/   In diesem Verzeichnis werden alle exportierten Dokumente
+            gespeichert.
+ /EXO/      In diesem Verzeichnis werden alle Datenbanken gespeichert.
+ /DISTRI/   In diesem Verzeichnis werden alle Grafiken fr die Distributionen
+            gespeichert.
+ /DIAGRAM/  In diesem Verzeichnis werden alle Grafiken fr die Diagramme
+            gespeichert.
+ /HRD/      In diesem Verzeichnis werden alle Grafiken fr das HRD gespeichert.
+ /MASSCOMP/ In diesem Verzeichnis werden alle Grafiken fr den Masse-Vergleich
+            gespeichert.
+ /ORBIT/    In diesem Verzeichnis werden alle Grafiken fr den Orbit gespei-
+            chert.
+ /SPLASH/   In diesem Verzeichnis werden alle Splash-Screens fr das Add-On
+            "Splash-Pack #1" gespeichert.
+ /STAR3D/   In diesem Verzeichnis werden alle Grafiken fr die Sternumgebung
+            gespeichert.
+ /STARMAP/  In diesem Verzeichnis werden alle Grafiken fr die Sternkarte
+            gespeichert.
+ /STARMAP2/ In diesem Verzeichnis werden alle Grafiken fr die vergr”áerte
+            Sternkarte gespeichert.
+
+
+ 2.3 Die Dateien
+ ---------------
+
+ EXO-DB2 beinhaltet in der Regel die folgenden Dateien mit folgenden Aufgaben:
+
+ cbounds.lst   -  Beinhaltet Daten zur Darstellung fr Begrenzungen der Stern-
+                  bilder.
+                  Diese Datei kann frei verwendet und ver„ndert werden!
+ clines.lst    -  Beinhaltet Daten zur Darstellung fr Sternbilder-Verbindungs-
+                  linien.
+                  Diese Datei kann frei verwendet und ver„ndert werden!
+ cnames.lst    -  Beinhaltet Namen fr die Sternbilder. Diese Datei kann frei
+                  verwendet und ver„ndert werden!
+ credits.man   -  Internes Dokument
+ diagram.dat   -  Programm-Modul, das zum graphischen Zeichnen von Diagrammen
+                  dient
+ distri.dat    -  Programm-Modul, das zum graphischen Zeichnen von Distribu-
+                  tionen dient
+ eclip.lst     -  Beinhaltet Daten zur Darstellung fr die Ekliptik. Diese Da-
+                  tei kann frei verwendet und ver„ndert werden!
+ egavga.bgi    -  Grafik-Treiber zur graphischen Anzeige des Programms
+ exodb217.ico  -  Symbol-Icon
+ exodb217.pif  -  Programm-Verknpfung fr Windows
+ exodb217.exe  -  Das eigentliche ausfhrbare Programm
+ export.dat    -  Programm-Modul zum Exportieren in andere Dokumente
+ help.man      -  Internes Dokument
+ history.man   -  Internes Dokument
+ hrd.dat       -  Programm-Modul, das zum graphischen Zeichnen des HRD
+ hrd.pic       -  Bild-Datei, die fr das Modul HRD ben”tigt wird
+ info.man      -  Internes Dokument
+ list.dat      -  Programm-Modul zum Anzeigen von Dateien
+ litt.chr      -  Schriftart fr eine kleine Schrift
+ masscomp.dat  -  Programm-Modul, das zum graphischen Zeichnen von Masse-Ver-
+                  gleiche dient
+ orbit.dat     -  Programm-Modul, das zum graphischen Zeichnen von Orbits dient
+ splash.dat    -  Programm-Modul, das zum Anzeigen der Splash-Screens
+ splash.pic    -  Standard-Splash-Screen
+ starmap.dat   -  Programm-Modul, das zum graphischen Zeichnen von Sternkarten
+                  dient
+ starname.lst  -  Beinhaltet Namen fr einige Sterne. Diese Datei kann frei
+                  verwendet und ver„ndert werden!
+ stars.lst     -  Beinhaltet Daten fr 1284 Sterne zur Darstellung fr die Stern-
+                  karten
+                  Diese Datei kann frei verwendet und ver„ndert werden!
+ stars2.lst    -  Beinhaltet Daten fr 29992 Sterne zur Darstellung fr die
+                  Sternkarten.
+                  Diese Datei kann frei verwendet und ver„ndert werden!
+ stars3.lst    -  Beinhaltet Daten fr 2068 Sterne zur Darstellung der Stern-
+                  umgebung.
+                  Diese Datei kann frei verwendet und ver„ndert werden!
+ thanks.man    -  Internes Dokument
+
+
+ 2.4 Aufbau des EXO-Datenbank-Formats v2
+ ---------------------------------------
+
+ EXO-DB2 beinhaltet in der Regel die folgenden Dateien mit folgenden Aufgaben:
+
+ Fr jeden neu eingetragenen Exoplaneten wird genau eine neue Datei angelegt.
+ Die Endung einer Datenbank heiát .exo. Die Daten werden jeweils immer zeilen-
+ weise abgelegt (sie k”nnen auch manuell mit einen Texteditor ver„ndert werden).
+ Jede Zeile entspricht dabei folgenden astronomischen Daten:
+
+  -  Name des Zentralsterns (Typ: String)
+  -  Spektraltyp/Leuchtkraftklasse (Typ: String)
+  -  Scheinbare Helligkeit [mag] (Typ: Dezimalzahl)
+  -  Masse des Zentralsterns [Sonne=1] (Typ: Dezimalzahl)
+  -  Metallizit„t (+ optional: Fehlerquelle) (Typ: Dezimalzahl)
+  -  Entfernung zum Zentralstern [Parsec] (Typ: Dezimalzahl)
+  -  Rektaszension [2000] (Typ: Dezimalzahl)
+  -  Deklination [2000] (Typ: Dezimalzahl)
+  -  Sternbild (Typ: String)
+  -  Standardbezeichnung des Exoplaneten (Typ: String)
+  -  Masse des Exoplaneten [Jupiter=1] (+ optional: Fehlerquelle)
+     (Typ: Dezimalzahl)
+  -  Groáe Halbachse [AE] (+ optional: Fehlerquelle) (Typ: Dezimalzahl)
+  -  Umlaufzeit [Tage] (+ optional: Fehlerquelle) (Typ: Dezimalzahl)
+  -  Num. Exzentrizit„t (+ optional: Fehlerquelle) (Typ: Dezimalzahl)
+  -  Methode der Entdeckung (Typ: String)
+  -  Entdeckungsdatum (Typ: String in der Form JJJJMMDD)
+  -  Entdecker(-team) (Typ: String)
+  -  Notiz, Bemerkung etc. (Typ: String)
+
+ Achtung: Um sp„ter eine Datenbank (Datei) zu ver„ndern, mssen Sie sich den
+ Dateinamen merken, unter dem Sie diese astronomische Daten abspeichern. Der
+ Dateiname ist dabei auf einer Zeichenl„nge von max. 8 Zeichen beschr„nkt.
+
+
+
+ 3. Bedienung des Programms
+ ==========================
+
+
+ 3.1 Grundlegende Bedienung
+ --------------------------
+
+ Wenn Sie das Programm gestartet haben, k”nnen Sie mit den Pfeiltasten und
+ anderen Tasten zwischen den Datens„tzen navigieren. Mit den Pfeiltasten
+ rechts/unten geht es einen Datensatz weiter. Mit den Pfeiltasten links/oben
+ geht es einen Datensatz zurck. Mit der Tasten BildAuf (PgUp)/BildAb (PgDn)
+ geht es um 10 Datens„tzen zurck bzw. weiter. Mit der Tasten Pos1/Ende geht
+ des zum Anfang bzw. zum Ende des gesamten Datensatz-Bestands. Wenn Sie die
+ Taste "g" (= Gehe zu) drcken, k”nnen Sie dann eine Zahl eingeben, um dann
+ einen Datensatz, der dieser Zahl zugeordnet ist. Die Zuordnung liegt in der
+ Regel aufsteigend nach dem Erstellungsdatum des jeweiligen Datensatzes. Wenn
+ Sie das Programm beenden m”chten, drcken Sie die Taste "x".
+
+
+ 3.2 Neuen Datensatz anlegen
+ ---------------------------
+
+ 1. Drcken Sie die Taste "1", um einen neuen Datensatz anzulegen.
+
+ 2. Nun fllen Sie nachfolgend jedes Eingabefeld aus.
+
+ 3. Bei folgenden Positionen mssen die Zahlen eingeben:
+
+  -  Scheinbare Helligkeit (mag)
+  -  Masse des Zentralstern (Sonne=1)
+  -  Metallizit„t (+ optional: Fehlerquelle)
+  -  Entfernung zum Zentralstern (Parsec)
+  -  Rektaszension (2000)
+  -  Deklination (2000)
+  -  Masse des Exoplaneten (Jupiter=1; + optional: Fehlerquelle)
+  -  Groáe Halbachse (AE; + optional: Fehlerquelle)
+  -  Umlaufzeit (Tage; + optional: Fehlerquelle)
+  -  Num. Exzentrizit„t (+ optional: Fehlerquelle)
+
+ In den folgenden Positionen k”nnen Sie W”rter und Zahlen benutzen (Wenn die
+ Position leer sein leer, drcken Sie einfach Enter):
+
+  -  Name des Zentralsterns
+  -  Spektraltyp/Leuchtkraftklasse
+  -  Sternbild
+  -  Standardbezeichnung des Exoplaneten
+  -  Methode der Entdeckung
+  -  Entdeckungsdatum
+  -  Entdecker(-team)
+  -  Notiz, Bemerkung etc.
+
+ 4. Speziell in den Positionen "Rektaszension" und "Deklination" gibt es etwas
+ zu beachten: Grundlegend werden nur Zahlen eingegeben. Allerdings erfolgt die
+ Angabe fr die Rektaszension im Format "h m s" und in der Deklination ø ' ''.
+
+ Ein Beispiel fr die Rektaszension:
+
+ Anzeige: Rektaszension (hms):
+ Zahl fr "h" eingeben! Enter!
+ Anzeige: Rektaszension (hms): 15 h
+ Zahl fr "m" eingeben! Enter!
+ Anzeige: Rektaszension (hms): 15 h 01 m
+ Zahl fr "s" eingeben! Enter!
+ Anzeige: Rektaszension (hms): 15 h 01 m 1 s
+
+ Ein Beispiel fr die Deklination:
+
+ Anzeige: Deklination (ø ' "):
+ Zahl fr " ø " eingeben! Enter!
+ Anzeige: Deklination (ø ' "): 10ø
+ Zahl fr " ' " eingeben! Enter!
+ Anzeige: Deklination (ø ' "): 10ø 57'
+ Zahl fr " '' " eingeben! Enter!
+ Anzeige: Deklination (ø ' "): 10ø 57' 05''
+
+ 5. Geben Sie dann den Dateinamen ein, unter dem er als .exo-Datei abgespeich-
+ ert werden soll. Beschr„nken Sie sich dabei auf einer L„nge von maximal 8
+ Zeichen. Die Dateierweiterung .exo mssen Sie nicht mit angeben. Sie wird
+ automatisch mitangefgt.
+
+
+ 3.3 Vorhandene Datens„tze laden
+ -------------------------------
+
+ 1. Drcken Sie die Taste "2", um einen neuen Datensatz anzulegen.
+
+ 2. Navigieren Sie mit den Pfeiltasten im Optionsfeld, um den gewnschten
+ Datensatz auszuw„hlen. Rechts sehen Sie brigens ein Feld mit ein paar Infor-
+ mationen des jeweiligen Datensatzes.
+
+ 3. Wenn Sie die Eingabetaste drcken, wird der ausgew„hlte Datensatz geladen.
+ Drcken Sie die ESC-Taste, wenn Sie die Aktion abbrechen m”chten.
+
+
+ 3.4 Datensatz „ndern
+ --------------------
+
+ 1. Um einen vorhandenen Datensatz zu „ndern, drcken Sie dazu die Taste "3".
+
+ 2. Mit den Pfeiltasten navigieren Sie zwischen den schwarzen Eingabefeldern.
+ Ein roter Pfeil links eines schwarzen Eingabefeldes zeigt, welches Eingabefeld
+ gew„hlt werden kann.
+
+ 3. Drcken Sie die Eingabefeld und Sie k”nnen nun im freigemachten Eingabe-
+ feld einen neuen Wert eingeben.
+
+ 4. Haben Sie alle gew„hlten Eigenschaften ge„ndert, dann geben Sie die ESC-
+ Taste. Sie werden nun aufgefordert, ob Sie den Datensatz speichern wollen.
+ Mit den Pfeiltasten k”nnen Sie zwischen "JA" und "NEIN" w„hlen. Wie Sie sich
+ auch entscheiden m”chten, drcken Sie zum Schluss noch die Eingabetaste.
+
+
+ 3.5 Datensatz „ndern
+ --------------------
+
+ 1. Um einen vorhandenen Datensatz zu „ndern, drcken Sie dazu die Taste "4".
+
+ 2. Geben Sie dann Namen des neuen Datensatzes ein. Die Dateierweiterung .exo
+ mssen sie nicht mit angeben.
+
+ 3. Drcken Sie zum Schluss die Eingabetaste.
+
+
+ 3.6 Datensatz exportieren
+ -------------------------
+
+ 1. Um einen vorhandenen Datensatz zu „ndern, drcken Sie dazu die Taste "5".
+
+ 2. Navigieren Sie mit den Pfeiltasten, um das passende Dokumenten-Format zu
+ w„hlen. Ein roter Pfeil links zeigt, welches Dokumenten-Format momentan aktiv
+ ist.
+
+ 3. Wenn Sie die ESC-Taste, wird die gesamte Aktion beendet. Wenn Sie die
+ Eingabetaste drcken, dann wird der betreffende Datensatz ins gewnschte
+ Dokumenten-Format exportiert.
+
+
+ 3.7 Datensatz l”schen
+ ---------------------
+
+ 1. Um einen vorhandenen Datensatz zu l”schen, drcken Sie dazu die Taste "6".
+
+ 2. W„hlen Sie mit den Pfeiltasten zwischen "JA" und "NEIN" und drcken Sie
+ anschlieáend die Eingabetaste.
+
+
+ 3.8 Datensatz berprfen
+ ------------------------
+
+ Mit dieser Option hat man die M”glichkeit, den aktuellen Datensatz mit allen
+ beinhalteten Exoplaneten auf Fehler zu berprfen, z. B. falsche Zahlenwerte.
+
+ 1. Um den kompletten Datensatz zu berprfen, drcken Sie dazu die Taste "7".
+
+ 2. Anschliessend wird der gesamte Datensatz berprft. Bei m”glichen Fehlern
+ wird die Ursache ausgegeben.
+
+ 3. Der komplette Vorgang mit allen m”glichen Fehlern wird zus„tzlich in einer
+ Logdatei gespeichert.
+
+
+ 3.9 Programm-Modul "Orbit-Abbild"
+ ---------------------------------
+
+ Mit "Orbit-Abbild" haben Sie die M”glichkeit, von einem bestimmten extraso-
+ laren Planetensystem ein Abbild des Orbits (von oben gesehen) mit einem
+ Vergleich zum Sonnensystem zu sehen.
+
+ 1. Drcken Sie im Hauptmen die Taste "o".
+
+ 2. Zuerst k”nnen Sie w„hlen, ob Sie den aktiven Datensatz oder zus„tzlich
+ weitere Datens„tze anzeigen m”chten. Mit den Pfeiltasten auf und ab k”nnen
+ Sie zwischen den vorhandenen Datens„tzen w„hlen. Mit der Pfeiltaste rechts
+ bewegen Sie einen Datensatz in die mit anzuzeigende Liste. Mit der Pfeil-
+ taste links l”schen Sie ein Datensatz aus der anzuzeigende Liste. Mit der
+ Eingabetaste geht es zum n„chsten Optionsfeld. Mit der ESC-Taste brechen Sie
+ die Aktion ab. Wenn Sie die Taste "a" (= "Alle") w„hlen, werden automatisch
+ alle Datens„tze angezeigt.
+
+ 3. Nun k”nnen Sie einen Zoom-Wert in Prozent eingeben. Diese Angabe ist hilf-
+ reich, falls Sie einmal auf weiter oder naher Distanz beobachten wollten. Es
+ reicht in der Regel auch der Wert "100" (entspricht genau 100 %).
+
+ 4. Nun k”nnen Sie entscheiden, ob Sie den Mittelpunkt der Bahn im graphischen
+ Koordinatensystem verschieben wollen. Diese Angabe ist hilfreich, falls es
+ einmal passieren sollte, dass die Bahn auf dem Bildschirm nur teilweise ange-
+ zeigt wird. Durch die Mittelpunkt-Verschiebung k”nnen Sie die Bahn sprich-
+ w”rtlich zurechtrcken. Die Zahlenangabe erfolgt als Pixelverschiebung in
+ die gegebene Richtung:
+
+ Mittelpunkt-Verschiebung X-Achse:
+
+ Werte gr”áer gleich 1: Verschiebung nach recht
+ Werte kleiner gleich -1: Verschiebung nach links
+
+ Mittelpunkt-Verschiebung Y-Achse:
+
+ Werte gr”áer gleich 1: Verschiebung nach unten
+ Werte kleiner gleich -1: Verschiebung nach oben
+
+ 5. Jetzt haben Sie die M”glichkeit eine Bewohnbare Zone anzuzeigen. Drcken
+ Sie die Taste "j" fr JA oder die Taste "n" fr NEIN.
+
+ 6. Sobald das Bild angezeigt wird, k”nnen Sie das Bild im PCX- oder im BMP-
+ Format in einer Gr”áe von 640x480 in 16 Farben abspeichern. Drcken Sie dazu
+ einfach die Taste "s". Das Bild wird nun automatisch im Ordner \ORBIT\ abge-
+ speichert. Der Dateiname der Grafik ist der Name des zuerst gew„hlten Daten-
+ satzes, der zur graphischen Anzeige diente.
+
+
+ 3.10 Programm-Modul "Masse-Vergleich"
+ -------------------------------------
+
+ Mit "Masse-Vergleich" haben Sie die M”glichkeit, einen bestimmten extra-
+ solaren Planeten (oder mehrere) mit den 4 Gasplaneten unseres Sonnensys-
+ tems als Vergleich zwischen ihren Massen in einem S„ulendiagramm darzustel-
+ len.
+
+ 1. Drcken Sie im Hauptmen die Taste "m".
+
+ 2. Zuerst k”nnen Sie w„hlen, ob Sie den aktiven Datensatz oder zus„tzlich
+ weitere Datens„tze anzeigen m”chten. Mit den Pfeiltasten auf und ab k”nnen
+ Sie zwischen den vorhandenen Datens„tzen w„hlen. Mit der Pfeiltaste rechts
+ bewegen Sie einen Datensatz in die mit anzuzeigende Liste. Mit der Pfeil-
+ taste links l”schen Sie ein Datensatz aus der anzuzeigende Liste. Mit der
+ Eingabetaste geht es zum n„chsten Optionsfeld. Mit der ESC-Taste brechen
+ Sie die Aktion ab.
+
+ 3. Sobald das Bild angezeigt wird, k”nnen Sie das Bild im PCX- oder im BMP-
+ Format in einer Gr”áe von 640x480 in 16 Farben abspeichern. Drcken Sie dazu
+ einfach die Taste "s". Das Bild wird nun automatisch im Ordner \MASSCOMP\
+ abgespeichert. Der Dateiname der Grafik ist der Name des zuerst gew„hlten
+ Datensatzes, der zur graphischen Anzeige diente.
+
+
+ 3.11 Programm-Modul "Sternkarte"
+ --------------------------------
+
+ Mit "Sternkarte" haben Sie die M”glichkeit, einen bestimmten extrasolaren
+ Planeten auf der gesamte Hemisph„re (Sternkarte) abzubilden.
+
+ 1. Drcken Sie im Hauptmen die Taste "s".
+
+ 2. Zuerst k”nnen Sie w„hlen, ob Sie den aktiven Datensatz oder zus„tzlich
+ weitere Datens„tze anzeigen m”chten. Mit den Pfeiltasten auf und ab k”nnen
+ Sie zwischen den vorhandenen Datens„tzen w„hlen. Mit der Pfeiltaste rechts
+ bewegen Sie einen Datensatz in die mit anzuzeigende Liste. Mit der Pfeiltaste
+ links l”schen Sie ein Datensatz aus der anzuzeigende Liste. Mit der Eingabe-
+ taste geht es zum n„chsten Optionsfeld. Mit der ESC-Taste brechen Sie die
+ Aktion ab. Wenn Sie die Taste "a" (= "Alle") w„hlen, werden automatisch alle
+ Datens„tze angezeigt.
+
+ 3. Zus„tzlich haben Sie die M”glichkeit, eine Ausschnitt-Vergr”áerung, ein-
+ faches Gradnetz, Ekliptik & Himmels„quator, die Begrenzungslinien fr Stern-
+ bilder, mit Bezeichnung fr Sterne und Sternbilder oder die Verbindungslinien
+ der Sternbilder mit anzeigen zu lassen. Bei der Abfrage entscheiden Sie mit
+ der Taste "n" fr "nein" und mit der Taste "j" fr "ja".
+
+ 4. Wenn Sie die Bezeichnung fr Sternbilder gew„hlt haben, dann k”nnen Sie
+ in der folgenden erscheinenden Dialog-Box ausw„hlen, welche Bezeichnung Sie
+ angezeigt haben m”chten:
+
+  * Deutsche Bezeichnung (z. B. Groáer B„r)
+  * Englische Bezeichnung (z. B. Great Bear)
+  * Japanische Bezeichnung (z. B. Ohguma)
+  * Lateinische Bezeichnung (z. B. Ursa Major)
+  * Lateinisches Genetiv (z. B. Ursa Majoris)
+  * Lateinische Abkrzung (z. B. UMa)
+
+ Mit den Pfeiltasten navigieren Sie zwischen den einzelnen Bezeichnung und
+ mit der Eingabetaste best„tigen Sie.
+
+ 5. Sobald das Bild angezeigt wird, k”nnen Sie das Bild im PCX- oder im BMP-
+ Format in einer Gr”áe von 640x480 in 16 Farben abspeichern. Drcken Sie dazu
+ einfach die Taste "s". Das Bild wird nun automatisch im Ordner \STARMAP\
+ abgespeichert. Der Dateiname der Grafik ist der Name des zuerst gew„hlten
+ Datensatzes, der zur graphischen Anzeige diente.
+
+
+ 3.12 Programm-Modul "Distributionen"
+ ------------------------------------
+
+ Mit "Distributionen" nehmen Sie eine Gesamtz„hlung aller existierenden Daten-
+ s„tze durch, die diese dann als S„ulendiagramm gezeichnet werden. Folgende
+ Eigenschaften k”nnen gez„hlt werden: Num. Exzentrizit„t, Masse des Exoplaneten
+ und Groáe Halbachse.
+
+ 1. Drcken Sie im Hauptmen die Taste "d".
+
+ 2. Sie k”nnen zwischen den angezeigten Eigenschaften entscheiden, die gez„hlt
+ werden soll: Num. Exzentrizit„t, Masse des Exoplaneten und der Groáe Halb-
+ achse. Navigieren Sie mit den Pfeiltasten. Drcken Sie anschlieáend die Ein-
+ gabetaste fr JA oder die "ESC"-Taste fr NEIN.
+
+ 3. Fr alle Distributionen (auáer: Spektralklasse, Metallizit„t & Massever-
+ h„ltnis Planet/Stern) kann zus„tzlich eine kumulative Darstellung angezeigt
+ werden. Mit den Pfeiltasten schaltet man zwischen JA und NEIN. Anschliessend
+ drckt man die "ENTER"-Taste.
+
+ 4. Sobald das Bild angezeigt wird, k”nnen Sie das Bild im PCX- oder IM BMP-
+ Format in einer Gr”áe von 640x480 in 16 Farben abspeichern. Drcken Sie dazu
+ einfach die Taste "s". Das Bild wird nun automatisch im Ordner \DISTRI\
+ abgespeichert. Je nach gew„hlter Eigenschaft zum Z„hlen werden Sie in folgende
+ PCX bzw. BMP-Grafiken gespeichert:
+
+  -  Num. Exzentrizit„t: \DISTRI\ecc.pcx|bmp
+  -  Masse des Exoplaneten: \DISTRI\mass.pcx|bmp
+  -  Groáe Halbachse: \DISTRI\axis.pcx|bmp
+  -  J„hrliche Entdeckung: \DISTRI\year.pcx|bmp
+  -  Spektralklasse: \DISTRI\spec.pcx|bmp
+  -  Entfernung zur Sonne: \DISTRI\distance.pcx|bmp
+  -  Scheinbare Helligkeit: \DISTRI\vmag.pcx|bmp
+  -  Metallizit„t: \DISTRI\metal.pcx|bmp
+  -  Zentralstern-Masse: \DISTRI\starmass.pcx|bmp
+  -  Radialgeschwindigkeit der Exoplaneten: \DISTRI\rvplanet.pcx|bmp
+  -  Masseverh„ltnis Planet/Stern: \DISTRI\m2m1.pcx|bmp
+
+
+ 3.13 Programm-Modul "Diagramme"
+ -------------------------------
+
+ Mit "Diagramme" nehmen Sie Diagramme zu bestimmten Verh„ltnissen dreier
+ Eigenschaften von Exoplaneten graphisch auf den Bildschirm dar. Folgende
+ Kombination dieser Eigenschaften sind m”glich:
+
+  -  Diagramm "Groáe Halbachse / Num. Exzentrizit„t"
+  -  Diagramm "Groáe Halbachse /Masse d. Exoplaneten"
+  -  Diagramm "Num. Exzentrizit„t / Masse d. Exoplaneten"
+  -  Diagramm "Halbachse / Periode-Beziehung"
+  -  Diagramm "Entdeckungsjahr / Gr. Halbachse"
+  -  Diagramm "Entdeckungsjahr / Exoplaneten-Masse"
+  -  Diagramm "Zentralstern-Masse / Metallizit„t"
+  -  Diagramm "Spektraltyp / Metallizit„t"
+  -  Diagramm "Zentralstern-Masse / Abs. Helligkeit"
+  -  Diagramm "Zentralstern-Masse / Exoplaneten-Masse"
+  -  Diagramm "Zentralstern-Masse / Scheinbare Helligkeit"
+  -  Diagramm "Groáe Halbachse / Metallizit„t"
+  -  Diagramm "Exoplaneten-Masse / Metallizit„t"
+  -  Diagramm "Num. Exzentrizit„t / Metallizit„t"
+
+ 1. Drcken Sie im Hauptmen die Taste "a".
+
+ 2. Sie k”nnen zwischen den angezeigten Kombinationen der Eigenschaften als
+ Diagramme entscheiden (Kombinationen: siehe oben). Navigieren Sie mit den
+ Pfeiltasten. Drcken Sie anschlieáend die Eingabetaste fr JA oder die
+ "ESC"-Taste fr NEIN.
+
+ 3. Sobald das Bild angezeigt wird, k”nnen Sie das Bild im PCX- oder im BMP-
+ Format in einer Gr”áe von 640x480 in 16 Farben abspeichern. Drcken Sie dazu
+ einfach die Taste "s". Das Bild wird nun automatisch im Ordner \DIAGRAM\
+ abgespeichert. Je nach gew„hlter Eigenschaft zum Z„hlen werden Sie in
+ folgende PCX bzw. BMP-Grafiken gespeichert:
+
+  -  Diagramm "Groáe Halbachse / Num. Exzentrizit„t": axis_ecc.pcx|bmp
+  -  Diagramm "Groáe Halbachse / Masse d. Exoplaneten": axis_mas.pcx|bmp
+  -  Diagramm "Num. Exzentrizit„t / Masse d. Exoplaneten": mass_ecc.pcx|bmp
+  -  Diagramm "Halbachse / Periode-Beziehung": a3_t2.pcx|bmp
+  -  Diagramm "Entdeckungsjahr / Gr. Halbachse": yr_axis.pcx|bmp
+  -  Diagramm "Entdeckungsjahr / Exoplaneten-Masse": yr_mass.pcx|bmp
+  -  Diagramm "Zentralstern-Masse / Metallizit„t": mass_mtl.pcx|bmp
+  -  Diagramm "Spektraltyp / Metallizit„t": spec_mtl.pcx|bmp
+  -  Diagramm "Zentralstern-Masse / Abs. Helligkeit": mass_ma.pcx|bmp
+  -  Diagramm "Zentralstern-Masse / Exoplaneten-Masse": mass_s-p.pcx|bmp
+  -  Diagramm "Zentralstern-Masse / Scheinbare Helligkeit": mass_mv.pcx|bmp
+  -  Diagramm "Groáe Halbachse / Metallizit„t": axis_mtl.pcx|bmp
+  -  Diagramm "Exoplaneten-Masse / Metallizit„t": masp_mtl.pcx|bmp
+  -  Diagramm "Num. Exzentrizit„t / Metallizit„t": ecc_mtl.pcx|bmp
+
+
+ 3.14 Programm-Modul "HRD"
+ -------------------------
+
+ Mit "HRD" k”nnen Sie die Zentralsterne bestimmter extrasolarer Planeten in
+ einem auf dem Bildschirm gezeichneten HRD (Hertzsprung-Russell-Diagramm)
+ platziert werden.
+
+ 1. Drcken Sie im Hauptmen die Taste "h".
+
+ 2. Zuerst k”nnen Sie w„hlen, ob Sie den aktiven Datensatz oder zus„tzlich
+ weitere Datens„tze anzeigen m”chten. Mit den Pfeiltasten auf und ab k”nnen
+ Sie zwischen den vorhandenen Datens„tzen w„hlen. Mit der Pfeiltaste rechts
+ bewegen Sie einen Datensatz in die mit anzuzeigende Liste. Mit der Pfeiltaste
+ links l”schen Sie ein Datensatz aus der anzuzeigende Liste. Mit der Eingabe-
+ taste geht es zum n„chsten Optionsfeld. Mit der ESC-Taste brechen Sie die
+ Aktion ab. Wenn Sie die Taste "a" (= "Alle") w„hlen, werden automatisch alle
+ Datens„tze angezeigt.
+
+ 3. Sobald das Bild angezeigt wird, k”nnen Sie das Bild im PCX oder im BMP-
+ Format in einer Gr”áe von 640x480 in 16 Farben abspeichern. Drcken Sie dazu
+ einfach die Taste "s". Das Bild wird nun automatisch im Ordner \HRD\ abge-
+ speichert. Der Dateiname der Grafik ist der Name des zuerst gew„hlten Daten-
+ satzes, der zur graphischen Anzeige diente.
+
+
+ 3.15 Programm-Modul "Star3D"
+ ----------------------------
+
+ Mit "Star3D" k”nnen Sie den Zentralsterne eines bestimmten extrasolaren
+ Planeten in einem auf dem Bildschirm gezeichneten "Sternenfeld" plaziert
+ werden. Das "Sternenfeld" repr„sentiert dabei maximal alle 2068 sonnenn„chsten
+ Sterne, die sich um der Sonne befinden.
+
+ 1. Drcken Sie im Hauptmen die Taste "p".
+
+ 2. Nun k”nnen Sie einen Zoom-Wert als ganzzahlige Nummer eingeben. Diese
+ Angabe ist hilfreich, falls Sie einmal auf weiter oder naher Distanz beo-
+ bachten wollten. Es reicht in der Regel auch der Wert "50".
+
+ 3. Sie k”nnen jetzt entscheiden, ob Sie den Mittelpunkt der Sternumgebung
+ im graphischen Koordinaten verschieben wollen. Diese Angabe ist hilfreich,
+ falls es einmal passieren sollte, dass die Sternumgebung
+ auf dem Bildschirm nur teilweise angezeigt wird. Durch die Mittelpunkt-Ver-
+ schiebung k”nnen Sie die Sternumgebung sprichw”rtlich zurechtrcken. Die
+ Zahlenangabe erfolgt als Pixelverschiebung in die gegebene Richtung:
+
+ Mittelpunkt-Verschiebung X-Achse:
+
+ Werte gr”áer gleich 1: Verschiebung nach recht
+ Werte kleiner gleich -1: Verschiebung nach links
+
+ Mittelpunkt-Verschiebung Y-Achse:
+
+ Werte gr”áer gleich 1: Verschiebung nach unten
+ Werte kleiner gleich -1: Verschiebung nach oben
+
+ 4. Jetzt haben Sie die M”glichkeit, eine Begrenzung fr Spektraltypen anzu-
+ geben. Das erste Eingabefeld bestimmt das Minimum eines Spektraltyps, das
+ zweite Eingabefeld bestimmte das Maximum.
+
+ Geben Sie einfach einen Buchstaben aus der rechts stehenden Auswahl fr das
+ Minimum und das Maximum ein.
+
+ 5. Sobald das Bild angezeigt wird, k”nnen Sie das Bild im PCX- oder im BMP-
+ Format in einer Gr”áe von 640x480 in 16 Farben abspeichern.
+ Drcken Sie dazu einfach die Taste "s". Das Bild wird nun automatisch im
+ Ordner \STAR3D\ abgespeichert. Der Dateiname der Grafik ist der Name des
+ zuerst gew„hlten Datensatzes, der zur graphischen Anzeige diente.
+
+
+ 3.16 Rekorde
+ ------------
+
+ Mit diesem Eintrag ist es m”glich, bestimmte Rekorde aus der Welt der Exo-
+ planeten zu bestimmen, z. B. "Exoplanet mit der kleinsten Masse".
+
+ Drcken Sie dazu die Taste "r". Das Fenster mit den Angaben erscheint sofort.
+
+
+ 3.17 Planeten-Status
+ --------------------
+
+ Mit diesem Eintrag ist es m”glich, bestimmte Eigenschaften der Exoplaneten
+ in diverse Klassen zu unterteilen, z. B. "nach Masse" oder "nach Bahnorbit".
+
+ Drcken Sie dazu die Taste "u". Das Fenster mit den Angaben erscheint sofort.
+
+
+ 3.18 Suchen nach Zahlen und W”rter
+ ----------------------------------
+
+ 1. Mit diesem Eintrag ist es m”glich, in allen vorhandenen Datens„tzen einer
+ bestimmten Zahl oder einem bestimmten Zeichenkette zu suchen. Drcken Sie
+ dazu die Taste "f".
+
+ 2. Geben Sie dann die zu suchende Zahl oder Zeichenkette ein. Es erfolgt
+ dann eine Ausgabe, wo der gesuchte Begriff (Zahl od. Wort) in welcher
+ Position in einem Datensatz austauscht.
+
+ Beispiel:
+
+ Anzeige: Eingabe der gesuchten Zahl bzw. Wortes:
+ Eingabe: hd 83443
+ Anzeige:
+ Der gesuchte Begriff "hd 83443"
+ entspricht dem Zentralstern "HD 83443"
+ des Datensatzes "83443-1.EXO"
+ ...
+
+ Achtung: Bei dieser Such-Operation handelt es sich um einen simplen Such-
+ Algorithmus. Es gleicht zeilenweise die Eintr„ge in einem Datensatz ab, bis
+ es alle Datens„tze gefunden hat. Die Suche nach Teil-Strings in einem gesamten
+ String ist daher nicht m”glich!
+
+
+ 3.19 Filter
+ -----------
+
+ 1. Mit diesem Eintrag k”nnen Sie, allen vorhandenen Datens„tzen fr ein be-
+ stimmte Grenze einer Eigenschaft laden, die innerhalb dieser Grenze entdeckt
+ worden sind. Drcken Sie dazu die Taste "z".
+
+ 2. Navigieren Sie mit den Pfeiltasten zwischen den einzelnen Feldern.
+
+ 3. Geben Sie zuerst den Mindestwert der gew„hlten Eigenschaft ein.
+
+ 4. Geben Sie danach den Maximalwert der gew„hlten Eigenschaft ein.
+
+ 5. Drcken Sie zum Schluss die "ESC"-Taste.
+
+
+
+ 4. Sonstiges
+ ============
+
+
+ 4.1 Updaten von Datens„tze
+ --------------------------
+
+ Die derzeitige Version EXO-DB2 v1.7 beinhaltet in seinem gepackten Archiv
+ (das zum Download "http://www.exodb.de.vu/download.htm" angeboten wird) das
+ Datenset EXO #14 vom 20. M„rz. In der Regel passiert es, dass zwischen dem
+ Erscheinen zweier Versionen einige weitere Exoplaneten entdeckt werden bzw.
+ Eigenschaften bereits entdeckter Exoplaneten werden aktualisiert. Deshalb
+ erscheint in unregelm„áigen Abst„nden Datens„tze.
+ Um aber immer auf den neuesten Stand sein zu wollen, gibt es zwei Wege, um
+ die Daten zu aktualisieren:
+
+  1.  Entweder Sie erstellen die neuen Exoplaneten manuell mit der aktuellen
+      Version von EXO-DB
+
+  2.  Oder Sie downloaden sich den neusten Datensatz und aktualisieren in
+      folgenden Schritten:
+
+      - L”schen Sie das Verzeichnis /EXO/ aus dem Stammverzeichnis!
+        Damit stellen Sie sicher, dass Sie stets aktuelle Daten der entdeckten
+        Exoplaneten besitzen.
+        Achten Sie aber bitte darauf, dass Sie keine "pers”nliche" oder "Test"-
+        Dateien l”schen!
+        Machen Sie ein Backup (Sicherheitskopie), wenn Sie diese Dateien sp„ter
+        noch brauchen werden! Sie k”nnen Sie am Ende des Aktualisierungsvor-
+        gangs wieder in das Verzeichnis /EXO/ hinein kopieren!
+
+      - Entpacken Sie den aktuellen Datensatz!
+        Dort sollte sich das Verzeichnis /EXO/ mitsamt allen EXO-Dateien be-
+        finden! Achten Sie aber darauf, dass Ihr Packer kein zus„tzliches Ver-
+        zeichnis nach folgendem Muster erstellt: /EXO/EXO/*.exo
+
+      - Kopieren Sie zum Schluá das Verzeichnis /EXO/ in das Stammverzeichnis
+        Ihrer benutzten Version von EXO-DB2!
+        Gegebenfalls k”nnen Sie das Archiv der entpackten Datensatzes l”schen,
+        sofern Sie dieses Archiv nicht mehr ben”tigen!
+
+      - Am Ende sollten Sie EXO-DB2 starten und nachschauen, dass und ob alles
+        funktioniert und der Datensatz gelesen wird!
+        Sollten Sie dennoch Probleme mit dem Updaten von Datens„tzen haben,
+        dann mailen Sie mir unter <michael-johne@gmx.de> mit einer m”glichst
+        genauen Problembeschreibung. Ihre Mail wird dann im Rahmen des zeit-
+        lichen Machbaren mit einer L”sung beantwortet.
+
+
+ 4.2 Splash-Screen und das Add-On "Splash Pack #1"
+ -------------------------------------------------
+
+ Mir der Version 1.7 von EXO-DB2 wurde nun das Anzeigen von mindestens einen
+ Splash-Screen hinzugefgt.
+
+
+ 4.2.1 Anschalten der Anzeige des Splash-Screens
+ -----------------------------------------------
+
+ Falls man die Anzeige des Splash-Screens aus bestimmten Grnden unterbinden
+ m”chten, geht man folgendermassen vor:
+
+ 1. L”schen Sie die Datei "splash.dat". Diese Datei unterbindet dann die An-
+    zeige.
+
+ 2. Zus„tzlich k”nnen Sie auch die Datei "splash.pic" l”schen, wenn Sie auf
+    Dauer keine Anzeige des Splash-Screens mehr haben m”chten.
+
+ 3. Falls Sie das Add-On "Splash Pack #1" installiert haben, k”nnen Sie den
+    Unterordner "SPLASH" mitsamt allen LZS-Dateien l”schen.
+
+
+ 4.2.2 Hinzufgen des Add-Ons "Splash Pack #1"
+ ---------------------------------------------
+
+ Das Add-On "Splash Pack #1" beinhaltet 20 Splash-Screens fr EXO-DB2 ab Ver-
+ sion 1.7, die zufallsm„áig bei jedem neuen Programmstart angezeigt werden.
+
+ Nun das Add-On "Splash Pack #1" zu installieren, machen sie folgende Schritte:
+
+ 1. Besorgen Sie sich das Add-On auf der Download-Seite von EXO-DB2 (http://
+    www.exodb.de.vu/download.htm).
+
+ 2. Entpacken Sie das Add-On!
+    Dort sollte sich das Verzeichnis /SPLASH/ mitsamt allen LZS-Dateien be-
+    finden! Achten Sie aber darauf, dass Ihr Packer kein zus„tzliches Ver-
+    zeichnis nach folgendem Muster erstellt: /SPLASH/SPLASH/*.lzs
+
+ 3. Kopieren Sie zum Schluá das Verzeichnis /SPLASH/ in das Stammverzeichnis
+    Ihrer benutzten Version von EXO-DB2!
+
+ 4. Am Ende sollten Sie EXO-DB2 neu starten und nachschauen, dass und ob
+    alles funktioniert und stets ein neuer Splash Screen zu jedem Programm-
+    start angezeigt wird!
+    Sollten Sie dennoch Probleme mit dem Installieren des Add-Ons haben,
+    dann mailen Sie mir unter <michael-johne@gmx.de> mit einer m”glichst
+    genauen Problembeschreibung. Ihre Mail wird dann im Rahmen des zeit-
+    lichen Machbaren mit einer L”sung beantwortet.
