@@ -1,0 +1,27 @@
+TXT2COM v0.1
+------------
+
+TXT2COM  ist  ein  kleines  Programm,  welches	Textdateien,  aber auch andere
+Dateien   mit  Textinhalten,  in  eine	kleine	COM-Datei  konvertiert.  Diese
+erstellte  COM-Datei  listet  ihren  Inhalt  dann  nach  dem  Starten  auf dem
+Bildschirm auf.
+TXT2COM  entstand nach	dem  Vorbild des Textcompilers v1.50 (Text Lister) von
+ROSE  (1993,  Ralph  Roth, Finkenweg 24, D 7214 Zimmern). Der "Header" ist bei
+jeder  COM-Datei  gleich. Es handelt dabei sich um binÑre Daten, die mit jeder
+COM-Datei erstellt werden. Diese Daten habe ich in mein Konvertierungsprogramm
+implementiert,	so  dass ein theoretische COM-Datei entstand, die auch mit dem
+Textcompiler  von  ROSE  entstanden  wÑre.  Doch ROSE's Textcompiler hat einen
+kleinen  Haken: Bei einem Text wÅrde es den ersten Buchstaben des Textes nicht
+zeigen.  Hie·e	der  Text folgenderma·en: DIES IST EIN BEISPIELTEXT wÅrde dann
+ROSE's Textcompiler folgendes auf dem Bildschirm bringen:
+
+IES IST EIN BEISPIELTEXT
+
+Man  erkennt,  vom  ersten Wort "DIES" fehlt das. Doch ich habe dieses Program
+erkannt  und  eine  kleine Lîsung gefunden. Vor dem Text, der in der COM-Datei
+steht,	habe  ich ein kleines Zeichen gesetzt. Es ist eigentlich egal, welches
+Zeichen  man  benutzt  (ich verwendete das @-Zeichen), es dazu nur dienen, als
+Zeichen zu fungieren, das sozusagen "verschluckt" (also nicht angezeigt) wird.
+Im  weiteren  Sinne heisst es nun, dass meine erstellte COM-Datei eines Textes
+um  genau  einem Byte (also dem zusÑtzlich eingefÅgtem Zeichen) lÑnger ist als
+die COM-Datei des Textcompilers von ROSE.
