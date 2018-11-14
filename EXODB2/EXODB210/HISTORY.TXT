@@ -1,0 +1,299 @@
+
+1.0  13 Apr 2005  Das prim„re Ziel dieser Version war es, eine komplett neue
+                  Oberfl„che zu erstellen. Das Aussehen lehnt sich etwas an
+                  die Original-Version von EXO-DB an. Einfach EXO-DB2 star-
+                  ten und sich von der neuen Oberfl„che berzeugen!
+
+                  Ein kleiner Nachteil ist, dass die Bedienung noch nicht
+                  einheitlich ist und in allen grafischen Programm-Modulen
+                  die Auswahl der Datens„tze auf ein datensatz beschr„nkt
+                  ist. In zuknftigen Versionen von EXO-DB2 werden diese
+                  Nachteile aber wieder behoben sein.
+
+                  Neu ist zudem das Laden, Umbenennen und Exportieren von
+                  Datens„tzen. Bei dem Laden wird eine erweiterte Liste der
+                  Datens„tze angezeigt, wo man erkennen kann, welche Daten-
+                  s„tze es im Stammverzeichnis "EXO" gibt. Beim Umbenennen hat
+                  man die M”glichkeit, den Datensatz nun einen anderen Namen
+                  zu geben. Beim Exportieren kann die Datens„tze in diverse
+                  andere Formate konvertieren. Zur Auswahl stehen momentan
+                  Text (TXT), Hypertext-Dokument (HTM), Rich-Text-Format (RTF),
+                  'Comma-Seperative Value' (CSV) und Sylk (SLK). Das Expor-
+                  tieren von Datens„tzen ist jedoch als Progamm-Modul "EXPORT"
+                  implementiert, um die ausfhrbare Main-Datei nicht unn”tig
+                  mit belegten Speicher auszulasten. Das Stammverzeichnis ist
+                  "EXPORT". Unter diesem Verzeichnis werden alle exportierten
+                  Dateien gespeichert.
+
+                  Momentan ist das Drucken von Datens„tzen nicht m”glich!
+
+                  Weiterhin gibt es eine Programm-Info, einige Credits und
+                  eine Danksagung. Diese Texte sind in sogenannten MANUAL-
+                  Dateien gespeichert. Sie besitzen die Endung *.MAN. Bitte
+                  l”schen Sie diese Dateien nicht.
+
+                  Das Zusatz-Tool "CONVERT.EXE" wird in dieser Version nicht
+                  mehr benutzt, da es ein reliktes Verbindungsstck zwischen
+                  dieser Version von EXO-DB2 und der Original-Version EX-DB
+                  ist.
+
+                  Nebenbei wurden alle Datens„tze im Stammverzeichnis "EXO"
+                  auf ihre wesentliche Korrektheit bei der Anwendung der Ver-
+                  sion 0.9 berprft und evt. verbessert & zudem zwei Bugs in
+                  der Auswahl der Ausschnitt-Vergr”áerung des Moduls "STAR-
+                  MAP" und bei der Beendigung des Moduls "DIAGRAM "beseitigt.
+
+
+----------------------------------------------------------------------------
+
+
+0.9  16 Jan 2005  In den folgenden Modulen ist es jetzt m”glich, auch alle
+                  Datens„tze aus dem Stammverzeichnis EXO nun gemeinsam
+                  darzustellen:
+
+                    * HRD
+                    * ORBIT
+                    * STARMAP
+
+                  Man drckt statt der Anzahl der auszugew„hlenden Datens„tze
+                  die Zahl '0' ein. Damit werden alle Datens„tze im Stammver-
+                  zeichnis ausgew„hlt. Eine Speicherung ist im jeweiligen
+                  Modul ebenfalls m”glich.
+
+                  Das Programm-Modul "MASSCOMP" ist fr eine Auswahl aller
+                  Datens„tze im Stammverzeichnis nicht m”glich, weil der
+                  verfgbare Zeichenplatz am Bildschirm nicht ausreicht!
+                  Neben der standardm„áigen Listendatei "stars.dat", die
+                  Daten von 1284 Sternen enth„lt, wurde nun eine erweiterte
+                  Listendatei "stars2.lst" hinzugefgt, die Daten fr 29992
+                  Sterne bereicht. W„hrend bei "stars.lst" die scheinbare
+                  Helligkeit der Sterne bis 5.0 mag begrenzt war, geht die
+                  scheinbare Helligkeit bei "stars2.lst" bis auf 8.0 mag
+                  hinunter.
+
+                  Die Einfhrung der zweiten Listendatei fr das Modul
+                  "STARMAP" hatte zur positven Folgen, dass es nun m”glich
+                  ist, auch nun Ausschnitt-Vergr”sserungen beim Gebiet um
+                  den Zentralstern des entdeckten Exoplaneten zu machen.
+                  In der normalen, ungegr”sserten Ansicht der Sternkarte
+                  wird die Listendatei "stars.lst" geladen, bei einer Ver-
+                  gr”sserung wird jedoch die zweite, neuere Listendatei
+                  "stars.lst" benutzt.
+
+                  Fr das Modul "STARMAP" wurden weiterhin noch zwei weitere
+                  Listendateien eingefhrt - "CNAMES.LST" & "STARNAME.LST".
+                  Beide Listendateien dienen der Benennung der Sternbilder
+                  bzw. der Sterne. Sie haben daher auch die M”glichkeit, im
+                  zu Hauptprogramm entscheiden, ob Sie jede eine der beiden
+                  Benennungen aktiviert haben m”chten. Diese werden dann,
+                  wenn von Ihnen gewollt, an der Sternkarte auf dem Bild-
+                  schirm im Sternbild bzw. rechts neben dem Stern angezeigt.
+                  Wichtig ist dabei, dass die Ausschnitt-Vergr”áerung ein-
+                  geschaltet ist.
+
+                  Es ist jetzt auch m”glich, fr jedes Modul Screenshort im
+                  PCX oder BMP-Format durch Benutzen der Taste 'S' erzeugen.
+                  Die Abspeicherung von Screen-Shot sollte jedoch nicht auf
+                  einer Diskette (A:\, B:\) erfolgen, da der verfgbare
+                  Speicherplatz sehr eng begrenzt ist. Grund ist, weil die
+                  neue Listendatei "stars2.lst" mit den Daten zu 29992 Ster-
+                  nen ca. 900 KB schon allein betr„gt. Mit den anderen Listen-
+                  und Programmdateien ist der Speicherung einer Diskette sehr
+                  eng bemessen und schnell ausgesch”pft.
+
+                  Nebenbei wurden alle Datens„tze im Stammverzeichnis "EXO"
+                  auf ihre wesentliche Korrektheit bei der Anwendung der Ver-
+                  sion 0.9 berprft und evt. verbessert & zudem ein Bug in
+                  der Anzeige der Koordinaten des Moduls "STARMAP" besei-
+                  tigt.
+
+
+----------------------------------------------------------------------------
+
+
+0.8  09 Jan 2005  In dieser Version wurde ein neues Programm-Modul getestet.
+                  Es nennt sich "HRD" und stellt den Zentralstern eines Exo-
+                  planten in einem Hertzsprung-Russell-Diagramm dar.
+
+                  Es wurde auch eine neue Datei eingfgt. Die Bilddatei
+                  'HRD.PIC' wird als schematische Grundlage des gezeichneten
+                  HRD ben”tigt. Die Tests mit dem neuen Programm-Modul
+                  liefen erfolgreich, weshalb das Modul nun in dieser Version
+                  zum Endverbrauch implementiert ist.
+
+                  Im neuen Modul kann ebenfalls durch das Drcken der Ta-
+                  ste 'S' w„hrend der Darstellung ein Screenshot erzeugt
+                  werden. Dieses wird dann als BMP-Graphik unter dem Daten-
+                  satznamen im Standardunterverzeichnis "HRD" abgespei-
+                  chert. Die Abspeicherung erfolgt jedoch etwas langsamer!
+                  Das Modul "RV" wurde noch nicht weiter getestet!
+
+                  Nebenbei wurden s„mtlich Listendateien der Endung "DAT"
+                  in "LST" unbenannt. Damit kann besser zwischen Listen-
+                  dateien und Programm-Modulen unterschieden werden. Folgende
+                  Listendateien sind davon betroffen:
+
+                    * clines.dat -> clines.lst
+                    * eclip.dat  -> eclip.lst
+                    * stars.dat  -> stars.lst
+
+
+----------------------------------------------------------------------------
+
+
+0.7  06 Jan 2005  Zuerst wurde ein wichtiger Fehler im Modul "ORBIT" korri-
+                  giert. Er sorgte fr eine falsche Darstellung einer Bahn.
+                  Des weiterem wurde s„mtliche Jahreszahlen von 2003 auf 2005
+                  gesetzt und ein paar Rechtschreibfehler entfernt.
+
+                  Experimentell wurde an einem Modul "RV" (= Radialgeschwin-
+                  digkeitsmessung) gearbeitet.
+
+                  Der Begriff "Plugin" wird nun durch "Modul" ersetzt.
+
+
+----------------------------------------------------------------------------
+
+
+0.6  26 Okt 2003  Drei Erneuerungen pr„gen diese letzte 0er-Version. Die
+                  ersten beiden Erneuerungen sind zwei Plugins hinzugfgt
+                  und die dritte Erneuerungen ist das Suchen nach bestimmten
+                  Zahlenwerten und Zeichenketten in den Datens„tzen der Exo-
+                  planeten vorhanden.
+
+                  Das erste der beiden Plugins nennt sich "DISTRI" (Distri-
+                  bution). Es macht eine Gesamtz„hlung der Eigenschaften
+                  "Groáe Halbache", "Num. Bahnexzentrizit„t" und "Exoplaneten-
+                  Masse" und gibt das Ergebnis graphisch als Balkendiagramm
+                  auf dem Monitor wieder.
+
+                  Das zweite Plugin heiát "DIAGRAM" (Diagramm). Er stellt
+                  dabei auf dem Monitor ein zweidimensionales Koordinatensys-
+                  tem. Fr jede X- bzw. Y-Achse wird dabei eine bestimmte Ei-
+                  genschaft eines Planetes zugesetzt. Insgesamt sind folgende
+                  Besetzungen im Koordinatensystem dieses Plugins m”glich:
+
+                    * Groáe Halbachse / Num. Exzentrizit„t
+                    * Groáe Halbachse / Masse d. Exoplaneten
+                    * Num. Exzentrizit„t / Masse d. Exoplaneten
+
+                  In beiden Plugins kann durch Drcken der Taste 's' wie immer
+                  ein Screenshot erzeugt werden. Fr das Plugin "DISTRI" wird
+                  die als PCX-erstellte Grafik im Standardverezeichnis "DISTRI"
+                  abgespeichert und fr das zweite Plugin "DIAGRAM" im Stand-
+                  ardverzeichnis "DIAGRAM".
+
+                  Die dritte Erneuerung ist wie bereits erw„hnt das explizite
+                  Suchen von Zahlen oder W”rtern. Mit dieser Hilfe ist das Auf-
+                  finden von Zahlenwerten und Zeichenketten etwas einfacher.
+
+
+----------------------------------------------------------------------------
+
+
+0.5  20 Okt 2003  In dieser Version wurde haupts„tzlich an den drei graph-
+                  ische Plugins "ORBIT", "MASSCOMP" und "STARMAP", gearbei-
+                  tet; vor allem am letzten genannten Plugin.
+
+                  Die Liste der 'Sternkoordianten' wurde direkt durch eine
+                  Liste fr 'Sterneigegnschaften' namens "stars.dat" ersetzt.
+                  Die alte Liste wurde wegen des veralteten quinoktiums
+                  J1950 ausgewechselt. Die neue Liste mit dem quinoktium
+                  J2000 behandelt zwar nur 1284 Sterne mit einer Gr”áenkla-
+                  sse bis 5 mag, bietet aber zudem zwar Bezeichnungen der
+                  Sterne und ihre jeweilige Spektralklasse.
+
+                  Zudem existiert eine zweite Liste namens "clines.dat". Sie
+                  beinhaltet die Verbindungen zwischen den Sternen eines be-
+                  stimmten Sternbilds, die dann ein "stichm„nnchen" - „hn-
+                  liches Sinnbild fr das Sternbild ergibt und wahlweise zur
+                  gezeichneten Sternkarte hinzugefgt werden k”nnen.
+
+                  Weiterhin wird die Liste "eclip.dat" verwendet. Sie bestimmt
+                  die Anzeige der Ekliptik fr das Plugin "STARMAP".
+
+
+----------------------------------------------------------------------------
+
+
+0.4  15 Okt 2003  Das Plugin "orbit.dat" wurde um eine Eigenschaft erwei-
+                  tert. Man kann nun den Mittelpunkt nach links und rechts
+                  oder oben und unten verlagern. Dies ist notwendig, falls
+                  die gezeichnete Bahn durch die Beschriftung gest”rt wird.
+                  Das Plugin "masscomp.dat" ist nebenbei vollst„ndig inte-
+                  griert.
+
+                  Der Schwerpunkt dieser Version liegt aber am neuen Plugin
+                  namens "starmap.dat". Dieses Plugin stellt eine bestimmte
+                  Anzahl von Orten ausgew„hlter Exoplaneten auf einer bezei-
+                  chneten Sternkarte dem Monitor dar. Hier bei liegt die
+                  Liste "stars.dat". Sie beinhaltet die Koordinaten und die
+                  Helligkeit (bis 6.9 mag) von 15.383 Sternen im vermutlich-
+                  en quinoktium J1950.
+
+                  Im neuen Plugin kann ebenfalls durch das Drcken der Ta-
+                  ste 'S' w„hrend der Darstellung ein Screenshot erzeugt
+                  werden. Dieses wird dann als PCX-Graphik unter dem Daten-
+                  satznamen im Standardunterverzeichnis "STARMAP" abgespei-
+                  chert.
+
+
+----------------------------------------------------------------------------
+
+
+0.3  11 Okt 2003  Zuerst wurde zus„tzlich an einem kleines Konvertierungs-
+                  Tool namens "convert.exe", welches Datens„tze aus dem
+                  alten EXODB-Format in das neues EXODB2-Format unter An-
+                  gabe einiger weiterer Eigenschaften hinber transform-
+                  ierte. Zudem wurde ein direkter Aufruf in die aktuelle
+                  Testversion der EXOPLANETEN-DATENBANK EXO-DB2 bereits
+                  gestellt.
+
+                  Das Plugin "orbit.dat" wurde weiter ausgebaut. Es ist nun
+                  m”glich - nach der Darstellung auf dem Monitor - durch
+                  drcken der Taste 'S' ein Screenshot zu machen. Dieses
+                  wird dann als PCX-Graphik unter dem Datensatznamen im
+                  Standardunterverzeichnis "ORBIT" abgespeichert. Das Plugin
+                  "orbit.dat" ist somit voll integriert.
+
+                  Experimentiell wurde zudem das Plugin "masscomp.dat" hin
+                  zugefgt. Dieses Plugin stellt einen Vergleich der Masse
+                  eines Exoplaneten oder so mehrere zischen den Gasplaneten
+                  unseres Sonnensystems auf dem Monitor dar. Es kann eben-
+                  falls durch das Drcken der Taste 'S' w„hrend der Darstell-
+                  ung ein Screenshot erzeugt werden. Dieses wird dann als PCX-
+                  Graphik unter dem Datensatznamen im Standardunterverzeich-
+                  nis "MASSCOMP" abgespeichert.
+
+                  In allen Komponenten der EXOPLANETEN-DATENBANK EXO-DB2
+                  ist zudem das Verzeichnis-Handling verbessert worden.
+
+
+----------------------------------------------------------------------------
+
+
+0.2  08 Okt 2003  Prim„res Ziel dieser Version ist es die Bedienung und Aus-
+                  fhrung der EXOPLANETEN-DATENBANK EXO-DB2 etwas zu verein-
+                  fachen und sicherer zusammen. Deshalb wurde die Sicher-
+                  heitskomponente "RUNTIME Watcher" implementiert, damit die
+                  Fehlermeldungen sich leichter analysieren lassen. Zudem
+                  ist die Dateneingabe verbessert worden.
+
+                  Zu den Objekten "Stern" und "Exoplanet" wurden einige Ei-
+                  genschaften hinzugefgt.
+
+                  Experimentiell wurde zudem das Plugin "orbit.dat" hinzu-
+                  gefgt. Dieses Plugin zeigt die Darstellung des Orbits
+                  eines Exoplaneten oder so mehrere auf dem Monitor an.
+
+                  In Planung stehend wurden zudem die weiteren Plugins
+                  "Sternkarte" und "Masse-Vergleich" in der EXOPLANETEN-
+                  DATENBANK EXO-DB2 angedeutet.
+
+
+----------------------------------------------------------------------------
+
+
+0.1  06 Okt 2003  Die Grundfunktionen fr die Erstellung und Verwaltung fr
+                  den Neuentwurf der EXOPLANETEN-DATENBANK EXO-DB2 wurden
+                  bereitgestellt.

@@ -1,0 +1,67 @@
+Version 0.9  Geplant:     * Laden aller Datens?tze aus dem Stammverzeichnis
+                            \EXO\ fr die Programm-Module "HRD", "ORBIT" und
+                            "STARMAP"
+
+                          * neue Sternliste hinzufgen
+
+                          * Ausw?hlen Ausschnittsvergr?áerung fr das
+                            Programm-Modul "STARMAP"
+
+                          * Datens?tze aus dem Stammverzeichnis \EXO\ ber-
+                            prfen
+
+                          ------ #ERF?LLT# ------
+
+             Fraglich:    * PCX-Format anstatt BMP-Format fr das Programm-
+                            Modul "HRD" bevorzugen
+
+                          ------ #ERF?LLT# ------
+
+             Sonstiges:   * Bezeichnungen für Sternbildern und Sterne im
+                            Modul "STARMAP"
+
+                          * Auswahl zwischen den Formaten PCX und BMP bei
+                            der Abspeicherung von Screen-Shots
+
+----------------------------------------------------------------------------
+
+Version 1.0  Geplant:     * Aussehen, Bedienung und Navigation verbessern
+
+                          ------ #ERF?LLT# ------
+
+             Sonstiges:   * Datens?tze aus dem Stammverzeichnis \EXO\ ber-
+                            prfen (u.a. Datum)
+
+                          * Export nach TXT, HTML, RTF, SYLK und CSV
+
+                          * Direktes Laden und Unbenennen
+                            von Datens„tze
+
+----------------------------------------------------------------------------
+
+Version 1.1  Geplant:     * M?glichkeit der Ablagerung von Bildern
+
+                          * Hilfe
+kommadozeile
+
+                          * TimeLine-Modell erzeugen
+
+                          * Anzeige der Bilder mit dem Modul "PHOTO"
+
+             Fraglich:    * Bedienung mit Mouse hinzufgen
+
+                          * Was wird aus dem Modul "RV"? Umwandeln
+                            in "PRES"?
+                            ("RV" = Radial Velocity)
+                            ("PRES" = Period Resonanz)
+
+                          * Bin„rlisten
+                            (Konvertierung von *.LST -> *.BIN)
+                            -> Folge: Kleinere Dateigr”áe
+
+                          * Begrenzungslinien fr Sternbilder
+
+                          * Drucken im Grafik-Modus
+
+             Sonstiges:   * keine
+
