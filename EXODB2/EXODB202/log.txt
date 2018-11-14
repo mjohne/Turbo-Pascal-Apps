@@ -1,0 +1,22 @@
+Ver  Datum        Beschreibung
+---  -----        ------------
+
+0.1  06 Okt 2003  Die Grundfunktionen fÅr die Erstellung und Verwaltung fÅr
+                  den Neuentwurf der EXOPLANETEN-DATENBANK EXO-DB2 wurden
+                  bereitgestellt.
+
+0.2  08 Okt 2003  PrimÑres Ziel dieser Version ist es die Bedienung und Aus-
+                  fÅhrung der EXOPLANETEN-DATENBANK EXO-DB2 etwas zu verein-
+                  fachen und sicherer zusammen. Deshalb wurde die Sicher-
+                  heitskomponente "RUNTIME Watcher" implementiert, damit die
+                  Fehlermeldungen sich leichter analysieren lassen. Zudem
+                  ist die Dateneingabe verbessert worden.
+                  Zu den Objekten "Stern" und "Exoplanet" wurden einige Ei-
+                  genschaften hinzugefÅgt.
+                  Experimentiell wurde zudem das Plugin "orbit.dat" hinzu-
+                  gefÅgt. Dieses Plugin zeigt die Darstellung des Orbits
+                  eines Exoplaneten oder so mehrere auf dem Monitor an.
+                  In Planung stehend wurden zudem die weiteren Plugins
+                  "Sternkarte" und "Masse-Vergleich" in der EXOPLANETEN-
+                  DATENBANK EXO-DB2 angedeutet.
+                  

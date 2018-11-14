@@ -1,0 +1,46 @@
+Ver  Datum        Beschreibung
+---  -----        ------------
+
+0.1  06 Okt 2003  Die Grundfunktionen fÅr die Erstellung und Verwaltung fÅr
+                  den Neuentwurf der EXOPLANETEN-DATENBANK EXO-DB2 wurden
+                  bereitgestellt.
+
+0.2  08 Okt 2003  PrimÑres Ziel dieser Version ist es die Bedienung und Aus-
+                  fÅhrung der EXOPLANETEN-DATENBANK EXO-DB2 etwas zu verein-
+                  fachen und sicherer zusammen. Deshalb wurde die Sicher-
+                  heitskomponente "RUNTIME Watcher" implementiert, damit die
+                  Fehlermeldungen sich leichter analysieren lassen. Zudem
+                  ist die Dateneingabe verbessert worden.
+                  Zu den Objekten "Stern" und "Exoplanet" wurden einige Ei-
+                  genschaften hinzugefÅgt.
+                  Experimentiell wurde zudem das Plugin "orbit.dat" hinzu-
+                  gefÅgt. Dieses Plugin zeigt die Darstellung des Orbits
+                  eines Exoplaneten oder so mehrere auf dem Monitor an.
+                  In Planung stehend wurden zudem die weiteren Plugins
+                  "Sternkarte" und "Masse-Vergleich" in der EXOPLANETEN-
+                  DATENBANK EXO-DB2 angedeutet.
+
+0.3  11 Okt 2003  Zuerst wurde zusÑtzlich an einem kleines Konvertierungs-
+                  Tool namens "convert.exe", welches DatensÑtze aus dem
+                  alten EXODB-Format in das neues EXODB2-Format unter An-
+                  gabe einiger weiterer Eigenschaften hinÅber transform-
+                  ierte. Zudem wurde ein direkter Aufruf in die aktuelle
+                  Testversion der EXOPLANETEN-DATENBANK EXO-DB2 bereits
+                  gestellt.
+                  Das Plugin "orbit.dat" wurde weiter ausgebaut. Es ist nun
+                  mîglich - nach der Darstellung auf dem Monitor - durch
+                  drÅcken der Taste 'S' ein Screenshot zu machen. Dieses
+                  wird dann als PCX-Graphik unter dem Datensatznamen im
+                  Standardunterverzeichnis "ORBIT" abgespeichert. Das Plugin
+                  "orbit.dat" ist somit voll integriert.
+                  Experimentiell wurde zudem das Plugin "masscomp.dat" hin
+                  zugefÅgt. Dieses Plugin stellt einen Vergleich der Masse
+                  eines Exoplaneten oder so mehrere zischen den Gasplaneten
+                  unseres Sonnensystems auf dem Monitor dar. Es kann eben-
+                  falls durch das DrÅcken der Taste 'S' wÑhrend der Darstell-
+                  ung ein Screenshot erzeugt werden. Dieses wird dann als PCX-
+                  Graphik unter dem Datensatznamen im Standardunterverzeich-
+                  nis "MASSCOMP" abgespeichert.
+                  In allen Komponenten der EXOPLANETEN-DATENBANK EXO-DB2
+                  ist zudem das Verzeichnis-Handling verbessert worden.
+

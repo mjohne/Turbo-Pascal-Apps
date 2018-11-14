@@ -1,0 +1,6 @@
+Ver  Datum        Beschreibung
+---  -----        ------------
+
+0.1  06 Okt 2003  Die Grundfunktionen fÅr die Erstellung und Verwaltung fÅr
+                  den Neuentwurf der EXOPLANETEN-DATENBANK EXO-DB2 wurden
+                  bereitgestellt.

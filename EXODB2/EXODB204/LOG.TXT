@@ -1,0 +1,65 @@
+Ver  Datum        Beschreibung
+---  -----        ------------
+
+0.1  06 Okt 2003  Die Grundfunktionen fr die Erstellung und Verwaltung fr
+                  den Neuentwurf der EXOPLANETEN-DATENBANK EXO-DB2 wurden
+                  bereitgestellt.
+
+0.2  08 Okt 2003  Prim„res Ziel dieser Version ist es die Bedienung und Aus-
+                  fhrung der EXOPLANETEN-DATENBANK EXO-DB2 etwas zu verein-
+                  fachen und sicherer zusammen. Deshalb wurde die Sicher-
+                  heitskomponente "RUNTIME Watcher" implementiert, damit die
+                  Fehlermeldungen sich leichter analysieren lassen. Zudem
+                  ist die Dateneingabe verbessert worden.
+                  Zu den Objekten "Stern" und "Exoplanet" wurden einige Ei-
+                  genschaften hinzugefgt.
+                  Experimentiell wurde zudem das Plugin "orbit.dat" hinzu-
+                  gefgt. Dieses Plugin zeigt die Darstellung des Orbits
+                  eines Exoplaneten oder so mehrere auf dem Monitor an.
+                  In Planung stehend wurden zudem die weiteren Plugins
+                  "Sternkarte" und "Masse-Vergleich" in der EXOPLANETEN-
+                  DATENBANK EXO-DB2 angedeutet.
+
+0.3  11 Okt 2003  Zuerst wurde zus„tzlich an einem kleines Konvertierungs-
+                  Tool namens "convert.exe", welches Datens„tze aus dem
+                  alten EXODB-Format in das neues EXODB2-Format unter An-
+                  gabe einiger weiterer Eigenschaften hinber transform-
+                  ierte. Zudem wurde ein direkter Aufruf in die aktuelle
+                  Testversion der EXOPLANETEN-DATENBANK EXO-DB2 bereits
+                  gestellt.
+                  Das Plugin "orbit.dat" wurde weiter ausgebaut. Es ist nun
+                  m”glich - nach der Darstellung auf dem Monitor - durch
+                  drcken der Taste 'S' ein Screenshot zu machen. Dieses
+                  wird dann als PCX-Graphik unter dem Datensatznamen im
+                  Standardunterverzeichnis "ORBIT" abgespeichert. Das Plugin
+                  "orbit.dat" ist somit voll integriert.
+                  Experimentiell wurde zudem das Plugin "masscomp.dat" hin
+                  zugefgt. Dieses Plugin stellt einen Vergleich der Masse
+                  eines Exoplaneten oder so mehrere zischen den Gasplaneten
+                  unseres Sonnensystems auf dem Monitor dar. Es kann eben-
+                  falls durch das Drcken der Taste 'S' w„hrend der Darstell-
+                  ung ein Screenshot erzeugt werden. Dieses wird dann als PCX-
+                  Graphik unter dem Datensatznamen im Standardunterverzeich-
+                  nis "MASSCOMP" abgespeichert.
+                  In allen Komponenten der EXOPLANETEN-DATENBANK EXO-DB2
+                  ist zudem das Verzeichnis-Handling verbessert worden.
+
+0.4  15 Okt 2003  Das Plugin "orbit.dat" wurde um eine Eigenschaft erwei-
+                  tert. Man kann nun den Mittelpunkt nach links und rechts
+                  oder oben und unten verlagern. Dies ist notwendig, falls
+                  die gezeichnete Bahn durch die Beschriftung gest”rt wird.
+                  Das Plugin "masscomp.dat" ist nebenbei vollst„ndig inte-
+                  griert.
+                  Der Schwerpunkt dieser Version liegt aber am neuen Plugin
+                  namens "starmap.dat". Dieses Plugin stellt eine bestimmte
+                  Anzahl von Orten ausgew„hlter Exoplaneten auf einer bezei-
+                  chneten Sternkarte dem Monitor dar. Hier bei liegt die
+                  Liste "stars.dat". Sie beinhaltet die Koordinaten und die
+                  Helligkeit (bis 6.9 mag) von 15.383 Sternen im vermutlich-
+                  en quinoktium J1950.
+                  Im neuen Plugin kann ebenfalls durch das Drcken der Ta-
+                  ste 'S' w„hrend der Darstellung ein Screenshot erzeugt
+                  werden. Dieses wird dann als PCX-Graphik unter dem Daten-
+                  satznamen im Standardunterverzeichnis "STARMAP" abgespei
+                  chert.
+
