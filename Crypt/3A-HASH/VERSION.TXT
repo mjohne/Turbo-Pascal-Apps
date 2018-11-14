@@ -1,0 +1,202 @@
+3a-Hash Version 1.0a DOS TP-7.0
+===============================
+
+Das Prinzip einer Hash-Funktion hat mich „hnlich wie das Ent- und Verschls-
+seln sehr inspiriert. Deshalb wurde XOR-Hash v1.0 entwickelt. Doch wer die
+zugeh”rige Datei VERSION.TXT verlesen, der weiá, daá das Programm einen re-
+lativ schweren Fehler hat. Aus noch ungekl„rten Grnden beendet sich das Pro-
+gramm, obwohl noch kein Dateiende in Sicht ist. Aber die XOR-Hash-Entwicklung
+brachte es zur einer weiteren Entwicklung, jenen Hash-Algorithmus, den ich
+selbst erfunden habe: 3a-Hash.
+Der 3a-Hash basiert auf einen sogenannten 3a-Algoritmus, einen recht omin”sen
+Algorithmus, wie ich finde, der ein biáchen mit Mathematik zu tun hat.
+Ich erkl„re diesen 3a-Algorithmus folgendermaáen:
+1. Zuerst wird eine positive und ganzzahlige Zahl eingegeben. Sie sollte aber
+   gr”áer als eins sein.
+2. Die folgenden Vorg„nge werden immer wiederholt, ...
+3. Ist die Zahl, als Variable a genannt, durch 2 Rest 0 teilbar, wird a durch
+   a DIV 2 ersetzt.
+4. Ansonten wird a mit 3 multizpliziert und eins dazu addiert. Also: 3*a+1.
+5. ... bis a gleich eins ist.
+Doch das Besondere an dem 3a-Algorithmus ist, dass man jede beliebige positive
+und ganzzahlige Zahl eingibt und das daraus resultierende a ist immer 1. (Warum
+dies so ist, das weiá bisher kein Mensch und dieses Ph„nomen konnte auch nicht
+mathematisch begrndet werden.)
+Das beweise ich nun an drei zuf„lligen Zahlen. Ich nehme 15-01-1983 (meinen
+Geburtsdatum). Beginnen wir mit 15:
+15 / 2 = 14 Rest 1. Also daraus a nicht ist nicht a DIV 2, sondern a = 3 * a + 1.
+a = 46, a = 3 * 15 + 1 = 46. Das neue a ist gleich 46
+46 / 2 = Rest 0. Nun wird aus a = a DIV 2. (DIV berdeutet "/")
+a = 46, a = 46 / 2 = 23. Nun kann man mit 23 weiter machen.
+23 / 2 = 11 Rest 1. Hier ist wieder wegen Rest ungleich 0 a = 3 * a + 1.
+a = 23, a = 3 * 23 + 1 = 70. Mit a = 70 k”nnte man jetzt weitermachen, doch
+ich nicht jede einzelne Rechnung auffhren, sondern nur zeigen, wie dies funk-
+tioniert. Das neue a = 70 kommt ber folgende Zahlen: 35 106 53 160 80 40 20
+10 5 16 84 2 doch noch in 17 Schritten an die gegebene Bedingung: a = 1.
+Es folgt der Beweis der zweiten Zahl 1. Also ist der Startwert von a = 1. H„h,
+a = 1? Genau, dem schlauen Leser wird sicher nun aufgefallen sein, dass der
+Startwert die Endbedingung erfllt: a = 1. Weiter oben wurde ja gesagt, dass
+bei der Eingabe eine Zahl gr”sser 1 eingegeben werden sollte. Und hier ist im
+zweiten Zahlenbeweis der Grund. Mehr braucht man dazu nicht zu sagen.
+Zahlenbeweis 3: a ist 1983. Da ungerade ist, also nicht durch 2 Rest 0 teilbar,
+wird a = 3 * a + 1 verwendet. Dann ist a = 5950. Das neue a ist dann durch 2
+Rest 0 teilbar. A ist somit dann 2975 und findet ber die Zahlen 2975 8926
+4463 13390 6695 20086 10043 30130 15065 45196 22598 11299 33898 16949 25424
+12712 6356 3178 1589 4768 2384 1192 596 298 149 448 224 112 56 28 14 7 22 11
+34 17 52 26 13 40 20 10 5 16 8 4 2 und in insgesamt 50 Schritten durch der
+Bedingung a = 1.
+
+Doch wie wendet man den 3a-Alogrithmus als 3a-Hash an? Dazu braucht man fol-
+gende Grundkenntnisse. In DOS k”nnen maximal 256 Zeichen dargesetllt werden.
+Diesen Zeichensatz nennt man ASCII bzw. ANSI. Dabei wird intern jedem Zeichen
+einen Wert zugeordnet. Zum Beispiel hat der Buchstabe A das dezimale Zeichen
+65, die Zahl 1 hat 49 und der Esc-Taste wird der Wert 13 zugeordnet. Diese
+Zahlen kann man als Eingabewerte fr einen 3a-Algorithmus verwenden. Also w„re
+a = 65 (der Buchstabe A). Dann wrde a ber die Zahlen 196 98 49 148 74 37 112
+56 28 14 7 22 11 34 17 52 26 13 40 20 10 5 16 8 4 2 in 27 Schritten zu a = 1
+werden. Hier kommt eine zweite Variable n ins Spiel. Es wird zum Anfang n=a
+gesetzt und nach jeder neuen Wertzuweisung wird n mit n+a addiert. Und n ist
+dann der Hashwert. Als Beispiel fr die Verdeutlichung nehmen wir wieder a = 65:
+
+ a    n
+---  ---
+196  196
+ 98  294
+ 49  343
+148  491
+ 74  565
+ 37  602
+112  714
+ 56  770
+ 28  798
+ 14  812
+  7  819
+ 22  841
+ 11  852
+ 34  886
+ 17  903
+ 52  955
+ 26  981
+ 13  994
+ 40  1034
+ 20  1054
+ 10  1065
+  5  1070
+ 16  1086
+  8  1094
+  4  1098
+  2  1100
+
+Somit ist einemn einzigen Buchstaben (A) schon ein Hash-Wert (1100) allein 
+zuzuordnen. Als n„chstes Beispiel folgt die Zahl 1 (=49):
+
+ a    n
+---  ---
+148  148
+ 74  222
+ 37  259
+112  371
+ 56  427
+ 28  455
+ 14  469
+  7  476
+ 22  498
+ 11  509
+ 34  543
+ 17  560
+ 52  612
+ 26  638
+ 13  651
+ 40  691
+ 20  711
+ 10  721
+  5  726
+ 16  742
+  8  750
+  4  754
+  2  757
+
+Nun folgt noch das Beispiel mit der ESCAPE-Taste (=13):
+
+ a    n
+---  ---
+ 40   40
+ 20   60
+ 10   70
+  5   75
+ 16   91
+  8   99
+  4  103
+  2  106
+
+So liest man die einzelnen 3a-Hashwerte von ASCII bzw. ANSI-Zeichen. Wenn nun
+die dezimalen Werte 65, 49 und 13 in einer Datei stehen wrde, k”nnte man nach
+dem tabellarischen Schema den 3a-Hash durch Addieren aller ermittelten Hash-
+werte den 3a-Hashwert fr die Datei ermiteln. Angenommen unsere Datei hat die
+nun wieder die Werte 65 49 13. Dann w„re der 3a-Haswert fr diese Datei gleich
+1100 + 757 + 106 = 1963. Doch diese Denkweise ist falsch, denn eigentlich máte
+der Wert 1338 erfolgen. Wrde man in der alten Denkweise in der Datei den
+ersten Wert mit dem letzten Wert vertauschen, k„me wieder 1963, denn 106 + 757 +
+1100 = 1963. Aber es kommt in Wirklichkeit der 3a-Hashwert 1976 heraus. Der 
+Grund ist n„mlich, man darf nicht fr jedes Zeichen erst einen Einzelwert er-
+mitteln und sie dann zur einem Gesamtwert addieren, sondern daá n als Wert
+durch die gesamte Datei hinweg immer nur mit der Variable a addiert werden
+darf. Nur am Anfang wird n mit a gleichgestellt.
+Das klingt sicher etwas verwirrend und kompliziert. Doch probiert es einmal aus.
+Erstellt zun„chst eine Datei mit den dezimalen Werten 65 49 13 und eine zweite
+Datei mit 13 49 65. Bei beiden Dateien erh„lt man den falschen Hashwert 1963.
+Doch in Wirklichkeit bekommt man fr die Werte Datei den 3a-Hashwert 1338 und
+fr die zweite Datei 1976.
+Dies kann man als Wirkung gegen Manipulationen von Dateien vorsehen.
+
+Probleme
+========
+Folgende Probleme konnten noch nicht behoben werden:
+ * Erst hat sich gezeigt, dass 3a-Hash v1.0 der gleiche abrupten Programmab-
+   wie bei XOR-Hash v1.0 auftritt. Die Ursache konnte noch nicht gefunden
+   werden.
+
+
+3a-Hash Version 2.0a TP7.0
+==========================
+
+Endlich konnte das Problem des pl”tzlichen Programmabruches in XOR-Hash v1.0
+ergrndet werden und eine geeignete L”sung gefunden worden. Da in 3a-Hash v1.0
+genau das gleiche Problem auftrat und ich vermutete, es hat die gleiche Ur-
+sache, weil sie in der internen Programmstruktur sehr „hneln.
+Also wurde das L”ungskonzept, das XOR-Hash v2.0 eingesetzt wurde, fr 3a-Hash
+v2.0 umgesetzt, obwohl 3a-Hash v1.0 noch nicht gerade fertig war, sondern nur
+als Testversion zur Verfgung stand.
+Wie ich vom Problem zur L”sung kam, sei nun hier von XOR-Hash v2.0 rezitiert:
+"Am Ende der VERSION.TXT von XOR-Hash v1.0 habe ich gesagt, dass bei komplexen
+Dateien wie EXE und COM, oder auch Grafikdateien, die Ermittlung des XOR-Hash-
+wertes oft ohne ersichtlichen Grund abbrach und dass als Ursache die ASCII-
+Zeichen wie 255 oder 0 als "bliche Verd„chtige" in Frage kamen.
+Mit meiner Vermutung hatte ich gar nicht so unrecht. Ich habe mir das Zeichen
+mit dem Wert 255 genauer betrachtet. Mir ist dabei aufgefallen, dass dieses
+Zeichen auch die Bezeichnung EOF tr„gt. hnlich wie das Zeichen der Entertaste
+CR bezeichnet und "Carritage Return" (Wagenrcklauf) bedeutet, steht EOF fr
+"End of File" (Ende der Datei). Damit war das Problem vollkommen klar. Zusam-
+menfassend ergab sich: Wird beim Ermitteln des XOR-Hashwertes ein Zeichen mit
+dem Wert 255, wird dem Programm "XOR-Hash v1.0" signalisiert, dass das (schein-
+bare) Ende einer Datei erreicht, obwohl es eigentlich gar nicht stimmt, und das
+Programm beendet wird, nachdem es den vorl„ufig ermittelten XOR-Hashwert aus-
+gibt.
+Nun hatte ich den Grund fr das Problem, warum das Program unwiderruflich be-
+endet wurde. Doch wie findet mneine L”sung dafr und setzt sie wirksam ein.
+Tja, die erste Version meines Programmes wurde durch einer Wiederholgungs-
+schleife programmiert, bis die Bedingung "EoF(Datei) = True" erreicht ist, d.h.
+bis das Ende einer Datei kommt. Und wenn nun das Zeichen 255 gelesen wird
+und... na, dann weiá man jetzt, was das bedeutet.
+Also habe ich als Alternativl”sung die internen Programmstrukturen etwas abge-
+„ndert. Zuerst wurde die Wiederholungsschleife mit der Bedingung, bis sie
+erreicht ist, gel”scht. Erst wurde die Dateigr”áe einer Datei ermittelt, welche
+gebraucht wird, um den XOR-Hashwert zu bestimmen. Und dann wurde fr die Wie-
+derholungsschleife eine Z„hlschleife von 1 bis zur ermittelten Dateigr”áe in
+Byte implementiert.
+Und, siehe da, die Ermittlung des XOR-Hashwertes einer Datei funktioniert seit
+der zweiten Version so wie es sein sollte."
+Dieses positive Ergebnis kann man auch nun fr 3a-Hash v2.0 sagen. Die Er-
+mittlung eines 3a-Hashwertes einer Datei erfllt sich hervorragend.
+(Man sehen, vielleicht setze ich die Prfsummen CRC 16-bit und CRC 32-bit als
+Hashwertermittlung einer Datei in ein Programm um.)

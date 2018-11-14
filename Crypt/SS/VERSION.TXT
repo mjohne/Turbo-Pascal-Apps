@@ -1,0 +1,143 @@
+SECRET-SPLITTING Version 1.0a DOS TP-7.0
+========================================
+
+W„hrend ich zur Zeit mich mit Hash-Funktionen besch„ftige, las ich im Buch von
+Bruce Schneier ("Angewandte Kryptologie") etwas ber 'Secret Splitting'. Diese
+Idee hat mich sofort angetan. Nach einigen šerlegungen kam ich zum Schluá, daá
+es sich ganz leicht in einer Programmiersprache auf PC bersetzen l„sst.
+Secret Splitting - what's that?   Frei bersetzt heiát es soviel wie "Geheimes
+Aufspalten" und in Anwendung bedeutet es, daá bestimmte geheime Dokumente mit-
+ttels Secret Splitting "aufgeteilt" werden.  Unter "Aufteilen" wird man sicher
+jetzt verstehen, daá zum Beispiel eine X-Akte in Textformat in ...hm... sieben
+gleichgr”áe Stcke aufgeteilt wird: Angenommen eine X-Akte mit dem Namen 'UFO'
+ist 7000 Bytes groá und in 7 Stcke aufgeteilt w„re jedes Stck genau 1000 By-
+tes groá.
+Doch so direkt l„uft dieses Verfahren nicht.  Zwar gibt es diese Methode,  die
+unter dem Namen 'File Splitting' heiát, um Dateien in bestimmte Gr”áen zu tei-
+len (splitten), z. B. 1.44 MB um riesige Dateien verteilt genau immer auf eine
+Diskette zu kopieren,  doch beim 'Secret Splitting'-Verfahren werden keine Da-
+teigr”áen geteilt,   sondern sowas wie verschlsselte Kopien der X-Akte  'UFO' 
+erstellt.  Das Originaldokument wird dann gel”scht und wenn die Zeit reif ist,
+wird aus den verschlsselten Kopien das Originaldokument wiederhergestellt.
+Praktisch, nicht?  Und das Prinzip der Verschlsselung,  obwohl es im strengen
+Sinne zu 'Secret Splitting' keine ist, beruht auf einem 'One Time Pad' und na-
+trlich einer XOR-Verknpfung. Beim 'Secret Splitting' gibt es zwei Verfahren,
+um Dokumente zu splitten.  Ich nenne sie "Construct" und "Reconstruct".  "Con-
+struct" bedeutet, daá aus dem Original verschlsselte Kopien entstehen und mit
+"Reconstruct" werden aus den Kopien das Original wieder hergestellt. (Mein SS-
+Programm stellt in der ersten Version nur zwei Kopien,  d.h. die Kopien k”nnen
+nur an zwei Leuten verteilt.   Also Kopie 1 beh„lst Du und die 2. Kopie erh„lt 
+Dein Freund.  Oder die beiden Kopien verteilt Du an zwei Freunde.   Jedenfalls 
+finden sich x-Kopien an x-Personen wieder.)
+Wie jetzt genau  'Construct' und  'Reconstruct' bei  'Secret Splitting' und in
+Bezug mit meinen Programm verwendet werden, zeigt folgende Fallstudie:
+Scully und Mulder haben auf einer Diskette einige Daten, die wichtige Worddok-
+umente und Ufo-Graphiken enthalten.  Um sicher zu gehen, daá diese Daten nicht
+fremde H„nde der NSA fallen, wenden sie beide das 'Secret Splitting' mit mein-
+en Programm natrlich an. PC angeschlatet.... SS.EXE gestartet.... und auf dem
+Monitor steht:
+
+Secret Splitting
+================
+(1)-Construct or (2)-Reconstruct
+
+Um die Daten auf der Floppy zu splitten, drcken sie auf der Tastatur die '1'.
+
+message file:
+
+Sie werden nun aufgefordert, dem Namen der wichtigen Datei/en einzugeben.  An-
+genommen die wichtige Datei heiát UFO.TXT. Zuerst wird die Dateigr”áe von UFO.
+TXT ermittel (sie ist 50000 Bytes groá) und dann erfolgt die Eingabe eines Na-
+men fr die Schlssel-Datei...
+
+name of file to save the random key:
+
+und Scully gibt KEY.DAT ein.  Es wird nun eine leere Datei erstellt und soviel
+mal ein zuf„lliges Zeichen aus dem ASCII-Format (0-255) erstellt, wie groá die
+UFO.TXT ist; also 50000-mal.  Dann ist die Datei KEY.DAT ebenfalls 50000 Bytes
+groá. KEY.DAT ist dann eine (scheinbare) Kopie von UFO.TXT. In der KEY.DAT ex-
+istiert brigens nur Buchstabensalat z.B.: DCXVFZH&TGCB%ZHN&VCBJ/UVNZ....
+
+random key will creat...
+
+( Es wird je von der Dateigr”áe und der Prozessorgeschwindigkeit abh„ngen, wie
+lange es dauert, bis der Schlssel per Zufall ein der lerren Datei eingetragen
+worden ist. )
+
+name of file for secret split:
+
+Und nun gibt Mulder den Namen der Datei ein,  die durch das 'Secret Splitting'
+entstehen soll. Zum Beispiel heiát diese Datei dann 'TOPSECRET.LOG'.  Sie wird
+leer ge”ffnet. Nach allen Eingaben sieht es auf dem Monitor so aus:
+
+message file: UFO.TXT
+name of file to save the random key: KEY.DAT
+random key will creat...
+name of file for secret split: TOPSECRET.LOG
+
+Nun geschieht das eigentliche Verfahren von Secret Splitting.  Es wird ein nun
+ein Zeichen aus UFO.TXT gelesen und ein Zeichen aus KEY.DAT. Beide werden XOR-
+verknpft und das daraus neu entstandene Zeichen wird in TOPSECRET.LOG  einge-
+tragen. Dieser Vorgang wird nach der Dateigr”áe von 'UFO.TXT' in Bytes wieder-
+holt; also wieder 50000-mal. Zum Schluá ist die Datei 'TOPSECRET.LOG' auch 50-
+000 Bytes groá und ebenfalls eine (scheinbare) Kopie von UFO.TXT.  (konkreter:
+Es ist das Ergebnis, wenn man eine Originaldatei mit einer zuf„llig erstellten
+Schlsseldatei XOR-verknpft.)
+
+message file will delete...
+
+Mulder und Scully haben beschloáen, daá die Originaldaten auf der Diskette ge-
+l”scht werden,  damit nicht der Klartext erkennbar ist.  Es existieren demnach
+nur zwei Kopien, die eine wahllose Ansammlung von sonderbaren Zeichen enthalt-
+en.  Scully erh„lt die 'TOPSECRET.LOG'-Datei und Mulder bekommt den 'KEY.DAT'-
+Schlssel.
+Wenn beide FBI - Agenten von der NSA berfallen werden und ihre Dateien wrden
+entwendet werden,  erkennt die NSA,  daá beide Dateien keine "sinnvolle" Daten
+enthalten und sie erhalten die zwei Dateien wieder zurck. ( Was jedoch in der
+Realit„t nicht so ist:  a) Sie Dateien werden gel”scht oder b) beiden wird das
+umgebene Geheimnis mit Gewalt herausgezwungen. )
+Im FBI - Hauptquartier bei Skinner eingetroffen, wird die Originaldatei wieder
+erstellt:
+
+Secret Splitting:
+=================
+(1)-Construct or (2)-Reconstruct
+
+Mulder drckt die Taste '2', um natrlich das Original wieder herzustellen.
+
+file by secret split:
+
+Scully gibt 'TOPSECRET.LOG' ein, weil es die Datei ist, die sprichw”rtlich du-
+rch das 'Secret Splitting' entstand und auáerdem ist sie noch Besitzerin dies-
+er Datei. Das Program ermittelt die Dateigr”áe von Scullys Datei: 50000 Bytes.
+
+file by random key:
+
+Jetzt gibt Mulder den Namen der Schlsseldatei ein,  die dringendst  gebraucht
+wird, um die UFO.TXT zurckzugewinnen.
+
+name of message file to reconstruct:
+
+Nun wird der Originalname der Datei eingegeben.
+
+Voil…, das ganze sieht auf dem Monitor von Skinner folgendermaáen aus:
+
+file by secret split: TOPSECRET.LOG
+file by random key: KEY.DAT
+name of message file to reconstruct: UFO.TXT
+
+Hier erfolgt die Zurckgewinnung durch 'Reconstruct': Es wird jeweils ein Zei-
+chen aus TOPSECRET.LOG und aus KEY.DAT gelesen. Beide werden XOR-verknpft und
+das neu entstandene Zeichen wird in UFO.TXT eingesetzt.  Dieser Vorgang dauert
+soviel mal, wie die Gr”áe von TOPSECRET.LOG in Bytes; also 50000 Bytes. Und es
+dauert nicht mehr lange, bis UFO.TXT in voller Echtheit wieder da ist.
+
+key file will delete...
+file by secret split will delete...
+
+Am Ende werden beide Dateien gel”scht,   weil sie nicht mehr gebraucht werden.
+Danach hatte mir  Scully noch einen  Verbesserungsvorschlag fr mein  Programm
+gegeben, daá ich die Zahl der Kopien durch den Benutzer variabel ist. Also man
+k”nnte dann statt zwei Kopien an zwei Leute verteilen nun auch mit sieben Kop-
+ien sieben Freunde damit beschenken.  Das wird wohl in der zweiten Version ge-
+schehen.

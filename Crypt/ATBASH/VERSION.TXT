@@ -1,0 +1,48 @@
+Atbash-Code Version 1.0a DOS TP-7.0
+===================================
+
+Die   Atbash-Verschlsselung   ist   eine  an  fr  sich  sehr	bemerkenswerte
+Verschlsselung.  Es  handelt  sich  dabei  um	eine  reine  monoalphabetische
+Substitutionscodierung,  die sehr viel mit der C„sar-Verschlsselung gemeinsam
+hat.
+Der   zeitliche  Ursprung  der	Entstehung  dieser  Verschlsselung  liegt  im
+Mittelalter  zurck;  wenn  nicht  sogar  im Frhzeitalter. Damals wurde diese
+Verschlsselung   von  den  Christen  in  der  Bibel  gebraucht  um  bestimmte
+Gemeinnisse  zu verstecken. Der Name "Atbash" leitete sich aus dem hebr„ischen
+Alphabet  ab.  Das "A" kommt vom ersten Buchstaben "Alef", das "T" vom letzten
+Buchstaben  "Taw".  Es	folgte	fr  das "B" und das "A" der zweite hebr„ische
+Buchstabe "Bet" und fr "SH" der vorletzte Buchstabe "Schin".
+Vielleciht   merkt   man   beim   "Buchstabenzusammensetzem"  schon,  wie  die
+Atbash-Verschlsselung funktionieren k”nnte.
+Angenommen wir haben eine alphabetische Folge von Buchstaben: abc...xzy. Diese
+Buchstabenfolge  wrden  wir  dann  vor  dem  Spiegel  halten  und es k„me die
+verspigelte  Folge  yzx...cba.	Das  Zentrum  oder  die  Mitte,  wo  die  zwei
+Buchstaben  nur  um  eine  Einheit  (also ein Buchstabenweite: a zu b, s zu t)
+liegt  bei  'M' und 'N'. Dort wrde eine Verschiebung (Delta genannt) gleich 0
+sein. Nun kommt ein Ch„sar-Veraschlsselung ins Spiel: Das Zentrum mitsamt der
+verspiegelten  Buchstabenfolge	wird  um  x  (z.  B.  3)  Einheiten nach links
+verschoben.  Dann  werden  wie	gewohnt  bei  einer  C„sar-Verschlsselung die
+Buchstaben  in	Zahlen	(nach  dem ASCII-Standard) umgewandelt und miteinander
+addiert.  Falls  diese	neue  Zahl  gr”sser  als 255 ist, so wird dann 255 von
+dieser	Zahl  abgezogen.  Die neue Zahl wird dann (nach dem ASCII-Standard) in
+ein Zeichen verwandelt.
+Es folgt noch einmal eine kleine Verdeutlichung und dann ein Beispiel:
+
+x-beliebige Folge:			abcdefghijklmnopqrstuvwzyx
+spiegeltverkehrt:			xyzwvutsrqponmlkjihgfedcba
+um 3 Einheiten nach links verschoben:	wvutsrqponmlkjihgfedcbaxyz
+					--------------------------
+  Addierung ursprngliche Folge:	abcdefghijklmnopqrstuvwzyx
++ verschobene spiegelverkehrte Folge: + wvutsrqponmlkjihgfedcbaxyz
+= ergibt zusammen:		      = ¡ Ÿœ›š™˜—–•”“’‘Œ‹ˆ‰Š
+
+Beispiel
+--------
+Dateiinhalt:	      Beispiel fr ATBASH-Verschlsselung
+		    + lesslhcsreV-HSABTA rf leipsieBgnu (bei Delta = 3)
+		      ===================================
+neuer Dateiinhalt:  = À™’™–âœâÁ®ÀÁ¯ºÕ¬Ÿš––”›
+
+Probleme
+--------
+* Bisher sind mir keine Probleme bekannt.

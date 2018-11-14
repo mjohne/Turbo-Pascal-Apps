@@ -1,0 +1,44 @@
+ROT13-Code Version 1.0a DOS TP-7.0
+==================================
+
+Noch w„hrend ich an der Testverion des OTP-Code (one time pad) arbeite, habe
+ich nach einer spontanen Inspiration des Quellcodes der ROT13-Verschlsselung
+von Oliver Maschino, der wiederum von www.computec.ch inspiriert wurde, meine
+eigene Version der ROT13-Verschlsselung programmiert (ca. 30 Minuten).
+ROT13 - Was ist das? ROT13 ist eigentlich eine spezielle Version einer
+C„sar-Verschlsselung. Bei einer typische C„sar-Verschsselung wird das
+Alphabet um 3 Stellen nach rechts verschoben, obwohl man auch 4, 5, 6, ...
+usw. verwenden kann. Bei einer ROT13-Verschlsslung wird nun das Alphabet
+um 13 Stellen nach rechts verschoben. Erweitert auf den ASCII- bzw. ANSI-
+Zeichensatz wird eben das Character-Zeichen der ENTER-Taste (
+) zur Verschie-
+bung auf die restlichen 255 Zeichen benutzt.
+
+Beispiel
+--------
+Dateiinhalt:	      Beispiel fr ROT13-Verschlsselung
+Verschiebung:	    + ==================================
+neuer Dateiinhalt:  = Orv€}vry-s-_\a>@:cr€puy€€ry‚{t
+
+ROT13-Code wurde direkt aus dem Quellcode von C„sar-Code v2.0 verwendet und
+tr„gt daher bis auf die Ver/Entschlsselung alle gleichen Eigenschaften.
+Somit ist auch die Gr”áe der EXE- und der Quellcode-Datei (fast) gleich groá,
+ROT13 ist nur um sehr wenige Byte (< 250) kleiner.
+Die Verwendung eines ROT13-Algorithmus findet man heute noch gelegentlich
+auf einigen Unix-Systemen. Theoretisch k”nnte man neben einer Verschlss-
+elung von 13 Stellen auch einen Algorithmus mit einer Verschiebung von 100
+Stellen programmieren (z.B. ROT100), aber diese Bedingungen erfllt schon
+der C„sar-Code v2.0 von mir.
+
+Probleme
+--------
+Folgende Probleme konnten noch nicht behoben werden:
+ * keine Korrektur des eingegebenen Texts zum Verschlseln
+
+
+ROT13-Code Version 2.0a TP-7.0
+==============================
+
+In dieser zweiten Version habe ich lediglich das manuelle Eingeben eines Text-
+es,  die zur Speicherung in eines Datei fhrt, herausgenommen.	Diese Funktion
+ist, bis mir eine vollkommene Besserung eingefallen ist, nicht mehr enthalten.

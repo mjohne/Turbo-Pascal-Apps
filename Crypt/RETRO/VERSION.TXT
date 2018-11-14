@@ -1,0 +1,31 @@
+Retro-Code Version 1.0a DOS TP-7.0
+==================================
+
+Neulich   inspirierte	mich   ein   Buch   fr   die	Programmierung	diesen
+Verschlsselungsalgorithmus.  Dieses  Buch  hiess  "Codes, Chiffren und andere
+Geheimsprachen"  und es wurde von Fred B. Wrixon geschieben. Dieses 700 Seiten
+starke Buch kostete mich als Schn„ppchen nur 12,95 EUR.
+In  einem  dieser Seiten fand ich nun die grundlegenden Kenntnisse ber dieses
+Ver/Entschlsselungsverfahren.	Die Programmierung war so simpel, dass noch am
+selben Tag die Kernfunktion der Verschlsselung vollkommen funktionierte.  Ich
+hatte lediglich  etwas	Probleme  mit  der  lesbaren  Gr”sse einer Datei. Nach
+einem  Programm  konnte  man  Dateien mit einer Gr”sse von maximal 64 KiloByte
+verschlsseln.	Aber  als  L”sung  einer  Benutzung  eines Pointer-Arrays, die
+die  gr”sser als 64KB grosse Datei mehrfach und in Abschnitten liest, schaffte
+das Problem aus der Welt.
+Bei  der   Retro-Verschlssel	handelt   es   sich   nun   um	 eine	simple
+Transportationsverschlsselung, d.h. nur die Pl„tze der Zeichen in einer Datei
+werden	vertauscht. In einer Retro-Verschlsselung wird der Inhalt einer Datei
+gelesen  und  rckw„rts  in eine neue Datei geschrieben. Wenn als die gelesene
+Reihenfolge   a   =   1,2,3,4,5,...,n	ist,   dann   ist   die   geschriebene
+Datenreihenfolge nun b = n,...,5,4,3,2,1.
+
+Beispiel
+--------
+Dateiinhalt:	      Beispiel fr RETRO-Verschlsselung
+		      ==================================
+neuer Dateiinhalt:  = gnulesslhcsreV-ORTER rf leipsieB
+
+Probleme
+--------
+* So weit ich weit, sind mir keine Probleme bekannt.

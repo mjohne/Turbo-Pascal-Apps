@@ -1,0 +1,73 @@
+Fence-Code Version 1.0a DOS TP-7.0
+==================================
+
+Diese Verschlsselung wird auch manchmal "Gartenzaun"-Verschlsselung genannt.
+(Gartenzaun   heisst  im  Englischen  "fence".)  Das  geht  dabei  auf	seiner
+Erscheinungsform  zurck, die wie die Zacken eines Gartenzauns aussehen. Dabei
+handelt es sich um eine Transportationsvrschlsselung in einer	Zickzack-Form.
+Das  Prinzip  dieser  Veraschlsselung	geht in die Zeit eines Krieges zurck.
+Damals	haben  n„mlich	die Kinder mit Kreide solche verschlsselte Botschaftn
+fr andere Kinder an Hausw„nden geschrieben.
+Wie  sieht  nun  diese Verschlsselung nun aus? Am besten bedeutlicht man dies
+anhand	   einer     kleinen	 Darstellung	mit    der    Buchstabenfolge:
+abcdefghijklmnopqrstuvwxyz.  Bei  der  Ausbung einer Verschlsselung muss man
+mit angeben,  wie  hoch  eine "Gartenzaun"-Kurve sein soll. Als Beispiel nehme
+ich den Wert 5.
+
+  Row
+   1	 a	 i	 q	 y
+   2	  b	h j	p r	x z
+   3	   c   g   k   o   s   w
+   4	    d f     l n     t v
+   5	     e	     m	     u
+
+Das  ist  nun  die  Darstellung.  Nun  fasst  man  alle Buchstaben einer Reihe
+zusammen:
+
+Reihe 1: aiqy
+Reihe 2: bhjprxz
+Reihe 3: cgkosw
+Reihe 4: dflntv
+Reihe 5: emu
+
+Zum Schluá wird jede Reihe zu einer gesamten Reihe wieder zusammengesetzt:
+
+aiqy + bhjprxz + cgkosw + dflntv + emu = aiqybhjprxzcgkoswdflntvemu
+
+Die Programmierung dieses Verschlsselungsalgorithmus war die schwierigste und
+ich  habe mir fast die gesamten Z„hne daran ausgebissen. Begonnen habe ich mit
+der  Programmierung  im Winter 2001, habe es aber dann aus schulischen Grnden
+abbrechen  mssen.  Als  ich  irgendwann  im  Frhjahr	2002 die Arbeit wieder
+aufnehmen wollte, merkte ich, ich habe zu dieser Programmierung vollkommen den
+Faden  verloren.  Deshalb  musste ich den ganzen Aufwand neu betreiben. Leider
+ist    es    mir    bis    heute    noch   nicht   geglckt,   den   geeineten
+Entschlsselungsalgorithmus   zu   schreiben,	weshalb   das	Programm   nur
+verschlsseln kann.
+Ein  zweites Manko kann die "primitive" Verteilung der Daten einer Datei sein.
+Um  die Reihen mit ihren Inhalten zu erstellen, habe ich Dateien in der Anzahl
+der  Reihen  erstellt  und  diese  Reihen fr jede Datei hineingeschrieben. Es
+konnten  dabei	maximal  10  Dateien (Reihen) erstellt werden. Danach habe ich
+schlicht  diese  Dateien  zu  einer  neuen  und  somit	verschlsselten  datei
+zusammengesetzt.
+
+Beispiel
+--------
+Dateiinhalt:	      Beispiel fr FENCE-Verschlsselung
+Reihe:		    + 5555555555555555555555555555555555
+		      ==================================
+neuer Dateiinhalt:  = B ChnelfNEclugieE-slsirFVrsep es
+
+Darstellung
+-----------
+alter Inhalt: Beispiel fr FENCE-Verschlsselung
+1   B		    C	    h		 B Ch
+2    e	   l f	   N E	   c l	   u	 elfNEclu
+3     i   e      E   -   s      l n	 ieE-sln
+4      s i     r F     V r     s e   g	 sirFVrseg
+5	p		e	s	 p es
+neuer Inhalt: B ChnelfNEclugieE-slsirFVrsep es
+
+Probleme
+--------
+Folgende Probleme konnten noch nicht behoben werden:
+ * Entschlsselung ist derzeit noch nicht m”glich

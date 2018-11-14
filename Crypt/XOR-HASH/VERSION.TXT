@@ -1,0 +1,86 @@
+XOR-Hash Version 1.0a DOS TP-7.0
+================================
+
+Neben dem Erstellen der Ent/Verschlsselungssoftware meiner Seits habe ich
+mich auch den Einwegfunktionen (Hash-Algorithmen) zugewandt. Solche Hash-
+Funktion erstellen durch den Inhalt einer Datei einen bestimmten Hash-Wert.
+Beispielweise lautet solch ein Wert 153. Oft gibt man diese Werte in hexa-
+dezimaler Schreibweise z.B.: dezimal 153 = hexadezimal 99, aber ich verwende
+zur besseren Verst„ndnis fr durchschnittliche User lieber denm dezimalen
+Ausdruck.
+Hash-Funktionen haben die Aufgabe, einer bestimmten Datei (oder alternativ
+eine Zeichenkette) einen direkten Wert ihres Inhaltes zurck zugeben. Das
+ist zum Beispiel bei Authentizit„t von groáen Nutzen. Autentizit„t bedeutet,
+dass man sicher gehen oder beweisen kann, das eine Nachricht einer Person
+auch wirklich von derselben Person stammt.
+Angenommen wenn Alice eine Nachricht an Bob schicken will, muá sie sicher
+dafr Sorge tragen. dass auch diese Nachricht wirklich von ihr ist, denn
+Mallory k”nnte schnell die Nachricht manipulieren.
+Dazu ermittelt Alice einen bestimmten Hash-Wert ihrer Nachricht und teilt sie
+Bob diesen Hash-Wert mit. Wenn sie nun die Nachricht zu Bob schickt und er
+sie empf„ngt, weiá er an dem folgenden Hash-Wert, der mit dem bermittelten
+Wert berein stimmt, dass die Nachricht von ihr kam.
+H„tte Mallory aber nun die Nachricht abgefangen und sie irgendwie deren In-
+halt ver„ndert, k„me ein ganz anderer Hash-Wert heraus und Bob wsste, dass
+diese Nachricht manipuliert worden w„re.
+Der XOR-Hash hier nun ist eine ganz simple Einwegfunktion. Es werden alle
+Zeichen einer Datei nacheinander XOR-verknpft und deren Endwert entspricht
+ihrem Hash-Wert.
+Vielleicht wrde Alice folgende Nachricht an Bob schicken:
+
+                Das ist ein Beispiel fr ein XOR-Hash
+
+Nun wird Alice jedes Zeichen ihrer Nachricht XOR-verknpfen, um dann den Hash-
+Wert zu erhalten (Leerzeichen z„hlen im Umgang mit einem PC auch mit):
+
+     D xor a xor s xor   xor i xor s xor t xor   xor e xor i xor n xor ...
+
+Wenn das geschehen ist, erh„lt die den dezimalen Wert 218 (hexadezimal D9)
+und diesem Wert teilt sie Bob vorher mit.
+
+Mit Umgang mit meinen erstellten Programm hat sich ein seltsames Ph„nomen er-
+eignet: Manch bricht das Program beim Lesen einer Datei urpl”tzlich und ohne
+ersichtlichem Grund ab. Anstatt eine Fehlermeldung auszugeben, bermittelt es
+den zuletzt erstellten Hash-Wert.
+Als Ursache liegt mir noch keine zu grunde, doch ich vermute, dass ich beim
+XOR-Verknpfen zweier Zeichen sie sich irgendwie nicht "vertragen". Welche
+Byte-Zeichen es genau sind, weiss ich auch noch nicht, aber vielleicht sind
+es die blichen Verd„chtigen: Werte wie 255 oder 0.
+Eine kleine Sicherheitsmaánahme habe ist trotzdem mit eingebaut: Am Ende der
+Benutzung von XOR-Hash v1.0 wird ein Offset-Wert ausgegeben. Das ist die
+Stelle, an den der letzte Teilwert ermittelt wurde. Ist die Gr”áe der Datei
+(in Bytes gemessen) nicht gleich groá wie der Offset-Wert, kann bedeutet das,
+dass die Ermittlung des XOR-Hashwertes fehl schlug.
+
+
+XOR-Hash Version 2.0a TP-7.0
+============================
+
+Am Ende der VERSION.TXT von XOR-Hash v1.0 habe ich gesagt, dass bei komplexen
+Dateien wie EXE und COM, oder auch Grafikdateien, die Ermittlung des XOR-Hash-
+wertes oft ohne ersichtlichen Grund abbrach und dass als Ursache die ASCII-
+Zeichen wie 255 oder 0 als "bliche Verd„chtige" in Frage kamen.
+Mit meiner Vermutung hatte ich gar nicht so unrecht. Ich habe mir das Zeichen
+mit dem Wert 255 genauer betrachtet. Mir ist dabei aufgefallen, dass dieses
+Zeichen auch die Bezeichnung EOF tr„gt. hnlich wie das Zeichen der Entertaste
+CR bezeichnet und "Carritage Return" (Wagenrcklauf) bedeutet, steht EOF fr
+"End of File" (Ende der Datei). Damit war das Problem vollkommen klar. Zusam-
+menfassend ergab sich: Wird beim Ermitteln des XOR-Hashwertes ein Zeichen mit
+dem Wert 255, wird dem Programm "XOR-Hash v1.0" signalisiert, dass das (schein-
+bare) Ende einer Datei erreicht, obwohl es eigentlich gar nicht stimmt, und das
+Programm beendet wird, nachdem es den vorl„ufig ermittelten XOR-Hashwert aus-
+gibt.
+Nun hatte ich den Grund fr das Problem, warum das Program unwiderruflich be-
+endet wurde. Doch wie findet mneine L”sung dafr und setzt sie wirksam ein.
+Tja, die erste Version meines Programmes wurde durch einer Wiederholgungs-
+schleife programmiert, bis die Bedingung "EoF(Datei) = True" erreicht ist, d.h.
+bis das Ende einer Datei kommt. Und wenn nun das Zeichen 255 gelesen wird
+und... na, dann weiá man jetzt, was das bedeutet.
+Also habe ich als Alternativl”sung die internen Programmstrukturen etwas abge-
+„ndert. Zuerst wurde die Wiederholungsschleife mit der Bedingung, bis sie
+erreicht ist, gel”scht. Erst wurde die Dateigr”áe einer Datei ermittelt, welche
+gebraucht wird, um den XOR-Hashwert zu bestimmen. Und dann wurde fr die Wie-
+derholungsschleife eine Z„hlschleife von 1 bis zur ermittelten Dateigr”áe in
+Byte implementiert.
+Und, siehe da, die Ermittlung des XOR-Hashwertes einer Datei funktioniert seit
+der zweiten Version so wie es sein sollte.

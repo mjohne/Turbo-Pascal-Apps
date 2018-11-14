@@ -1,0 +1,42 @@
+VigenŠre-Code Version 1.0a DOS TP-7.0
+=====================================
+
+Diese erste deutsche Version baiert auf die Verschlsselung, die Blaise de
+VigenŠre verfunden hat. Dies ist ein polyalphabetischer Subtititionsverfahren
+und wird heute allgemein als Vorlage auf die in sp„tere Zeit entfundenen und
+weiterentwickelten Verschlselungsalgorithmen in polyalphabetiischer Chiff-
+rierung angesehen.
+Dieses Programm basiert auf den Quellcodes meines anderen Crypt-Programms
+"C„sar-Code Version 2.0a DOS TP-7.0" und wurde nun seperat weiterentwickelt.
+Man wird daher erkennen, dass die Dateil„nge beider Programme etwas gleich
+gross sind, aber "VigernŠre-Code" ist um ca. 1 KByte gr”sser.
+Bei einer Substitutionsverschlsselung werden die Daten einer Datei durch
+eine vom Benutzer definierte Verschiebung durch neue - von der Verschiebung
+additativ verknpfte - Daten ersetzt. Dabei ist es anstatt i. o. genannten
+C„sar-Programm keine einzelne Verschiebung, sondern eine "Folge" von Ver-
+schiebung, also in der Form eines Passwortes: z.B. "P" fr einzelne Ver-
+schiebung und "ABC123.!?" fr eine Folge von Verschiebungen.
+Da dieses VigenŠre-Programm auf dem Aufbau von der zweiten Version des C„sar-
+Programm basiert, gibt es kein "64 KByte"-Problem, nur das unten genannte.
+Auch die Prozentanzeige aus dem "C„sar-Vorl„ufer" wurde in eine Art Skala
+umdesignt.
+
+Beispiel
+--------
+Dateiinhalt:	      Beispiel fr VIGENÔRE-Verschlsselung
+Verschiebung:	    + PasswortPasswortPasswortPasswortPassw
+		      =====================================
+neuer Dateiinhalt:  = ’ÆÜæçØ×àpÇôå—Å»»•¯GÅ¼œÈÙÂÔÖÛãğåçµÍèáŞ
+
+Probleme
+--------
+Folgende Probleme konnten noch nicht behoben werden:
+ * keine Korrektur des eingegebenen Texts zum Verschlsseln
+
+
+VigenŠre-Code Version 2.0a TP-7.0
+=================================
+
+In dieser zweiten Version habe ich lediglich das manuelle Eingeben eines Text-
+es, die zur Speicherung in eines Datei fhrt, herausgenommen. Diese Funktion
+ist, bis mir eine vollkommene Besserung eingefallen ist, nicht mehr enthalten.

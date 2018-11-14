@@ -1,0 +1,70 @@
+CHARSTAT Version 1.0a DOS TP-7.0
+================================
+
+CHARSTAT  ist  ein  eine  Abkrzung  fr  "Character  Statistik". Bei CHARSTAT
+handelt  es  sich  um  ein kleines Analyse-Tool, dass die Zeichenh„ufigkeit in
+einer Datei misst.
+Dieses	kryptografische  Program  kann	verwendet  werden,  um	eine  atei  zu
+entschlsseln, die mit einem C„sar-Algorithmus verschlsselt worden ist.
+Im  Program  selbst  wird  man	aufgefordert, den Namen der betreffenden Datei
+einzugeben,  die  analysiert werden kann. Dann kann man das Ergebnis wahlweise
+nach  der Monitorausgab in einer Datei speichern. Hierzu muss man leiglich mit
+der  Taste  'j'  fr  JA  best„tigen und denn Namen der abzuspeichernden Datei
+eingeben. Fr keine Dateispeicherung ist die Taste 'n' fr NEIN zu bedienen.
+Es  erfolgt  die  Ausgabe  der	Zeichenh„ufigkeit am Monitor. Sie ist in einer
+vierspaltigen  Tabelle gegliedert. Die erste Spalte gibt die "Ordnungszahl der
+jeweiligen  Zeichens wieder. In der zweiten Spalte das Zeichen selbst verfasst
+bzw. als Alternative fr die Steuercodes (0-31) die englische Kurzbezeichnung.
+Mit der dritten Spalte erfolgt, wieviele diese Zeichen jeweiliger Ordnungszahl
+in einer Datei entdeckt worden sind. Und die vierte Spalte drckt den Wert der
+dritten  Spalte  in  Prozent  aus;  relativ  zur  Dateigr”áe  in  Byte und dem
+Zeichenindex von 0 bis 255.
+Die Anzeigen sind zudem in Farben unterlegt. Dabei gibt es sechs Farben: Weiá,
+Cyan, Grn, Rot, Blau und Grau. Allen  Steuercodes (0-31) wurde die Farbe Weiá
+zugeordnet.  Die gesamten Sonderzeichen, sowie das Leerzeichen, (32-47, 58-64,
+91-96,	123-127)  erhalten  die  Farbe Cyan.  Alle  Buchstaben	in  Groá-  und
+Kleinscheibung	(65-90,  97-122) bekomen die Farbe Blau und die Zahlen von 0-9
+(48-57) werden mit der Farbe Rot marktiert. Die restlichen Zeichen von 128 bis
+255 ist der sogenannte "Erweiterte ASCII-Zeichensatz". Ihm wird die Farbe Grau
+zugeschrieben.
+
+Probleme
+--------
+Folgende Probleme konnten noch nicht behoben werden:
+ * keine Sortierfunktion der gemessenen Werte
+
+
+CHARSTAT Version 1.1a DOS TP-7.0
+================================
+
+Gegenber  der	vorherigen  Version  von CHARSTAT wurden kleine Verbesserungen
+vorgenommen.  Deshalb  ist  es	nur ein kleiner Versionssprung der Unternummer
+anstatt der Hauptnummer.
+In  CHRSTA11  wurde  der  Datentyp  der  Variable,  die  zum  Abspeichern  der
+Zeichenh„ufigkeiten  dient, von Byte auf LongInt erweitert. Das kleine Problem
+wurde mir bewusst, dass bei einer Abspeicherung einer Log-Datei die Anzahl der
+Zeichen   beim	 Byte-Typ   nur   zwischen   0-255 lagen. Wrde man Dateien zu
+Untersuchung im Megabyte-Bereich verwenden, w„ren dann diese Daten verf„lscht.
+Mit  der  Wahl	der  LongInt-Typs  jedoch ist nun eine sichere Bearbeitung von
+Dateien bis ca. 2 Gigabyte gew„hrleistet.
+Zudem  habe  ich  auch	noch  eine  kleine  Animation mit eingebaut, damit man
+erkennen kann, dass der Vorgang des Dateilesens auch noch wirklich stattfindet
+und  man  nicht  das  Gefhl  hat,  ein "Ausnahmefehler" h„tte die Abarbeitung
+irgendwie "eingefroren".
+Insgesamt  machen  sich diese nderungen nur durch 416 Byte bemerkbar, denn um
+soviel Bytes ist die kompilierte Version zu Vorversion gr”áer geworden.
+
+Probleme
+--------
+Folgende Probleme konnten noch nicht behoben werden:
+ * keine Sortierfunktion der gemessenen Werte
+
+
+CHARSTAT Version 2.0a DOS TP-7.0
+================================
+
+xxx
+
+PS:
+Das  Programm  wurde  nach  einer  Idee  von  Roland  Heer entwickelt, der ein
+„hnliches Programm (SORTZCH) als QBasic-Quellcode im Jahre 1996 entwickelte.

@@ -1,0 +1,23 @@
+INPASU-Code Version 1.0a DOS TP-7.0
+===================================
+
+INPASU ist die Abkrzung fr "indirekte partielle Substitution". Dabei ist
+nichts anderes gemeint, als das man zwischen den Buchstaben eines Klartexts
+einen oder mehrere beliebige Buchstaben hineinsetzt, aus dem dann der ver-
+schlsselte Geheimtext wird.
+In dieser ersten Version ist es momentan noch so, dass nach einer bestimmten
+Buchstabenanzahl (z. B. nach jeden dritten Buchstaben) einen beliebigen und
+zuf„lligen Buchstaben einfgt wird.
+Achtung: Bei der Verschlsselung vergr
+
+Beispiel
+--------
+Dateiinhalt:          Beispiel fr INPASU-Verschlsselung
+Einfgen nach jeden
+3. Buchstaben       +    t   o   p   s   e   c   r   e   t
+                      ====================================
+neuer Dateiinhalt:  = Beitspielo frp INPsASU-eVerscchlrsseleungt
+
+Probleme
+--------
+Monentan sind keine Probleme bekannt.

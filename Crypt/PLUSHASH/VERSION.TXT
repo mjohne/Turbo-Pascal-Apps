@@ -1,0 +1,85 @@
+Plus-Hash Version 1.0a DOS TP-7.0
+=================================
+
+Dieser Hash-Algorithmus entstand in nur 15 mintiger Arbeitszeit aus dem Quell-
+text des XOR-Hash Version 2.0a. Die Idee diesen Hash-Algorithmus zu erstellen,
+stammt nach einem klitzekleinen Einblick aus dem Buch "PC underground" von Data
+Becker.
+Um es vorweg zu nehmen, dieser Hash-Algorithmus soll keinen sicheren Hash-Wert
+erstellen, sondern nur einer der simplen M”glichkeiten zeigen, was es fr Hash-
+Algorithmen gibt. Er ist sogar ein recht schlechter Hash-Algorithmus.
+Der Aufbau und die Funktionsweise des Plus-Hash ist mehr als simpel, wenn nicht
+gar schon sogar wieder doof: Alle Zeichen (von 0..255) werden nach ihrem Ordinal-
+wert zusammen zu einer grossen Summen addiert, voraus der Plus-Wert sich ergibt.
+Das ist auch schon alles an diesen Hash-Algorithmus.
+Zum besseren Verst„ndnis hier ein kleines Beispiel:
+
+Eine Datei namens NOBODY.DAT hat folgenden Inhalt (Ordinalwerte):
+
+015 001 198 003 049 203 006 059 103 060 124 174 078 038 158 111 071
+
+Nun werden alle Werte zusammenaddiert:
+
+015+001+198+003+049+203+006+059+103+060+124+174+078+038+158+111+071 = 1451
+
+Der Hash-Wert dieser Datei ist nach dem Plus-Algorithmus nun 1451. Ich habe
+bereits erw„hnt, dass der Plus-Agortihmus "ein recht schlechter Hash-Algorith-
+mus" ist. Dies will ich nun mit einem weiteren Beispiel beweisen:
+
+Wir nehmen wieder unsere Datei NOBODY.DAT mit dem gleichen Inhalt:
+
+015 001 198 003 049 203 006 059 103 060 124 174 078 038 158 111 071
+
+Ein vermeintlicher T„ter kann nun diese Datei manipulieren, ohne dass es der
+Eigentmer mitkriegt. Eigentlich hat der Eigentmer den Plus-Hashwert dieser
+Datei ermittelt und kann nun zurecht sagen, ob diese Datei maniluiert worden
+ist oder nicht. Doch es gibt einen simplen und unsicheren Weg, diese Schutz-
+funktion zu umgehen.
+Der Eigentmer weiss, dass der Plus-Hashwert einer Datei 1451 ist und der
+T„ter hat diesen Wert ebenfalls mit dem Plus-Algorithmus ermittelt. Doch er
+fand einen Weg, die Datei zu „ndern, ohne aber den Plus-Hashwert zu „ndern:
+
+Er suchte sich einfach eine beliegige Stelle in der Datei aus und „nderte
+diesen Ordinalwert um 20:
+
+z. B.: die 5. Stelle 049; sie wird um +20 erh”ht; ihr neuer Ordinalwert ist 069
+
+Der neue Inhalt der Datei ist
+                 
+015 001 198 003 069 203 006 059 103 060 124 174 078 038 158 111 071
+                 ^
+und ihr Hashwert ist
+
+015+001+198+003+069+203+006+059+103+060+124+174+078+038+158+111+071 = 1471
+
+Vergleicht man den alten Hashwert mit dem neuen Hashwert, dann stellt man
+fest, dass der neue sich genau um den Betrag erh”ht hat, wie man die eine
+Stelle der Datei erh”ht:
+
+1451 -> 1471 /// 1471 - 1451 = 20
+
+Nach der Logik her kann der T„ter also jeden Inhalt der Datei „ndern, der 
+sich dann auf dem Hashwert auswirkt:
+1. Erh”ht er einen Ordinalwert, so erh”ht sich um diese gleiche Differenz 
+   auch der Plus-Hashwert.
+2. Erniedrigt er einen Ordinalwert, so erniedrigt sich um diese gleiche Diff-
+   erenz auch der Plus-Hashwert.
+
+Mit dieser Erkenntnis kann der T„ter den Inhalt der Datei beliebig ver„ndern.
+Um unserem Beispiel ist der Hashwert um 20 erh”ht worden. Der T„ter macht nun
+genau die gegenteilige Handlung. Er erniedrigt einen beliegigen Wert der Datei.
+
+z. B.: die 10. Stelle 060; sie wird um -20 erniedrigt; ihr neuer Ordinalwert ist 040
+
+Der neue Inhalt der Datei ist
+                 
+015 001 198 003 069 203 006 059 103 040 124 174 078 038 158 111 071
+                                     ^
+und ihr Hashwert ist
+
+015+001+198+003+069+203+006+059+103+040+124+174+078+038+158+111+071 = 1451
+
+Vergleicht man den alten Hashwert mit dem neuen Hashwert, dann stellt man fest,
+dass der neue genau gleich groá ist wie der andere Hashwert.
+Leider ist nach diesem Prinzip die Gefahr recht hoch, dass viele unterschied-
+liche Dateien den gleichen Plus-Hashwert haben.

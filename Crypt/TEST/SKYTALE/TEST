@@ -1,0 +1,17 @@
+DieserT    DieserTextSollVerschÅsseltWerden!WrittenByMichaelJohne.
+extSoll    DeVsriMJixesdtioetreetchsSslnehneoct!naerlhWWBe.TlÅeryl
+VerschÅ
+sseltWe    7
+rden!Wr
+ittenBy
+Michael
+Johne.
+
+@@VsriMJ@@esdtio@@reetch@Sslnehn@oct!nae@lhWWBe.@lÅeryl
+
+DieserText
+
+1 Durchgang: 1 rw; i um col2 Stellen erhîhen; 1 rw,...
+	     wenn Maxsize(Array)-i < 8 then
+	       i:= col2-(Maxsize(Array)-i)
+neuer durchgang

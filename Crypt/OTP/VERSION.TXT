@@ -1,0 +1,57 @@
+OTP-Code Version 1.0a DOS TP-7.0
+================================
+
+Nach einer langen Testreihe ist dieses neustes Verschlsselungsprogramm, OPT-
+Code v1.0, fertig gestellt. W„hrend der Entwicklungsphase an OPT-Code v1.0
+habe ich noch schnell ROT13-Code entwickelt (-> siehe VERSION.TXT von ROT13-
+Code).
+OTP steht fr "one time pads" (Einmalblock) und diese Idee wurde 1917 von
+Mayor Joseph Marborgne und Gilbert Vernam von AT&T erfunden. Was frher
+mit Lochstreifen angewendet, findet im heutigen Zeitalter auf dem PC seinen
+Einsatz. Dabei ist ein One Time Pad in seiner Funktion etwas bedeutsames:
+Es ist nahezu das perfekteste Verschlsselungsprogramm, dessen Geheimtext
+man nicht entschlseln kann. Der Grund dieser Wirkung liegt darin, dass
+der Schlssel zum Verschlsseln genauso lang ist wie der Klartext (und der
+Geheimtext ist ebenfalls gleich lang). Wichtig ist dabei, dass der Schlssel
+nur aus Zufallszeichen bestehen sollte. Warum? Nimmt man zum Beispiel ein
+Schlssel, dessen L„nge viel kleiner ist als die L„nge des Klartextes, wird
+das Verschlsselungsprinzip von VigenŠre-Code erfllt und bei einer Krypt-
+analyse k”nnte man durch die gleichen Abst„nde der Bi- und Trigramme auf die
+Schlssell„nge ermitteln und damit den Geheimtext knacken. Das funktioniert
+bei einem One Time Pad nicht, weil, wie gesagt die Schlssell„nge gleich der
+Klartextl„nge ist und der Schlssel und aus Zufallszeichen besteht.
+Dann wird ein Zeichen aus dem Klartext mit einem Zeichen aus dem Schlssel
+wie bei VigenŠre miteinander verknpft (also um das Zeichen aus dem Schlssel
+nach rechts verschoben).
+
+Beispiel
+--------
+Dateiinhalt:	      Beispiel fr ONE TIME PAD-Verschlsselung
+Zuffallschlssel:   + ³,ÏtÂ½{˜½Ñ§À~*Fò‡4„M2!b¾`Şª‚Ø'kßº·§ÌÍÓ
+		      =========================================
+neuer Dateiinhalt:  = õ‘8ç2&àİ7(2y”7§ˆÍšwA²Ñ4ôKŠÓK;ò*8BAƒ
+
+Daraus entstand der Geheintext. Man ist aber gezwungen, den Schlssel irgend-
+wo sicher zu speichern. Wenn deshalb ein Klartext nun einige tausend Byte lang
+ist, wird es dann nicht mehr ausreichen, wenn man sich den Schlssel im Ge-
+d„chnis einpr„gt. Das ist leider der gr”áte Nachteil eines One Time Pad. Denn
+wenn der Schlssel in falschen H„nden f„llt, dann ...
+Deshalb mssen die Schlssel nach jeden Gebrauch immer neu erzeugt werden.
+Hierfr spricht auch die willkrliche Zuf„lligkeit des Schlssels eine groáe
+Rolle, denn mit ihm wird die Zahl der m”glichen falschen Schlssel drastisch
+erh”ht.
+PS: OTP-Code v1.0 basiert auf dem Quellcode von VigenŠre-Code v1.0.
+
+Probleme
+--------
+Folgende Probleme konnten noch nicht behoben werden:
+ * keine Korrektur des eingegebenen Texts zum Verschlsseln
+
+
+OTP-Code Version 2.0a TP-7.0
+============================
+
+In dieser zweiten Version habe ich lediglich das manuelle Eingeben eines Text-
+es, die zur Speicherung in eines Datei fhrt, herausgenommen. Diese Funktion
+ist, bis mir eine vollkommene Besserung eingefallen ist, nicht mehr enthalten.
+

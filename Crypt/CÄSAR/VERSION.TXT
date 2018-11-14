@@ -1,0 +1,50 @@
+C„sar-Code Version 1.0a DOS TP-7.0
+==================================
+
+Diese erste deutsche Version beinhaltet die Verschlssungen von Dateien nach
+der historisch-bekannten CSAR-Verschlsselung. Das ist ein monoalphabet-
+isches Substitutionsverfahren, d.h. die Daten in einer Datei werden durch
+eine vom Benutzer definierte Verschiebung durch neue - von der Verschiebung
+additativ verknpfte - Daten ersetzt.
+
+Beispiel
+--------
+Dateiinhalt:          Beispiel fr CSR-Verschlsselung
+Verschiebung:       + 3333333333333333333333333333333333
+                      ==================================
+neuer Dateiinhalt:  = Ehlvslho#i„u#F‘VDU0Yhuvfko„vvhoxqj
+
+Probleme
+--------
+Folgende Probleme konnten noch nicht behoben werden:
+ * Verschlsselung von Dateien mit einer Gr”sse bis zu 64 KByte
+ * keine Korrektur des eingegebenen Texts zum Verschlsseln
+
+
+C„sar-Code Version 2.0a TP-7.0
+==============================
+
+In der zweiten Version dieses Programms wurde das "64 KByte"-Problem aus der
+ersten Version behoben. In der ersten Version wurden die Daten einer Datei
+in einem Feld gespeichert. Da die Speicherung von Daten nur bis 64 KByte be-
+grenzt ist, konnten schliesslich auch nur dieser volle Speicherbereiche benutzt
+werden. Abhilfe wurde geschafft, indem die Sequenz anstatt einer Z„hlschleife
+(1 bis 64000) in eine Wiederholungsschleife umgebaut wurde, womit jedes einzel-
+ne Datenelement gelesen und chiffriert in die neue Datei geschrieben wird, bis
+das Ende der gelesenen Datei erreicht worden war. Jetzt k”nnen Dateien mit einer
+Gr”áe von bis zu knapp 2 Gigabyte (= 2.147.483.647 Bytes) verschlsselt werden.
+Auch wurde eine kleine Prozentanzeige eingefgt, um zu wissen, wieviel Inhalt
+einer Datei verschlsselt worden.
+
+Probleme
+--------
+Folgende Probleme konnten noch nicht behoben werden:
+ * keine Korrektur des eingegebenen Texts zum Verschlseln
+
+
+C„sar-Code Version 3.0a TP-7.0
+==============================
+
+In dieser dritten Version habe ich lediglich das manuelle Eingeben eines Text-
+es, die zur Speicherung in eines Datei fhrt, herausgenommen. Diese Funktion
+ist, bis mir eine vollkommene Besserung eingefallen ist, nicht mehr enthalten.
