@@ -1,2 +1,3 @@
 # Turbo-Pascal-Apps
-Old created application in Turbo Pascal 7,0
+
+Old created applications in Turbo Pascal 7.0
